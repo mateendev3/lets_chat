@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'router.dart';
 import 'utils/colors_constants.dart';
 
 void main(List<String> args) {
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light().copyWith(
         backgroundColor: AppColors.appBarColor,
       ),
+      onGenerateRoute: AppRouter.onGenerateRoute,
     );
   }
 }
