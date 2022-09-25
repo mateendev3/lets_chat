@@ -8,6 +8,9 @@ final ThemeData appTheme = ThemeData(
   scaffoldBackgroundColor: AppColors.scaffoldBG,
   appBarTheme: _getAppBarTheme(),
   colorScheme: _getCustomColorScheme(),
+  textTheme: GoogleFonts.poppinsTextTheme(
+    _getTextTheme(),
+  ),
 );
 
 AppBarTheme _getAppBarTheme() {
@@ -16,7 +19,17 @@ AppBarTheme _getAppBarTheme() {
     titleTextStyle: GoogleFonts.poppins(
       color: AppColors.appBarTitle,
       fontSize: 20.0,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.w600,
+    ),
+  );
+}
+
+TextTheme _getTextTheme() {
+  return TextTheme(
+    headlineSmall: GoogleFonts.poppins(
+      color: AppColors.white,
+      fontSize: 16.0,
+      fontWeight: FontWeight.w600,
     ),
   );
 }

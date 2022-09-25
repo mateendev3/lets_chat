@@ -13,8 +13,13 @@ class AppColors {
 
   // AppBar
   static const appBar = Color(0xFFFB7F6B);
-  static const appBarTitle = Colors.white70;
-  static const appBarActionIcon = Colors.white70;
+  static const appBarTitle = Colors.white;
+  static const appBarActionIcon = Colors.white;
+
+  // TabBar
+  static const tabIndicator = Colors.white;
+  static const sTabLabel = Colors.white;
+  static const uTabLabel = Colors.white70;
 
   static const searchBar = Color(0xFFFB7F6B);
   static const message = Color(0xFFFB7F6B);

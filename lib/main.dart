@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lets_chat/utils/string_constants.dart';
 import 'router.dart';
 import 'utils/theme_constants.dart';
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'LetsChat',
+      title: StringsConsts.appName,
       theme: appTheme,
       onGenerateRoute: AppRouter.onGenerateRoute,
     );

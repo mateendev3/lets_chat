@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lets_chat/utils/colors_constants.dart';
+import '../utils/colors_constants.dart';
+import '../utils/string_constants.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -10,23 +11,55 @@ class HomeScreen extends StatelessWidget {
       length: 3,
       initialIndex: 0,
       child: Scaffold(
-        appBar: AppBar(
-          centerTitle: false,
-          title: const Text('LetsChat'),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.search,
-                color: AppColors.appBarActionIcon,
-              ),
-            ),
-          ],
-        ),
+        appBar: _buildAppBar(context),
         body: Container(),
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton: _buildFAB(),
+      ),
+    );
+  }
+
+  /// AppBar of the home screen
+  AppBar _buildAppBar(BuildContext context) {
+    return AppBar(
+      centerTitle: false,
+      title: const Text(StringsConsts.appName),
+      actions: [
+        IconButton(
           onPressed: () {},
+          icon: const Icon(
+            Icons.search,
+            color: AppColors.appBarActionIcon,
+          ),
         ),
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(
+            Icons.more_vert,
+            color: AppColors.appBarActionIcon,
+          ),
+        ),
+      ],
+      bottom: TabBar(
+        indicatorColor: AppColors.white,
+        indicatorWeight: 4.0,
+        labelColor: AppColors.sTabLabel,
+        unselectedLabelColor: AppColors.uTabLabel,
+        labelStyle: Theme.of(context).textTheme.headlineSmall,
+        tabs: const [
+          Tab(text: 'CHATS'),
+          Tab(text: 'STATUS'),
+          Tab(text: 'CALLS'),
+        ],
+      ),
+    );
+  }
+
+  /// FAB of the home screen
+  FloatingActionButton _buildFAB() {
+    return FloatingActionButton(
+      onPressed: () {},
+      child: const Icon(
+        Icons.chat_rounded,
       ),
     );
   }
