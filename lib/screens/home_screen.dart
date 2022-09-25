@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lets_chat/screens/widgets/chats_list.dart';
 import '../utils/colors_constants.dart';
 import '../utils/string_constants.dart';
 
@@ -12,7 +13,7 @@ class HomeScreen extends StatelessWidget {
       initialIndex: 0,
       child: Scaffold(
         appBar: _buildAppBar(context),
-        body: Container(),
+        body: const ChatsList(),
         floatingActionButton: _buildFAB(),
       ),
     );

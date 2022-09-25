@@ -23,6 +23,10 @@ class AppColors {
 
   static const searchBar = Color(0xFFFB7F6B);
   static const message = Color(0xFFFB7F6B);
+  static const divider = Colors.white70;
+
   static const white = Colors.white;
   static const grey = Colors.grey;
+  static const black = Colors.black;
+  static const lightBlack = Color.fromARGB(255, 45, 45, 45);
 }

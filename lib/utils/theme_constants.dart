@@ -31,6 +31,21 @@ TextTheme _getTextTheme() {
       fontSize: 16.0,
       fontWeight: FontWeight.w600,
     ),
+    bodyLarge: GoogleFonts.poppins(
+      color: AppColors.black,
+      fontSize: 14.0,
+      fontWeight: FontWeight.w500,
+    ),
+    bodyMedium: GoogleFonts.poppins(
+      color: AppColors.lightBlack,
+      fontSize: 12.0,
+      fontWeight: FontWeight.normal,
+    ),
+    bodySmall: GoogleFonts.poppins(
+      color: AppColors.lightBlack,
+      fontSize: 10.0,
+      fontWeight: FontWeight.normal,
+    ),
   );
 }
 
