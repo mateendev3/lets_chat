@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'router.dart';
-import 'utils/colors_constants.dart';
+import 'utils/theme_constants.dart';
 
 void main(List<String> args) {
   runApp(const MyApp());
@@ -14,9 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'LetsChat',
-      theme: ThemeData.light().copyWith(
-        backgroundColor: AppColors.appBarColor,
-      ),
+      theme: appTheme,
       onGenerateRoute: AppRouter.onGenerateRoute,
     );
   }
