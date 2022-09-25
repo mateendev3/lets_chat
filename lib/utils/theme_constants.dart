@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lets_chat/utils/colors_constants.dart';
+import 'colors_constants.dart';
 
 final ThemeData appTheme = ThemeData(
   brightness: Brightness.light,
   primaryColor: AppColors.white,
-  scaffoldBackgroundColor: AppColors.backgroundColor,
+  scaffoldBackgroundColor: AppColors.scaffoldBG,
   appBarTheme: _getAppBarTheme(),
   colorScheme: _getCustomColorScheme(),
 );
 
 AppBarTheme _getAppBarTheme() {
   return AppBarTheme(
-    backgroundColor: AppColors.appBarColor,
-    titleTextStyle: GoogleFonts.playfairDisplay(
-      color: AppColors.appBarTitleColor,
+    backgroundColor: AppColors.appBar,
+    titleTextStyle: GoogleFonts.poppins(
+      color: AppColors.appBarTitle,
+      fontSize: 20.0,
+      fontWeight: FontWeight.bold,
     ),
   );
 }
@@ -25,7 +27,7 @@ ColorScheme _getCustomColorScheme() {
     onPrimary: AppColors.onPrimary,
     onError: AppColors.onError,
     background: AppColors.primary,
-    secondary: AppColors.onPrimary,
-    onSecondary: AppColors.primary,
+    secondary: AppColors.secondary,
+    onSecondary: AppColors.onSecondary,
   );
 }
