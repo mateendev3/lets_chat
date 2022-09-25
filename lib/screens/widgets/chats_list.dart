@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lets_chat/utils/info.dart';
+import 'package:lets_chat/utils/routes_constants.dart';
 
 class ChatsList extends StatelessWidget {
   const ChatsList({super.key});
@@ -16,7 +17,7 @@ class ChatsList extends StatelessWidget {
 
   Widget _buildChatListItem(BuildContext context, int index) {
     return ListTile(
-      onTap: () {},
+      onTap: () => Navigator.pushNamed(context, AppRoutes.chatScreen),
       title: Text(
         info[index]['name'].toString(),
         style: Theme.of(context).textTheme.bodyLarge,

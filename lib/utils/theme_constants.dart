@@ -19,7 +19,6 @@ AppBarTheme _getAppBarTheme() {
     titleTextStyle: GoogleFonts.poppins(
       color: AppColors.appBarTitle,
       fontSize: 20.0,
-      fontWeight: FontWeight.w600,
     ),
   );
 }
@@ -52,7 +51,7 @@ TextTheme _getTextTheme() {
 ColorScheme _getCustomColorScheme() {
   return const ColorScheme.light(
     primary: AppColors.primary,
-    onPrimary: AppColors.onPrimary,
+    onPrimary: AppColors.primary,
     onError: AppColors.onError,
     background: AppColors.primary,
     secondary: AppColors.secondary,

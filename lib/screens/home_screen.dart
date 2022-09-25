@@ -23,7 +23,12 @@ class HomeScreen extends StatelessWidget {
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       centerTitle: false,
-      title: const Text(StringsConsts.appName),
+      title: Text(
+        StringsConsts.appName,
+        style: Theme.of(context).appBarTheme.titleTextStyle?.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
+      ),
       actions: [
         IconButton(
           onPressed: () {},
