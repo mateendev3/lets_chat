@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lets_chat/utils/constants/colors_constants.dart';
-
+import 'package:lets_chat/utils/constants/routes_constants.dart';
 import '../utils/constants/assets_constants.dart';
 import '../utils/common/helper_widgets.dart';
+import '../utils/constants/colors_constants.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});
@@ -31,7 +31,7 @@ class LandingScreen extends StatelessWidget {
     );
   }
 
-  Container _buildHeroImage(Size size) {
+  Widget _buildHeroImage(Size size) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
       child: Image.asset(
@@ -43,7 +43,7 @@ class LandingScreen extends StatelessWidget {
     );
   }
 
-  SizedBox _buildGetStartedBtn(Size size, BuildContext context) {
+  Widget _buildGetStartedBtn(Size size, BuildContext context) {
     return SizedBox(
       width: size.width,
       child: Padding(
@@ -53,7 +53,12 @@ class LandingScreen extends StatelessWidget {
           right: size.width * 0.05,
         ),
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(
+              context,
+              AppRoutes.phoneLoginScreen,
+            );
+          },
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(100.0),
@@ -70,7 +75,7 @@ class LandingScreen extends StatelessWidget {
     );
   }
 
-  Text _buildTitle(BuildContext context, Size size) {
+  Widget _buildTitle(BuildContext context, Size size) {
     return Text(
       'Welcome To LetsChat',
       style: Theme.of(context).textTheme.headlineLarge?.copyWith(

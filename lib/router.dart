@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:lets_chat/screens/auth/auth_phone/phone_login_screen.dart';
 import 'package:lets_chat/screens/chat_screen.dart';
 import 'package:lets_chat/screens/error_screen.dart';
 import 'package:lets_chat/screens/home_screen.dart';
@@ -19,6 +20,12 @@ class AppRouter {
       case AppRoutes.landingScreen:
         return PageRouteAnimator(
           child: const LandingScreen(),
+          routeAnimation: RouteAnimation.rightToLeft,
+          settings: settings,
+        );
+      case AppRoutes.phoneLoginScreen:
+        return PageRouteAnimator(
+          child: const PhoneLoginScreen(),
           routeAnimation: RouteAnimation.rightToLeft,
           settings: settings,
         );
