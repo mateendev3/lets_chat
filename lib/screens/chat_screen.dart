@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lets_chat/screens/widgets/messages_list.dart';
-import 'package:lets_chat/utils/colors_constants.dart';
-import 'package:lets_chat/utils/helper_widgets.dart';
-import 'package:lets_chat/utils/info.dart';
+import '../utils/colors_constants.dart';
+import '../utils/helper_widgets.dart';
+import '../utils/info.dart';
+import 'widgets/messages_list.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -34,7 +34,7 @@ class ChatScreen extends StatelessWidget {
       centerTitle: false,
       leadingWidth: 32.0,
       elevation: 1,
-      shadowColor: AppColors.chatScreenGrey,
+      shadowColor: AppColors.white,
       backgroundColor: AppColors.chatAppBar,
       iconTheme: Theme.of(context).iconTheme.copyWith(
             color: AppColors.primary,
