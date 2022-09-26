@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../utils/colors_constants.dart';
-import '../utils/helper_widgets.dart';
-import '../utils/info.dart';
-import 'widgets/messages_list.dart';
+import '../utils/constants/colors_constants.dart';
+import '../utils/widgets/helper_widgets.dart';
+import '../utils/data/info.dart';
+import '../utils/widgets/messages_list.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});

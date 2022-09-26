@@ -4,7 +4,7 @@ import 'package:lets_chat/screens/error_screen.dart';
 import 'package:lets_chat/screens/home_screen.dart';
 import 'package:page_route_animator/page_route_animator.dart';
 
-import 'utils/routes_constants.dart';
+import 'utils/constants/routes_constants.dart';
 
 class AppRouter {
   static Route<PageRouteAnimator>? onGenerateRoute(RouteSettings settings) {

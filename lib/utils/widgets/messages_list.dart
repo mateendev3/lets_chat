@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lets_chat/utils/info.dart';
+import 'package:lets_chat/utils/data/info.dart';
 
 import 'message_card.dart';
 

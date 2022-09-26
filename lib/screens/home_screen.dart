@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../utils/colors_constants.dart';
-import '../utils/string_constants.dart';
-import 'widgets/chats_list.dart';
+import '../utils/constants/colors_constants.dart';
+import '../utils/constants/string_constants.dart';
+import '../utils/widgets/chats_list.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
