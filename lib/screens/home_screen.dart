@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../utils/constants/colors_constants.dart';
 import '../utils/constants/string_constants.dart';
 import '../utils/widgets/chats_list.dart';
@@ -23,6 +24,9 @@ class HomeScreen extends StatelessWidget {
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       centerTitle: false,
+      systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarColor: AppColors.primary,
+      ),
       title: Text(
         StringsConsts.appName,
         style: Theme.of(context).appBarTheme.titleTextStyle?.copyWith(

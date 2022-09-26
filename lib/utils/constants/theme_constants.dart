@@ -30,6 +30,11 @@ TextTheme _getTextTheme() {
       fontSize: 16.0,
       fontWeight: FontWeight.w600,
     ),
+    headlineLarge: GoogleFonts.poppins(
+      color: AppColors.black,
+      fontSize: 22.0,
+      fontWeight: FontWeight.w600,
+    ),
     bodyLarge: GoogleFonts.poppins(
       color: AppColors.black,
       fontSize: 14.0,
@@ -54,6 +59,11 @@ TextTheme _getTextTheme() {
       color: AppColors.chatOffWhite,
       fontSize: 12.0,
       fontWeight: FontWeight.w400,
+    ),
+    displaySmall: GoogleFonts.poppins(
+      color: AppColors.white,
+      fontSize: 12.0,
+      fontWeight: FontWeight.w500,
     ),
   );
 }
