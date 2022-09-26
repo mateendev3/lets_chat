@@ -16,15 +16,21 @@ class ChatsList extends StatelessWidget {
   }
 
   Widget _buildChatListItem(BuildContext context, int index) {
+    Size size = MediaQuery.of(context).size;
+
     return ListTile(
       onTap: () => Navigator.pushNamed(context, AppRoutes.chatScreen),
       title: Text(
         info[index]['name'].toString(),
-        style: Theme.of(context).textTheme.bodyLarge,
+        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+              fontSize: size.width * 0.045,
+            ),
       ),
       subtitle: Text(
         info[index]['message'].toString(),
-        style: Theme.of(context).textTheme.bodyMedium,
+        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              fontSize: size.width * 0.035,
+            ),
       ),
       leading: CircleAvatar(
         radius: 30.0,
@@ -34,7 +40,9 @@ class ChatsList extends StatelessWidget {
       ),
       trailing: Text(
         info[index]['time'].toString(),
-        style: Theme.of(context).textTheme.bodySmall,
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              fontSize: size.width * 0.030,
+            ),
       ),
     );
   }

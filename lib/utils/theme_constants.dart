@@ -45,6 +45,16 @@ TextTheme _getTextTheme() {
       fontSize: 10.0,
       fontWeight: FontWeight.normal,
     ),
+    labelMedium: GoogleFonts.poppins(
+      color: AppColors.white,
+      fontSize: 14.0,
+      fontWeight: FontWeight.w400,
+    ),
+    labelSmall: GoogleFonts.poppins(
+      color: AppColors.chatOffWhite,
+      fontSize: 12.0,
+      fontWeight: FontWeight.w400,
+    ),
   );
 }
 
