@@ -33,10 +33,11 @@ class ChatScreen extends StatelessWidget {
     return AppBar(
       centerTitle: false,
       leadingWidth: 32.0,
-      elevation: 0.3,
+      elevation: 1,
+      shadowColor: AppColors.chatScreenGrey,
       backgroundColor: AppColors.chatAppBar,
       iconTheme: Theme.of(context).iconTheme.copyWith(
-            color: AppColors.chatScreenGrey,
+            color: AppColors.primary,
           ),
       title: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -64,7 +65,7 @@ class ChatScreen extends StatelessWidget {
           padding: const EdgeInsets.all(0.0),
           icon: const Icon(
             Icons.phone_outlined,
-            color: AppColors.chatScreenGrey,
+            color: AppColors.primary,
           ),
         ),
         IconButton(
@@ -72,7 +73,7 @@ class ChatScreen extends StatelessWidget {
           padding: const EdgeInsets.all(0.0),
           icon: const Icon(
             Icons.videocam_outlined,
-            color: AppColors.chatScreenGrey,
+            color: AppColors.primary,
           ),
         ),
         IconButton(
@@ -80,7 +81,7 @@ class ChatScreen extends StatelessWidget {
           padding: const EdgeInsets.all(0.0),
           icon: const Icon(
             Icons.more_vert,
-            color: AppColors.chatScreenGrey,
+            color: AppColors.primary,
           ),
         ),
       ],
@@ -89,9 +90,24 @@ class ChatScreen extends StatelessWidget {
 
   Widget buildMessageTF(BuildContext context) {
     return Container(
-      color: AppColors.white,
-      alignment: Alignment.center,
-      padding: const EdgeInsets.all(8.0),
+      margin: const EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(100.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade200,
+            spreadRadius: 1,
+            blurRadius: 3,
+            offset: const Offset(2, 2),
+          ),
+          BoxShadow(
+              color: Colors.grey.shade200,
+              offset: const Offset(-2, -2),
+              blurRadius: 3,
+              spreadRadius: 1),
+        ],
+      ),
       child: TextField(
         minLines: 1,
         maxLines: 6,
@@ -100,10 +116,6 @@ class ChatScreen extends StatelessWidget {
         decoration: InputDecoration(
           filled: true,
           fillColor: AppColors.chatTFFill,
-          prefixIcon: const Icon(
-            Icons.emoji_emotions_outlined,
-            color: AppColors.chatScreenGrey,
-          ),
           suffixIcon: Padding(
             padding: const EdgeInsets.only(right: 12.0),
             child: Row(
@@ -132,7 +144,10 @@ class ChatScreen extends StatelessWidget {
               style: BorderStyle.none,
             ),
           ),
-          contentPadding: const EdgeInsets.all(8.0),
+          contentPadding: const EdgeInsets.symmetric(
+            vertical: 8.0,
+            horizontal: 16.0,
+          ),
         ),
       ),
     );

@@ -30,7 +30,7 @@ class AppColors {
   static const lightBlack = Color.fromARGB(255, 45, 45, 45);
 
   // Chat Screen
-  static const chatTFFill = Color.fromARGB(255, 245, 245, 245);
+  static const chatTFFill = Colors.white;
   static const chatScreenGrey = Color(0xFFACACAC);
   static const chatOffWhite = Colors.white70;
 }

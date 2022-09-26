@@ -1,7 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:lets_chat/utils/colors_constants.dart';
+
+import '../../utils/colors_constants.dart';
 
 class MessageCard extends StatelessWidget {
   const MessageCard({
@@ -18,8 +17,6 @@ class MessageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
-    log('calling');
     return Align(
       alignment: isSender ? Alignment.centerRight : Alignment.centerLeft,
       child: ConstrainedBox(
