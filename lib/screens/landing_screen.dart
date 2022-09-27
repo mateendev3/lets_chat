@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lets_chat/utils/common/round_button.dart';
 import 'package:lets_chat/utils/constants/routes_constants.dart';
 import '../utils/constants/assets_constants.dart';
 import '../utils/common/helper_widgets.dart';
@@ -23,7 +24,15 @@ class LandingScreen extends StatelessWidget {
               const Expanded(child: SizedBox()),
               _buildHeroImage(size),
               const Expanded(child: SizedBox()),
-              _buildGetStartedBtn(size, context)
+              RoundButton(
+                text: 'Get Started',
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.phoneLoginScreen,
+                  );
+                },
+              )
             ],
           ),
         ),
@@ -39,38 +48,6 @@ class LandingScreen extends StatelessWidget {
         width: size.width * 0.9,
         height: size.width * 0.9,
         fit: BoxFit.cover,
-      ),
-    );
-  }
-
-  Widget _buildGetStartedBtn(Size size, BuildContext context) {
-    return SizedBox(
-      width: size.width,
-      child: Padding(
-        padding: EdgeInsets.only(
-          bottom: size.width * 0.05,
-          left: size.width * 0.05,
-          right: size.width * 0.05,
-        ),
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pushNamed(
-              context,
-              AppRoutes.phoneLoginScreen,
-            );
-          },
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(100.0),
-            ),
-          ),
-          child: Text(
-            'Get Started',
-            style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                  fontSize: size.width * 0.04,
-                ),
-          ),
-        ),
       ),
     );
   }
