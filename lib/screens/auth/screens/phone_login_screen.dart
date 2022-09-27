@@ -1,28 +1,43 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lets_chat/screens/auth/controllers/auth_controller.dart';
 import '../../../utils/common/helper_widgets.dart';
 import '../../../utils/common/round_button.dart';
 import '../../../utils/constants/colors_constants.dart';
 
-class PhoneLoginScreen extends StatefulWidget {
+class PhoneLoginScreen extends ConsumerStatefulWidget {
   const PhoneLoginScreen({super.key});
 
   @override
-  State<PhoneLoginScreen> createState() => _PhoneLoginScreenState();
+  ConsumerState<PhoneLoginScreen> createState() => _PhoneLoginScreenState();
 }
 
-class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
-  late Size size;
-  String? countryCode;
+class _PhoneLoginScreenState extends ConsumerState<PhoneLoginScreen> {
+  late Size _size;
+  String? _countryCode;
+  late final TextEditingController _phoneNoController;
+
+  @override
+  void initState() {
+    super.initState();
+    _phoneNoController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _phoneNoController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    size = MediaQuery.of(context).size;
+    _size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: _buildAppBar(),
       body: SizedBox(
-        width: size.width,
+        width: _size.width,
         child: _buildBody(),
       ),
     );
@@ -35,7 +50,7 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          addVerticalSpace(size.width * 0.1),
+          addVerticalSpace(_size.width * 0.1),
           _buildInfoText(),
           TextButton(
             onPressed: chooseCountryCode,
@@ -43,16 +58,16 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
               'Pick Country',
               style: Theme.of(context).textTheme.displaySmall?.copyWith(
                     color: AppColors.primary,
-                    fontSize: size.width * 0.04,
+                    fontSize: _size.width * 0.04,
                   ),
             ),
           ),
-          addVerticalSpace(size.width * 0.08),
-          _buildCPickerAndNumberTF(size),
+          addVerticalSpace(_size.width * 0.08),
+          _buildCPickerAndNumberTF(_size),
           const Expanded(child: SizedBox()),
           RoundButton(
             text: 'Next',
-            onPressed: () {},
+            onPressed: sendOTP,
           ),
         ],
       ),
@@ -65,7 +80,7 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
       textAlign: TextAlign.center,
       style: Theme.of(context).textTheme.labelMedium?.copyWith(
             color: AppColors.black,
-            fontSize: size.width * 0.04,
+            fontSize: _size.width * 0.04,
           ),
     );
   }
@@ -92,7 +107,7 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          countryCode ?? '',
+          _countryCode ?? '',
           style: Theme.of(context).textTheme.displaySmall?.copyWith(
                 color: AppColors.primary,
                 fontSize: size.width * 0.05,
@@ -106,7 +121,7 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
 
   Widget _buildNumberTF() {
     return SizedBox(
-      width: size.width * 0.7,
+      width: _size.width * 0.7,
       child: TextField(
         maxLines: 1,
         minLines: 1,
@@ -115,13 +130,13 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
           hintText: 'phone number',
           hintStyle: Theme.of(context).textTheme.displaySmall?.copyWith(
                 color: AppColors.grey,
-                fontSize: size.width * 0.05,
+                fontSize: _size.width * 0.05,
                 fontWeight: FontWeight.normal,
               ),
         ),
         style: Theme.of(context).textTheme.displaySmall?.copyWith(
               color: AppColors.black,
-              fontSize: size.width * 0.05,
+              fontSize: _size.width * 0.05,
             ),
       ),
     );
@@ -132,9 +147,24 @@ class _PhoneLoginScreenState extends State<PhoneLoginScreen> {
       context: context,
       onSelect: (Country value) {
         setState(() {
-          countryCode = '+${value.phoneCode}';
+          _countryCode = '+${value.phoneCode}';
         });
       },
     );
+  }
+
+  void sendOTP() {
+    if (_phoneNoController.text.isNotEmpty && _countryCode != null) {
+      final authController = ref.read<AuthController>(authControllerProvider);
+      authController.signInWithPhone(
+        context,
+        phoneNumber: '$_countryCode${_phoneNoController.text}',
+      );
+    } else {
+      showSnackBar(
+        context,
+        content: 'Please fill the phone number correctly',
+      );
+    }
   }
 }

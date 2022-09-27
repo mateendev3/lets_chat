@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:page_route_animator/page_route_animator.dart';
-import 'screens/auth/auth_phone/otp_screen.dart';
-import 'screens/auth/auth_phone/phone_login_screen.dart';
+import 'screens/auth/screens/otp_screen.dart';
+import 'screens/auth/screens/phone_login_screen.dart';
 import 'screens/chat_screen.dart';
 import 'screens/error_screen.dart';
 import 'screens/home_screen.dart';

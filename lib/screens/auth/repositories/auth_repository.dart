@@ -1,12 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../utils/common/helper_widgets.dart';
 import '../../../utils/constants/routes_constants.dart';
 
+/// provider to get AuthRepository.
+final authRepositoryProvider = Provider<AuthRepository>(
+  (ref) => AuthRepository(FirebaseAuth.instance),
+);
+
 class AuthRepository {
-  AuthRepository({
-    required FirebaseAuth auth,
-  }) : _auth = auth;
+  AuthRepository(FirebaseAuth auth) : _auth = auth;
 
   final FirebaseAuth _auth;
 
