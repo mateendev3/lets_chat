@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
-import 'package:lets_chat/screens/auth/auth_phone/phone_login_screen.dart';
-import 'package:lets_chat/screens/chat_screen.dart';
-import 'package:lets_chat/screens/error_screen.dart';
-import 'package:lets_chat/screens/home_screen.dart';
-import 'package:lets_chat/screens/landing_screen.dart';
 import 'package:page_route_animator/page_route_animator.dart';
-
+import 'screens/auth/auth_phone/otp_screen.dart';
+import 'screens/auth/auth_phone/phone_login_screen.dart';
+import 'screens/chat_screen.dart';
+import 'screens/error_screen.dart';
+import 'screens/home_screen.dart';
+import 'screens/landing_screen.dart';
 import 'utils/constants/routes_constants.dart';
 
 class AppRouter {
@@ -26,6 +26,12 @@ class AppRouter {
       case AppRoutes.phoneLoginScreen:
         return PageRouteAnimator(
           child: const PhoneLoginScreen(),
+          routeAnimation: RouteAnimation.rightToLeft,
+          settings: settings,
+        );
+      case AppRoutes.otpScreen:
+        return PageRouteAnimator(
+          child: const OTPScreen(),
           routeAnimation: RouteAnimation.rightToLeft,
           settings: settings,
         );
