@@ -30,6 +30,21 @@ class UserDataRepository {
   final FirebaseAuth _auth;
   final ProviderRef _ref;
 
+  /// Invoke method to get current user data
+  Future<app.User?> getCurrentUserData() async {
+    final userData = await _firestore
+        .collection(StringsConsts.userCollection)
+        .doc(_auth.currentUser?.uid)
+        .get();
+
+    app.User? user;
+    if (userData.data() != null) {
+      user = app.User.fromMap(userData.data()!);
+    }
+
+    return user;
+  }
+
   /// invoke to save user data to Firebase.
   Future<void> saveUserDataToFirebase(
     BuildContext context,

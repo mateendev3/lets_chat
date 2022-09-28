@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ErrorScreen extends StatelessWidget {
-  const ErrorScreen({super.key});
+  const ErrorScreen({super.key, required this.error});
+
+  final String error;
 
   @override
   Widget build(BuildContext context) {
@@ -11,10 +13,10 @@ class ErrorScreen extends StatelessWidget {
           'LetsChat',
         ),
       ),
-      body: const Center(
+      body: Center(
         child: Text(
-          'Something Went Wrong',
-          style: TextStyle(
+          error,
+          style: const TextStyle(
             fontSize: 24.0,
             fontWeight: FontWeight.bold,
           ),

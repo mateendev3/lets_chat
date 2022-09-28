@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'firebase_options.dart';
 import 'router.dart';
-import 'utils/constants/routes_constants.dart';
+import 'screens/auth/controllers/user_data_controller.dart';
+import 'screens/error_screen.dart';
+import 'screens/home_screen.dart';
+import 'utils/common/widgets/loader.dart';
 import 'utils/constants/string_constants.dart';
 import 'utils/constants/theme_constants.dart';
+import './models/user.dart' as app;
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,17 +24,27 @@ void main(List<String> args) async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: StringsConsts.appName,
       theme: appTheme,
-      initialRoute: AppRoutes.landingScreen,
+      home: _getHomeWidget(ref),
       onGenerateRoute: AppRouter.onGenerateRoute,
     );
+  }
+
+  Widget _getHomeWidget(WidgetRef ref) {
+    return ref.watch(userDataAuthProvider).when<Widget>(
+          data: (app.User? user) => const HomeScreen(),
+          error: (error, stackTrace) => ErrorScreen(
+            error: error.toString(),
+          ),
+          loading: () => const Loader(),
+        );
   }
 }
