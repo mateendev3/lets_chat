@@ -64,7 +64,7 @@ class _PhoneLoginScreenState extends ConsumerState<PhoneLoginScreen> {
             ),
           ),
           addVerticalSpace(_size.width * 0.08),
-          _buildCPickerAndNumberTF(_size),
+          _buildCPickerAndNumberTF(),
           const Expanded(child: SizedBox()),
           if (_isLoading)
             const CircularProgressIndicator(
@@ -106,7 +106,7 @@ class _PhoneLoginScreenState extends ConsumerState<PhoneLoginScreen> {
     );
   }
 
-  Widget _buildCPickerAndNumberTF(Size size) {
+  Widget _buildCPickerAndNumberTF() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -116,7 +116,7 @@ class _PhoneLoginScreenState extends ConsumerState<PhoneLoginScreen> {
           _countryCode ?? '',
           style: Theme.of(context).textTheme.displaySmall?.copyWith(
                 color: AppColors.primary,
-                fontSize: size.width * 0.05,
+                fontSize: _size.width * 0.05,
               ),
         ),
         addHorizontalSpace(4.0),

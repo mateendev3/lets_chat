@@ -43,6 +43,7 @@ dependencies:
   firebase_storage: ^10.3.9
   country_picker: ^2.0.16
   flutter_riverpod: ^1.0.4
+  image_picker: ^0.8.5+3
 
 dev_dependencies:
   flutter_test:
