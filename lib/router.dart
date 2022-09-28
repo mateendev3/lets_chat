@@ -6,6 +6,7 @@ import 'screens/chat_screen.dart';
 import 'screens/error_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/landing_screen.dart';
+import 'screens/user_information_screen.dart';
 import 'utils/constants/routes_constants.dart';
 
 class AppRouter {
@@ -32,6 +33,12 @@ class AppRouter {
       case AppRoutes.otpScreen:
         return PageRouteAnimator(
           child: const OTPScreen(),
+          routeAnimation: RouteAnimation.rightToLeft,
+          settings: settings,
+        );
+      case AppRoutes.userInformationScreen:
+        return PageRouteAnimator(
+          child: const UserInformationScreen(),
           routeAnimation: RouteAnimation.rightToLeft,
           settings: settings,
         );

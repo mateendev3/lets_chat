@@ -17,6 +17,7 @@ class _PhoneLoginScreenState extends ConsumerState<PhoneLoginScreen> {
   late Size _size;
   String? _countryCode;
   late final TextEditingController _phoneNoController;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -64,6 +65,11 @@ class _PhoneLoginScreenState extends ConsumerState<PhoneLoginScreen> {
           ),
           addVerticalSpace(_size.width * 0.08),
           _buildCPickerAndNumberTF(_size),
+          const Expanded(child: SizedBox()),
+          if (_isLoading)
+            const CircularProgressIndicator(
+              color: AppColors.black,
+            ),
           const Expanded(child: SizedBox()),
           RoundButton(
             text: 'Next',
@@ -155,10 +161,11 @@ class _PhoneLoginScreenState extends ConsumerState<PhoneLoginScreen> {
   }
 
   /// invoke to send otp to the user.
-  void _sendOTP() {
+  void _sendOTP() async {
     if (_phoneNoController.text.isNotEmpty && _countryCode != null) {
+      setState(() => _isLoading = true);
       final authController = ref.read<AuthController>(authControllerProvider);
-      authController.signInWithPhone(
+      await authController.signInWithPhone(
         context,
         phoneNumber: '+$_countryCode${_phoneNoController.text}',
       );
@@ -168,5 +175,6 @@ class _PhoneLoginScreenState extends ConsumerState<PhoneLoginScreen> {
         content: 'Please fill the phone number correctly',
       );
     }
+    setState(() => _isLoading = false);
   }
 }

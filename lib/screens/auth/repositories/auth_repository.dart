@@ -15,12 +15,12 @@ class AuthRepository {
   final FirebaseAuth _auth;
 
   /// Invoke to signIn user with phone number.
-  void signInWithPhone(
+  Future<void> signInWithPhone(
     BuildContext context, {
     required String phoneNumber,
-  }) {
+  }) async {
     try {
-      _auth.verifyPhoneNumber(
+      await _auth.verifyPhoneNumber(
         phoneNumber: phoneNumber,
         verificationCompleted: (_) {},
         verificationFailed: (FirebaseAuthException error) {
@@ -35,6 +35,36 @@ class AuthRepository {
         },
         codeAutoRetrievalTimeout: (_) {},
       );
+    } on FirebaseAuthException catch (e) {
+      showSnackBar(context, content: e.message!);
+    }
+  }
+
+  /// Invoke to verify otp.
+  Future<void> verifyOTP(
+    BuildContext context,
+    bool mounted, {
+    required String verificationId,
+    required String smsCode,
+  }) async {
+    try {
+      PhoneAuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: verificationId,
+        smsCode: smsCode,
+      );
+
+      UserCredential userCredential =
+          await _auth.signInWithCredential(credential);
+      if (userCredential.user != null) {
+        if (!mounted) return;
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          AppRoutes.userInformationScreen,
+          (route) => false,
+        );
+      } else {
+        throw Exception('Something went wrong');
+      }
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, content: e.message!);
     }

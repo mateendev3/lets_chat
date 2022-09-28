@@ -16,12 +16,26 @@ class AuthController {
   final AuthRepository _authRepository;
 
   /// Invoke to signIn user with phone number.
-  void signInWithPhone(
+  Future<void> signInWithPhone(
     BuildContext context, {
     required String phoneNumber,
-  }) =>
-      _authRepository.signInWithPhone(
+  }) async =>
+      await _authRepository.signInWithPhone(
         context,
         phoneNumber: phoneNumber,
+      );
+
+  /// Invoke to signIn user with phone number.
+  Future<void> verifyOTP(
+    BuildContext context,
+    bool mounted, {
+    required String verificationId,
+    required String smsCode,
+  }) async =>
+      await _authRepository.verifyOTP(
+        context,
+        mounted,
+        verificationId: verificationId,
+        smsCode: smsCode,
       );
 }
