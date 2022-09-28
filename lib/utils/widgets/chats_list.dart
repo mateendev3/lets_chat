@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lets_chat/utils/data/info.dart';
-import 'package:lets_chat/utils/constants/routes_constants.dart';
+
+import '../constants/routes_constants.dart';
+import '../data/info.dart';
 
 class ChatsList extends StatelessWidget {
   const ChatsList({super.key});

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lets_chat/screens/auth/controllers/auth_controller.dart';
 import '../../../utils/common/widgets/helper_widgets.dart';
 import '../../../utils/constants/colors_constants.dart';
+import '../controllers/auth_controller.dart';
 
 class OTPScreen extends ConsumerStatefulWidget {
   const OTPScreen({super.key});

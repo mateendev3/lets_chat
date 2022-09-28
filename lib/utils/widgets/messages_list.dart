@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lets_chat/utils/data/info.dart';
-
+import '../data/info.dart';
 import 'message_card.dart';
 
 class MessagesList extends StatelessWidget {

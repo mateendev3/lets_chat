@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -55,14 +53,10 @@ class AuthRepository {
         smsCode: smsCode,
       );
 
-      log('000000000000000000111111111111111100000000000000');
       UserCredential userCredential =
           await _auth.signInWithCredential(credential);
-      log('000000000000000000111111111111111100000000000000');
 
       if (userCredential.user != null) {
-        log('000000000000000000111111111111111100000000000000');
-
         if (!mounted) return;
         Navigator.pushNamedAndRemoveUntil(
           context,

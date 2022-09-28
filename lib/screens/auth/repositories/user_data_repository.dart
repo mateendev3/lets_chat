@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -40,7 +39,6 @@ class UserDataRepository {
   }) async {
     try {
       String uId = _auth.currentUser!.uid;
-      log('uID ==========> $uId');
       String? photoUrl;
 
       if (imageFile != null) {

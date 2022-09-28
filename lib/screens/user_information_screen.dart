@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lets_chat/screens/auth/controllers/user_data_controller.dart';
 import '../utils/common/widgets/helper_widgets.dart';
 import '../utils/common/widgets/round_button.dart';
 import '../utils/common/helper_methods/util_methods.dart';
 import '../utils/constants/assets_constants.dart';
 import '../utils/constants/colors_constants.dart';
+import 'auth/controllers/user_data_controller.dart';
 
 class UserInformationScreen extends ConsumerStatefulWidget {
   const UserInformationScreen({super.key});
