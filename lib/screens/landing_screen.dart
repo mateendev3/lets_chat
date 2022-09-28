@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lets_chat/utils/common/round_button.dart';
+import 'package:lets_chat/utils/common/widgets/round_button.dart';
 import 'package:lets_chat/utils/constants/routes_constants.dart';
 import '../utils/constants/assets_constants.dart';
-import '../utils/common/helper_widgets.dart';
+import '../utils/common/widgets/helper_widgets.dart';
 import '../utils/constants/colors_constants.dart';
 
 class LandingScreen extends StatelessWidget {

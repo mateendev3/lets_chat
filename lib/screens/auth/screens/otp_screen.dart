@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lets_chat/screens/auth/controllers/auth_controller.dart';
-import '../../../utils/common/helper_widgets.dart';
+import '../../../utils/common/widgets/helper_widgets.dart';
 import '../../../utils/constants/colors_constants.dart';
 
 class OTPScreen extends ConsumerStatefulWidget {
@@ -73,6 +73,7 @@ class _OTPScreenState extends ConsumerState<OTPScreen> {
         textAlign: TextAlign.center,
         onChanged: (String otp) {
           if (otp.length == 6) {
+            FocusManager.instance.primaryFocus?.unfocus();
             verifyOTP(otp);
           }
         },

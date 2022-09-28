@@ -1,8 +1,8 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../utils/common/helper_widgets.dart';
-import '../../../utils/common/round_button.dart';
+import '../../../utils/common/widgets/helper_widgets.dart';
+import '../../../utils/common/widgets/round_button.dart';
 import '../../../utils/constants/colors_constants.dart';
 import '../controllers/auth_controller.dart';
 

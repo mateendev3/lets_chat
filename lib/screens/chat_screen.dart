@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../utils/constants/colors_constants.dart';
-import '../utils/common/helper_widgets.dart';
+import '../utils/common/widgets/helper_widgets.dart';
 import '../utils/data/info.dart';
 import '../utils/widgets/messages_list.dart';
 

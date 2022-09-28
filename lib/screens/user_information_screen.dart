@@ -1,29 +1,36 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-import '../utils/common/helper_widgets.dart';
-import '../utils/common/round_button.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lets_chat/screens/auth/controllers/user_data_controller.dart';
+import '../utils/common/widgets/helper_widgets.dart';
+import '../utils/common/widgets/round_button.dart';
+import '../utils/common/helper_methods/util_methods.dart';
 import '../utils/constants/assets_constants.dart';
 import '../utils/constants/colors_constants.dart';
 
-class UserInformationScreen extends StatefulWidget {
+class UserInformationScreen extends ConsumerStatefulWidget {
   const UserInformationScreen({super.key});
 
   @override
-  State<UserInformationScreen> createState() => _UserInformationScreenState();
+  ConsumerState<UserInformationScreen> createState() =>
+      _UserInformationScreenState();
 }
 
-class _UserInformationScreenState extends State<UserInformationScreen> {
-  late TextEditingController _controller;
+class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
+  late TextEditingController _nameController;
   late Size _size;
+  File? _imageFile;
+  bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController();
+    _nameController = TextEditingController();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _nameController.dispose();
     super.dispose();
   }
 
@@ -32,10 +39,17 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
     _size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: SafeArea(
-        child: Center(
+      body: _buildBody(),
+    );
+  }
+
+  Widget _buildBody() {
+    return SafeArea(
+      child: Center(
+        child: SingleChildScrollView(
           child: SizedBox(
             width: _size.width * 0.8,
+            height: _size.height,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -45,10 +59,16 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
                 addVerticalSpace(_size.width * 0.1),
                 _buildNameTF(),
                 const Expanded(child: SizedBox()),
+                if (_isLoading)
+                  const CircularProgressIndicator(
+                    color: AppColors.black,
+                  ),
+                const Expanded(child: SizedBox()),
                 RoundButton(
                   text: 'Save',
                   onPressed: _saveUserInfo,
                 ),
+                addVerticalSpace(_size.width * 0.05),
               ],
             ),
           ),
@@ -59,9 +79,11 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
 
   Widget _buildNameTF() {
     return TextField(
+      controller: _nameController,
       minLines: 1,
       maxLines: 1,
       decoration: InputDecoration(
+        prefixIcon: const Icon(Icons.person),
         hintText: 'Name',
         hintStyle: Theme.of(context).textTheme.displaySmall?.copyWith(
               color: AppColors.grey,
@@ -82,16 +104,23 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        CircleAvatar(
-          backgroundImage: const AssetImage(ImagesConsts.icUserNotSelected),
-          radius: _size.width * 0.2,
-          backgroundColor: AppColors.white,
-        ),
+        _imageFile != null
+            ? CircleAvatar(
+                backgroundImage: FileImage(_imageFile!),
+                radius: _size.width * 0.2,
+                backgroundColor: AppColors.white,
+              )
+            : CircleAvatar(
+                backgroundImage:
+                    const AssetImage(ImagesConsts.icUserNotSelected),
+                radius: _size.width * 0.2,
+                backgroundColor: AppColors.white,
+              ),
         Positioned(
           top: (_size.width * 0.5) * 0.55,
           left: (_size.width * 0.5) * 0.55,
           child: IconButton(
-            onPressed: () {},
+            onPressed: _selectImage,
             icon: Icon(
               Icons.add_a_photo,
               size: _size.width * 0.1,
@@ -102,5 +131,23 @@ class _UserInformationScreenState extends State<UserInformationScreen> {
     );
   }
 
-  void _saveUserInfo() {}
+  void _saveUserInfo() async {
+    setState(() => _isLoading = true);
+    if (_nameController.text.isNotEmpty) {
+      await ref.read(userDataControllerProvider).saveUserDataToFirebase(
+            context,
+            mounted,
+            userName: _nameController.text,
+            imageFile: _imageFile,
+          );
+    } else {
+      showSnackBar(context, content: 'Please Enter Name');
+    }
+    setState(() => _isLoading = false);
+  }
+
+  void _selectImage() async {
+    _imageFile = await pickImageFromGallery(context);
+    setState(() {});
+  }
 }
