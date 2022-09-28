@@ -10,14 +10,14 @@ class ErrorScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'LetsChat',
+          'Error Screen',
         ),
       ),
       body: Center(
         child: Text(
           error,
           style: const TextStyle(
-            fontSize: 24.0,
+            fontSize: 14.0,
             fontWeight: FontWeight.bold,
           ),
         ),

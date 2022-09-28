@@ -55,7 +55,7 @@ class User {
       isOnline: map['isOnline'] as bool,
       phoneNumber:
           map['phoneNumber'] != null ? map['phoneNumber'] as String : null,
-      groupId: List<String>.from(map['groupId'] as List<String>),
+      groupId: (map['groupId'] as List).map((e) => e.toString()).toList(),
     );
   }
 

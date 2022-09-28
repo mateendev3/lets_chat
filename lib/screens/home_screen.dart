@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lets_chat/utils/constants/routes_constants.dart';
 import '../utils/constants/colors_constants.dart';
 import '../utils/constants/string_constants.dart';
 import '../utils/widgets/chats_list.dart';
@@ -42,7 +44,14 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            FirebaseAuth.instance.signOut();
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              AppRoutes.landingScreen,
+              (route) => false,
+            );
+          },
           icon: const Icon(
             Icons.more_vert,
             color: AppColors.appBarActionIcon,

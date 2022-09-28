@@ -50,7 +50,7 @@ class AppRouter {
         );
       default:
         return PageRouteAnimator(
-          child: const ErrorScreen(),
+          child: ErrorScreen(error: settings.arguments as String),
           routeAnimation: RouteAnimation.rightToLeft,
           settings: settings,
         );

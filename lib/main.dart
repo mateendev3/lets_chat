@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lets_chat/screens/auth/repositories/user_data_repository.dart';
+import 'package:lets_chat/screens/landing_screen.dart';
 import 'firebase_options.dart';
 import 'router.dart';
 import 'screens/auth/controllers/user_data_controller.dart';
@@ -13,7 +17,7 @@ import './models/user.dart' as app;
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
@@ -39,8 +43,14 @@ class MyApp extends ConsumerWidget {
   }
 
   Widget _getHomeWidget(WidgetRef ref) {
+    log('calling');
+    log(ref.read(userDataRepositoryProvider).toString());
+    log('1');
     return ref.watch(userDataAuthProvider).when<Widget>(
-          data: (app.User? user) => const HomeScreen(),
+          data: (app.User? user) {
+            if (user == null) return const LandingScreen();
+            return const HomeScreen();
+          },
           error: (error, stackTrace) => ErrorScreen(
             error: error.toString(),
           ),
