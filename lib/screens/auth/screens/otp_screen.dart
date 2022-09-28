@@ -13,13 +13,8 @@ class _OTPScreenState extends State<OTPScreen> {
   late final String? verificationId;
 
   @override
-  void initState() {
-    super.initState();
-    verificationId = ModalRoute.of(context)?.settings.arguments as String?;
-  }
-
-  @override
   Widget build(BuildContext context) {
+    verificationId = ModalRoute.of(context)?.settings.arguments as String?;
     log(verificationId ?? '');
     return Scaffold(
       appBar: _buildAppBar(),

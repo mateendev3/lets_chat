@@ -1,10 +1,10 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lets_chat/screens/auth/controllers/auth_controller.dart';
 import '../../../utils/common/helper_widgets.dart';
 import '../../../utils/common/round_button.dart';
 import '../../../utils/constants/colors_constants.dart';
+import '../controllers/auth_controller.dart';
 
 class PhoneLoginScreen extends ConsumerStatefulWidget {
   const PhoneLoginScreen({super.key});
@@ -67,7 +67,7 @@ class _PhoneLoginScreenState extends ConsumerState<PhoneLoginScreen> {
           const Expanded(child: SizedBox()),
           RoundButton(
             text: 'Next',
-            onPressed: sendOTP,
+            onPressed: _sendOTP,
           ),
         ],
       ),
@@ -123,6 +123,7 @@ class _PhoneLoginScreenState extends ConsumerState<PhoneLoginScreen> {
     return SizedBox(
       width: _size.width * 0.7,
       child: TextField(
+        controller: _phoneNoController,
         maxLines: 1,
         minLines: 1,
         keyboardType: TextInputType.number,
@@ -153,12 +154,13 @@ class _PhoneLoginScreenState extends ConsumerState<PhoneLoginScreen> {
     );
   }
 
-  void sendOTP() {
+  /// invoke to send otp to the user.
+  void _sendOTP() {
     if (_phoneNoController.text.isNotEmpty && _countryCode != null) {
       final authController = ref.read<AuthController>(authControllerProvider);
       authController.signInWithPhone(
         context,
-        phoneNumber: '$_countryCode${_phoneNoController.text}',
+        phoneNumber: '+$_countryCode${_phoneNoController.text}',
       );
     } else {
       showSnackBar(
