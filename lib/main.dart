@@ -1,16 +1,13 @@
-import 'dart:developer';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lets_chat/screens/auth/repositories/user_data_repository.dart';
-import 'package:lets_chat/screens/landing_screen.dart';
 import 'firebase_options.dart';
 import 'router.dart';
 import 'screens/auth/controllers/user_data_controller.dart';
 import 'screens/error_screen.dart';
 import 'screens/home_screen.dart';
-import 'utils/common/widgets/loader.dart';
+import 'screens/landing_screen.dart';
+import 'screens/loading_screen.dart';
 import 'utils/constants/string_constants.dart';
 import 'utils/constants/theme_constants.dart';
 import './models/user.dart' as app;
@@ -43,9 +40,6 @@ class MyApp extends ConsumerWidget {
   }
 
   Widget _getHomeWidget(WidgetRef ref) {
-    log('calling');
-    log(ref.read(userDataRepositoryProvider).toString());
-    log('1');
     return ref.watch(userDataAuthProvider).when<Widget>(
           data: (app.User? user) {
             if (user == null) return const LandingScreen();
@@ -54,7 +48,7 @@ class MyApp extends ConsumerWidget {
           error: (error, stackTrace) => ErrorScreen(
             error: error.toString(),
           ),
-          loading: () => const Loader(),
+          loading: () => const LoadingScreen(),
         );
   }
 }
