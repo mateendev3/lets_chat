@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lets_chat/utils/constants/routes_constants.dart';
 import '../utils/constants/colors_constants.dart';
+import '../utils/constants/routes_constants.dart';
 import '../utils/constants/string_constants.dart';
 import '../utils/widgets/chats_list.dart';
 
@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         appBar: _buildAppBar(context),
         body: const ChatsList(),
-        floatingActionButton: _buildFAB(),
+        floatingActionButton: _buildFAB(context),
       ),
     );
   }
@@ -74,9 +74,11 @@ class HomeScreen extends StatelessWidget {
   }
 
   /// FAB of the home screen
-  FloatingActionButton _buildFAB() {
+  FloatingActionButton _buildFAB(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushNamed(context, AppRoutes.selectContactScreen);
+      },
       child: const Icon(
         Icons.chat_rounded,
       ),

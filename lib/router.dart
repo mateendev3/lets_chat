@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:lets_chat/screens/contact/screens/select_contact_screen.dart';
 import 'package:page_route_animator/page_route_animator.dart';
 import 'screens/auth/screens/otp_screen.dart';
 import 'screens/auth/screens/phone_login_screen.dart';
@@ -45,6 +46,12 @@ class AppRouter {
       case AppRoutes.chatScreen:
         return PageRouteAnimator(
           child: const ChatScreen(),
+          routeAnimation: RouteAnimation.rightToLeft,
+          settings: settings,
+        );
+      case AppRoutes.selectContactScreen:
+        return PageRouteAnimator(
+          child: const SelectContactScreen(),
           routeAnimation: RouteAnimation.rightToLeft,
           settings: settings,
         );
