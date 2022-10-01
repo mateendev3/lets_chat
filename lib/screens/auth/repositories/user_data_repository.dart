@@ -95,4 +95,15 @@ class UserDataRepository {
       showSnackBar(context, content: e.toString());
     }
   }
+
+  /// invoke to get user data form firestore.
+  Stream<app.User> getUserData(String userId) {
+    return _firestore
+        .collection(StringsConsts.userCollection)
+        .doc(userId)
+        .snapshots()
+        .map(
+          (snapshot) => app.User.fromMap(snapshot.data()!),
+        );
+  }
 }

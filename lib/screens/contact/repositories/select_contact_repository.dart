@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
@@ -42,20 +40,25 @@ class SelectContactsRepository {
     BuildContext context, {
     required String number,
   }) async {
-    log(number);
     bool isFound = false;
     final userCollection =
         await _firestore.collection(StringsConsts.userCollection).get();
 
     for (var document in userCollection.docs) {
       app.User user = app.User.fromMap(document.data());
-      log(user.phoneNumber!);
+
       if (number == user.phoneNumber) {
         isFound = true;
-        log(number);
 
         if (!mounted) return;
-        Navigator.pushNamed(context, AppRoutes.chatScreen);
+        Navigator.pushNamed(
+          context,
+          AppRoutes.chatScreen,
+          arguments: <String, Object>{
+            'name': user.name,
+            'uid': user.uid,
+          },
+        );
       }
     }
 

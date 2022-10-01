@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../constants/routes_constants.dart';
 import '../data/info.dart';
 
@@ -20,7 +19,14 @@ class ChatsList extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return ListTile(
-      onTap: () => Navigator.pushNamed(context, AppRoutes.chatScreen),
+      onTap: () => Navigator.pushNamed(
+        context,
+        AppRoutes.chatScreen,
+        arguments: <String, Object>{
+          'name': 'Mateen',
+          'uid': '12345',
+        },
+      ),
       title: Text(
         info[index]['name'].toString(),
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(

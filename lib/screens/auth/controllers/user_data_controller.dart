@@ -42,4 +42,8 @@ class UserDataController {
         userName: userName,
         imageFile: imageFile,
       );
+
+  Stream<app.User> getUserData(String userId) {
+    return _userDataRepository.getUserData(userId);
+  }
 }
