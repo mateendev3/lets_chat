@@ -21,13 +21,25 @@ class ContactsList extends StatelessWidget {
 
   Widget getListItem(Contact contact) {
     String name = contact.displayName;
-    return ListTile(
-      title: Text(name),
-      trailing: contact.photo == null
-          ? null
-          : CircleAvatar(
-              backgroundImage: MemoryImage(contact.photo!),
-            ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ListTile(
+          title: Text(name),
+          leading: contact.photo == null
+              ? null
+              : CircleAvatar(
+                  backgroundImage: MemoryImage(contact.photo!),
+                ),
+        ),
+        const Divider(
+          indent: 50.0,
+          endIndent: 50.0,
+          height: 1.0,
+        ),
+      ],
     );
   }
 }
