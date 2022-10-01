@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../utils/common/widgets/loader.dart';
 import '../../../utils/constants/colors_constants.dart';
 import '../../../utils/widgets/contacts_list.dart';
-import '../state/filtered_list_state_notifier.dart';
+import '../state/contacts_list_state_notifier.dart';
 
 class SelectContactScreen extends ConsumerStatefulWidget {
   const SelectContactScreen({Key? key}) : super(key: key);
