@@ -1,43 +1,43 @@
-import 'dart:developer';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/contact.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lets_chat/screens/contact/controllers/select_contacts_controller.dart';
+import '../controllers/select_contacts_controller.dart';
 
-final filteredListStateProvider = StateNotifierProvider.family<
-    FilteredListStateNotifier, FilteredListState, BuildContext>(
+final contactsListStateProvider = StateNotifierProvider.family<
+    ContactsListStateNotifier, ContactsListState, BuildContext>(
   (ref, context) {
     return ref.watch(selectContactsControllerProvider(context)).when(
       data: (data) {
-        return FilteredListStateNotifier(
+        return ContactsListStateNotifier(
           contactList: data,
-          state: EmptyFilteredListState(data),
+          state: GetAllContactsListState(data),
         );
       },
       error: (error, stackTrace) {
-        return FilteredListStateNotifier(
+        return ContactsListStateNotifier(
           contactList: [],
-          state: ErrorFilteredListState(error.toString()),
+          state: ErrorContactsListState(error.toString()),
         );
       },
       loading: () {
-        return FilteredListStateNotifier(
+        return ContactsListStateNotifier(
           contactList: [],
-          state: const LoadingFilteredListState(),
+          state: const LoadingContactsListState(),
         );
       },
     );
   },
 );
 
+/// Base class for list states
 @immutable
-abstract class FilteredListState extends Equatable {
-  const FilteredListState();
+abstract class ContactsListState extends Equatable {
+  const ContactsListState();
 }
 
-class EmptyFilteredListState extends FilteredListState {
-  const EmptyFilteredListState(this.contactList);
+class GetAllContactsListState extends ContactsListState {
+  const GetAllContactsListState(this.contactList);
 
   final List<Contact> contactList;
 
@@ -48,8 +48,8 @@ class EmptyFilteredListState extends FilteredListState {
   bool? get stringify => true;
 }
 
-class SearchedFilteredListState extends FilteredListState {
-  const SearchedFilteredListState(this.searchedQueryList);
+class SearchedContactsListState extends ContactsListState {
+  const SearchedContactsListState(this.searchedQueryList);
 
   final List<Contact> searchedQueryList;
 
@@ -60,8 +60,8 @@ class SearchedFilteredListState extends FilteredListState {
   bool? get stringify => true;
 }
 
-class ErrorFilteredListState extends FilteredListState {
-  const ErrorFilteredListState(this.errorMessage);
+class ErrorContactsListState extends ContactsListState {
+  const ErrorContactsListState(this.errorMessage);
 
   final String errorMessage;
 
@@ -72,8 +72,8 @@ class ErrorFilteredListState extends FilteredListState {
   bool? get stringify => true;
 }
 
-class LoadingFilteredListState extends FilteredListState {
-  const LoadingFilteredListState();
+class LoadingContactsListState extends ContactsListState {
+  const LoadingContactsListState();
 
   @override
   List<Object?> get props => [];
@@ -82,29 +82,20 @@ class LoadingFilteredListState extends FilteredListState {
   bool? get stringify => true;
 }
 
-class FilteredListStateNotifier extends StateNotifier<FilteredListState> {
-  FilteredListStateNotifier({
+/// Contacts List State Notifier for notifying listeners.
+class ContactsListStateNotifier extends StateNotifier<ContactsListState> {
+  ContactsListStateNotifier({
     required this.contactList,
-    required FilteredListState state,
+    required ContactsListState state,
   }) : super(state);
 
   final List<Contact> contactList;
 
-  void getSearchQueryList(String query) async {
-    log(query);
-    // if (query.isEmpty) {
-    //   final list = contactList;
-    //   state = EmptyFilteredListState(list);
-    //   debugPrint('empty state changed');
-    // } else {
+  void getSearchedContactsList(String query) async {
     List<Contact> filteredList = contactList
-        .where(
-          (contact) =>
-              contact.displayName.toLowerCase().contains(query.toLowerCase()),
-        )
+        .where((contact) =>
+            contact.displayName.toLowerCase().contains(query.toLowerCase()))
         .toList();
-    debugPrint(filteredList.length.toString());
-    state = SearchedFilteredListState(filteredList);
-    // }
+    state = SearchedContactsListState(filteredList);
   }
 }

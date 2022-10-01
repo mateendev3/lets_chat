@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../utils/common/widgets/loader.dart';
@@ -32,7 +31,6 @@ class _SelectContactScreenState extends ConsumerState<SelectContactScreen> {
 
   @override
   Widget build(BuildContext context) {
-    log('build');
     return Scaffold(
       appBar: _buildAppBar(),
       body: _buildBody(),
@@ -70,21 +68,15 @@ class _SelectContactScreenState extends ConsumerState<SelectContactScreen> {
           //     ),
           child: Consumer(
             builder: (consumerContext, ref, child) {
-              FilteredListState state =
-                  ref.watch(filteredListStateProvider(context));
-              // log('main ==> $state');
-
-              if (state is LoadingFilteredListState) {
-                log(filteredListStateProvider.toString());
-
+              ContactsListState state =
+                  ref.watch(contactsListStateProvider(context));
+              if (state is LoadingContactsListState) {
                 return const Loader();
-              } else if (state is EmptyFilteredListState) {
-                log('empty called');
-                log(filteredListStateProvider.toString());
+              } else if (state is GetAllContactsListState) {
                 return ContactsList(contactsList: state.contactList);
-              } else if (state is SearchedFilteredListState) {
+              } else if (state is SearchedContactsListState) {
                 return ContactsList(contactsList: state.searchedQueryList);
-              } else if (state is ErrorFilteredListState) {
+              } else if (state is ErrorContactsListState) {
                 return Text(state.errorMessage);
               } else {
                 return const Center(
@@ -139,7 +131,7 @@ class _SelectContactScreenState extends ConsumerState<SelectContactScreen> {
 
   void _onChangedText(String value) {
     ref
-        .read(filteredListStateProvider(context).notifier)
-        .getSearchQueryList(value);
+        .read(contactsListStateProvider(context).notifier)
+        .getSearchedContactsList(value);
   }
 }
