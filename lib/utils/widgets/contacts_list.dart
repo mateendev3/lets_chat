@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/contact.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lets_chat/screens/contact/controllers/select_contacts_controller.dart';
 
-class ContactsList extends StatelessWidget {
+class ContactsList extends ConsumerStatefulWidget {
   const ContactsList({
     super.key,
     required this.contactsList,
@@ -10,11 +12,16 @@ class ContactsList extends StatelessWidget {
   final List<Contact> contactsList;
 
   @override
+  ConsumerState<ContactsList> createState() => _ContactsListState();
+}
+
+class _ContactsListState extends ConsumerState<ContactsList> {
+  @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: contactsList.length,
+      itemCount: widget.contactsList.length,
       itemBuilder: (context, index) => getListItem(
-        contactsList[index],
+        widget.contactsList[index],
       ),
     );
   }
@@ -27,6 +34,7 @@ class ContactsList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ListTile(
+          onTap: () => _selectContact(contact),
           title: Text(name),
           leading: contact.photo == null
               ? null
@@ -41,5 +49,13 @@ class ContactsList extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _selectContact(Contact contact) async {
+    await ref.read(selectContactControllerProvider).selectContact(
+          mounted,
+          context,
+          contact: contact,
+        );
   }
 }
