@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
-import 'package:lets_chat/screens/contact/screens/select_receiver_contact_screen.dart';
 import 'package:page_route_animator/page_route_animator.dart';
 import 'screens/auth/screens/otp_screen.dart';
 import 'screens/auth/screens/phone_login_screen.dart';
 import 'screens/chat/screens/chat_screen.dart';
+import 'screens/contact/screens/select_receiver_contact_screen.dart';
 import 'screens/error_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/landing_screen.dart';

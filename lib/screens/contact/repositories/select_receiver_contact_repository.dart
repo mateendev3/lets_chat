@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lets_chat/models/user.dart' as app;
+import '../../../models/user.dart' as app;
 import '../../../utils/common/widgets/helper_widgets.dart';
 import '../../../utils/constants/routes_constants.dart';
 import '../../../utils/constants/string_constants.dart';

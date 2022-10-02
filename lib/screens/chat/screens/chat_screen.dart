@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lets_chat/models/user.dart' as app;
+import '../../../models/user.dart' as app;
 import '../../../utils/common/widgets/loader.dart';
 import '../../../utils/constants/colors_constants.dart';
 import '../../../utils/common/widgets/helper_widgets.dart';
-import '../../../utils/data/info.dart';
 import '../../../utils/widgets/messages_list.dart';
 import '../../auth/controllers/user_data_controller.dart';
 import '../widgets/bottom_chat_text_field.dart';
@@ -61,10 +60,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
       title: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          CircleAvatar(
+          const CircleAvatar(
             radius: 16,
             backgroundImage: NetworkImage(
-              info[0]['profilePic'].toString(),
+              r'https://images.pexels.com/photos/13728847/pexels-photo-13728847.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
             ),
           ),
           addHorizontalSpace(12.0),
