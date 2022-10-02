@@ -42,7 +42,7 @@ TextTheme _getTextTheme() {
     ),
     bodyMedium: GoogleFonts.poppins(
       color: AppColors.lightBlack,
-      fontSize: 12.0,
+      fontSize: 14.0,
       fontWeight: FontWeight.normal,
     ),
     bodySmall: GoogleFonts.poppins(

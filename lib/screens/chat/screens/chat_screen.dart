@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lets_chat/models/user.dart' as app;
 import '../../../utils/common/widgets/loader.dart';
 import '../../../utils/constants/colors_constants.dart';
@@ -76,9 +77,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                       children: [
                         Text(
                           snapshot.data!.name,
-                          style: const TextStyle(
+                          style: GoogleFonts.poppins(
                             color: AppColors.lightBlack,
-                            fontWeight: FontWeight.w400,
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                         Text(

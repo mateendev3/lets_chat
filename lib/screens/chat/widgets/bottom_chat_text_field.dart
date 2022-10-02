@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lets_chat/screens/chat/widgets/material_icon_button.dart';
-import 'package:lets_chat/utils/common/widgets/helper_widgets.dart';
+import '../../../utils/common/widgets/helper_widgets.dart';
 import '../../../utils/constants/colors_constants.dart';
+import 'material_icon_button.dart';
 
 class BottomChatTextField extends StatefulWidget {
   const BottomChatTextField({
@@ -13,6 +13,20 @@ class BottomChatTextField extends StatefulWidget {
 }
 
 class _BottomChatTextFieldState extends State<BottomChatTextField> {
+  late final TextEditingController _messageController;
+
+  @override
+  void initState() {
+    _messageController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _messageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -42,15 +56,18 @@ class _BottomChatTextFieldState extends State<BottomChatTextField> {
             ),
           ),
           addHorizontalSpace(8.0),
-          const CircleAvatar(
-            backgroundColor: AppColors.primary,
-            radius: 24.0,
-            child: Icon(
-              Icons.send,
-              color: AppColors.white,
-            ),
-          ),
+          _buildMicOrSendButton(),
         ],
+      ),
+    );
+  }
+
+  Widget _buildMicOrSendButton() {
+    return FloatingActionButton(
+      onPressed: _messageController.text.isEmpty ? () {} : () {},
+      child: Icon(
+        _messageController.text.isEmpty ? Icons.mic : Icons.send,
+        color: AppColors.white,
       ),
     );
   }
@@ -59,41 +76,45 @@ class _BottomChatTextFieldState extends State<BottomChatTextField> {
     return TextField(
       minLines: 1,
       maxLines: 6,
+      onChanged: (value) {
+        setState(() {});
+      },
+      controller: _messageController,
       keyboardType: TextInputType.multiline,
       style: Theme.of(context).textTheme.bodyMedium,
       decoration: InputDecoration(
         filled: true,
         fillColor: AppColors.chatTFFill,
-        suffixIcon: Padding(
-          padding: const EdgeInsets.only(right: 0.0),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              buildMaterialIconButton(
-                icon: Icons.more_vert,
-                onTap: () {},
-              ),
-              buildMaterialIconButton(
-                icon: Icons.camera,
-                onTap: () {},
-              ),
-            ],
-          ),
+        suffixIconConstraints: const BoxConstraints(),
+        suffixIcon: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            buildMaterialIconButton(
+              icon: Icons.more_vert,
+              onTap: () {},
+            ),
+            buildMaterialIconButton(
+              icon: Icons.camera,
+              onTap: () {},
+            ),
+          ],
         ),
         hintText: 'Type a message...',
         hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: AppColors.chatScreenGrey,
             ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(100.0),
+          borderRadius: BorderRadius.circular(24.0),
           borderSide: const BorderSide(
             width: 0,
             style: BorderStyle.none,
           ),
         ),
-        contentPadding: const EdgeInsets.symmetric(
-          vertical: 8.0,
-          horizontal: 16.0,
+        contentPadding: const EdgeInsets.only(
+          top: 12.0,
+          bottom: 12.0,
+          left: 16.0,
+          right: 0,
         ),
       ),
     );
