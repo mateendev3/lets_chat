@@ -42,4 +42,9 @@ class Message {
       time: DateTime.fromMillisecondsSinceEpoch(map['time'] as int),
     );
   }
+
+  @override
+  String toString() {
+    return 'Message(senderUserId: $senderUserId, receiverUserId: $receiverUserId, messageId: $messageId, isSeen: $isSeen, lastMessage: $lastMessage, messageType: $messageType, time: $time)';
+  }
 }

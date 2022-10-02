@@ -43,7 +43,7 @@ class UserDataController {
         imageFile: imageFile,
       );
 
-  Stream<app.User> getUserData(String userId) {
-    return _userDataRepository.getUserData(userId);
+  Stream<app.User> getReceiverUserData(String receiverUserId) {
+    return _userDataRepository.getReceiverUserData(receiverUserId);
   }
 }

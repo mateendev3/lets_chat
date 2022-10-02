@@ -55,7 +55,7 @@ class SelectReceiverContactsRepository {
           context,
           AppRoutes.chatScreen,
           arguments: <String, Object>{
-            'name': receiverUser.name,
+            'receiverUsername': receiverUser.name,
             'receiverUserId': receiverUser.uid,
           },
         );

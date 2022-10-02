@@ -1,23 +1,23 @@
 class Chat {
   Chat({
-    required this.receiverName,
-    required this.receiverProfilePic,
-    required this.receiverUserId,
+    required this.name,
+    required this.profilePic,
+    required this.userId,
     required this.time,
     required this.lastMessage,
   });
 
-  final String receiverName;
-  final String receiverProfilePic;
-  final String receiverUserId;
+  final String name;
+  final String profilePic;
+  final String userId;
   final DateTime time;
   final String lastMessage;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'receiverName': receiverName,
-      'receiverProfilePic': receiverProfilePic,
-      'receiverUserId': receiverUserId,
+      'name': name,
+      'profilePic': profilePic,
+      'userId': userId,
       'time': time.millisecondsSinceEpoch,
       'lastMessage': lastMessage,
     };
@@ -25,9 +25,9 @@ class Chat {
 
   factory Chat.fromMap(Map<String, dynamic> map) {
     return Chat(
-      receiverName: map['receiverName'] as String,
-      receiverProfilePic: map['receiverProfilePic'] as String,
-      receiverUserId: map['receiverUserId'] as String,
+      name: map['name'] as String,
+      profilePic: map['profilePic'] as String,
+      userId: map['userId'] as String,
       time: DateTime.fromMillisecondsSinceEpoch(map['time'] as int),
       lastMessage: map['lastMessage'] as String,
     );

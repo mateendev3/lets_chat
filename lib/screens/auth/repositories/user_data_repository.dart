@@ -97,10 +97,10 @@ class UserDataRepository {
   }
 
   /// invoke to get user data form firestore.
-  Stream<app.User> getUserData(String userId) {
+  Stream<app.User> getReceiverUserData(String receiverUserId) {
     return _firestore
         .collection(StringsConsts.usersCollection)
-        .doc(userId)
+        .doc(receiverUserId)
         .snapshots()
         .map(
           (snapshot) => app.User.fromMap(snapshot.data()!),

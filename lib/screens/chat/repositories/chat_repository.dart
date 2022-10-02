@@ -22,6 +22,30 @@ class ChatRepository {
 
   final FirebaseFirestore _firestore;
 
+  /// invoke to get single chat (messages)
+  Stream<List<Message>> getMessagesList({
+    required senderUserId,
+    required receiverUserId,
+  }) {
+    return _firestore
+        .collection(StringsConsts.usersCollection)
+        .doc(senderUserId)
+        .collection(StringsConsts.chatsCollection)
+        .doc(receiverUserId)
+        .collection(StringsConsts.messagesCollection)
+        .orderBy('time')
+        .snapshots()
+        .map(
+      (messagesMap) {
+        List<Message> messagesList = [];
+        for (var messageMap in messagesMap.docs) {
+          messagesList.add(Message.fromMap(messageMap.data()));
+        }
+        return messagesList;
+      },
+    );
+  }
+
   /// invoke to get all chats
   Stream<List<Chat>> getChatsList({
     required senderUserId,
@@ -93,9 +117,9 @@ class ChatRepository {
   }) async {
     // sender chat
     Chat senderChat = Chat(
-      receiverName: receiverUser.name,
-      receiverProfilePic: receiverUser.profilePic!,
-      receiverUserId: senderUser.uid,
+      name: receiverUser.name,
+      profilePic: receiverUser.profilePic!,
+      userId: receiverUser.uid,
       time: time,
       lastMessage: lastMessage,
     );
@@ -109,9 +133,9 @@ class ChatRepository {
 
     // receiver chat
     Chat receiverChat = Chat(
-      receiverName: senderUser.name,
-      receiverProfilePic: senderUser.profilePic!,
-      receiverUserId: receiverUser.uid,
+      name: senderUser.name,
+      profilePic: senderUser.profilePic!,
+      userId: senderUser.uid,
       time: time,
       lastMessage: lastMessage,
     );

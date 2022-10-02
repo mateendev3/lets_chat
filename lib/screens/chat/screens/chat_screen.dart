@@ -18,11 +18,11 @@ class ChatScreen extends ConsumerStatefulWidget {
 }
 
 class _ChatScreenState extends ConsumerState<ChatScreen> {
-  late Map<String, Object> userData;
+  late Map<String, Object> receiverUserData;
 
   @override
   Widget build(BuildContext context) {
-    userData =
+    receiverUserData =
         ModalRoute.of(context)?.settings.arguments as Map<String, Object>;
     return Scaffold(
       appBar: _buildAppBar(context),
@@ -35,11 +35,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     return Center(
       child: Column(
         children: [
-          const Expanded(
-            child: MessagesList(),
+          Expanded(
+            child: MessagesList(
+              receiverUserId: receiverUserData['receiverUserId'] as String,
+            ),
           ),
           BottomChatTextField(
-            receiverUserId: userData['receiverUserId'] as String,
+            receiverUserId: receiverUserData['receiverUserId'] as String,
           ),
         ],
       ),
@@ -68,9 +70,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
           addHorizontalSpace(12.0),
           Expanded(
             child: StreamBuilder<app.User>(
-                stream: ref
-                    .watch(userDataControllerProvider)
-                    .getUserData(userData['receiverUserId'] as String),
+                stream:
+                    ref.watch(userDataControllerProvider).getReceiverUserData(
+                          receiverUserData['receiverUserId'] as String,
+                        ),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return Column(

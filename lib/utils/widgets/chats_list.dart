@@ -39,18 +39,19 @@ class ChatsList extends ConsumerWidget {
         context,
         AppRoutes.chatScreen,
         arguments: <String, Object>{
-          'receiverUsername': chat.receiverName,
-          'receiverUserId': chat.receiverUserId,
+          'receiverUsername': chat.name,
+          'receiverUserId': chat.userId,
         },
       ),
       title: Text(
-        chat.receiverName,
+        chat.name,
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               fontSize: size.width * 0.045,
             ),
       ),
       subtitle: Text(
         chat.lastMessage,
+        maxLines: 1,
         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               fontSize: size.width * 0.035,
             ),
@@ -58,7 +59,7 @@ class ChatsList extends ConsumerWidget {
       leading: CircleAvatar(
         radius: 30.0,
         backgroundImage: NetworkImage(
-          chat.receiverProfilePic,
+          chat.profilePic,
         ),
       ),
       trailing: Text(

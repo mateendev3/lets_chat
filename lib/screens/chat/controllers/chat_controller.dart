@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../models/chat.dart';
+import '../../../models/message.dart';
 import '../../../models/user.dart' as app;
 import '../../../utils/common/providers/current_user_provider.dart';
 import '../repositories/chat_repository.dart';
@@ -39,5 +40,14 @@ class ChatController {
   Stream<List<Chat>> getChatsList() {
     app.User senderUser = _ref.watch(currentUserProvider!);
     return _chatRepository.getChatsList(senderUserId: senderUser.uid);
+  }
+
+  /// invoke to get single chat (messages)
+  Stream<List<Message>> getMessagesList({required receiverUserId}) {
+    app.User senderUser = _ref.watch(currentUserProvider!);
+    return _chatRepository.getMessagesList(
+      senderUserId: senderUser.uid,
+      receiverUserId: receiverUserId,
+    );
   }
 }

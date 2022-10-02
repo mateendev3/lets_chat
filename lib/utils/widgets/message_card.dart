@@ -42,6 +42,7 @@ class MessageCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
+                textAlign: TextAlign.left,
                 message,
                 style: Theme.of(context).textTheme.labelMedium?.copyWith(
                       color: isSender ? AppColors.white : AppColors.black,
