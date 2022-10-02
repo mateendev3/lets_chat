@@ -1,13 +1,48 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../utils/constants/colors_constants.dart';
 import '../utils/constants/routes_constants.dart';
 import '../utils/constants/string_constants.dart';
 import '../utils/widgets/chats_list.dart';
+import 'auth/controllers/user_data_controller.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen>
+    with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    switch (state) {
+      case AppLifecycleState.resumed:
+      case AppLifecycleState.inactive:
+        ref.watch(userDataControllerProvider).setUserState(true);
+        break;
+      case AppLifecycleState.paused:
+      case AppLifecycleState.detached:
+        ref.watch(userDataControllerProvider).setUserState(false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

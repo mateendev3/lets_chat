@@ -106,4 +106,13 @@ class UserDataRepository {
           (snapshot) => app.User.fromMap(snapshot.data()!),
         );
   }
+
+  Future<void> setUserState(bool isOnline) async {
+    await _firestore
+        .collection(StringsConsts.usersCollection)
+        .doc(_auth.currentUser!.uid)
+        .update({
+      'isOnline': isOnline,
+    });
+  }
 }

@@ -46,4 +46,8 @@ class UserDataController {
   Stream<app.User> getReceiverUserData(String receiverUserId) {
     return _userDataRepository.getReceiverUserData(receiverUserId);
   }
+
+  Future<void> setUserState(bool isOnline) async {
+    _userDataRepository.setUserState(isOnline);
+  }
 }
