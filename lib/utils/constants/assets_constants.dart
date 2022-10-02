@@ -7,6 +7,5 @@ class ImagesConsts {
   static const icLanding1 = '${_basePath}ic_landing1.png';
   static const icLanding2 = '${_basePath}ic_landing2.png';
   static const icUserNotSelected = '${_basePath}ic_user_not_selected.png';
-  static const icNoMessage1 = '${_basePath}ic_no_message1.png';
-  static const icNoMessage2 = '${_basePath}ic_no_message2.png';
+  static const icNoChat = '${_basePath}ic_no_chat.png';
 }

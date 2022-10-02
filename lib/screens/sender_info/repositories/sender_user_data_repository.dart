@@ -86,10 +86,10 @@ class SenderUserDataRepository {
 
       if (!mounted) return;
       // navigating to home screen if everything works well
-      Navigator.pushNamedAndRemoveUntil(
+      Navigator.popUntil(context, (route) => route.isFirst);
+      Navigator.pushReplacementNamed(
         context,
         AppRoutes.homeScreen,
-        (route) => false,
       );
     } catch (e) {
       showSnackBar(context, content: e.toString());

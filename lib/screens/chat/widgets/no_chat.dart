@@ -13,7 +13,7 @@ class NoChat extends StatelessWidget {
         child: Opacity(
           opacity: 0.8,
           child: Image.asset(
-            ImagesConsts.icNoMessage1,
+            ImagesConsts.icNoChat,
             fit: BoxFit.cover,
           ),
         ),
