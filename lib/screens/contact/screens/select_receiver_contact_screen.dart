@@ -5,15 +5,16 @@ import '../../../utils/constants/colors_constants.dart';
 import '../../../utils/widgets/contacts_list.dart';
 import '../state/contacts_list_state_notifier.dart';
 
-class SelectContactScreen extends ConsumerStatefulWidget {
-  const SelectContactScreen({Key? key}) : super(key: key);
+class SelectReceiverContactScreen extends ConsumerStatefulWidget {
+  const SelectReceiverContactScreen({Key? key}) : super(key: key);
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _SelectContactScreenState();
+      _SelectReceiverContactScreenState();
 }
 
-class _SelectContactScreenState extends ConsumerState<SelectContactScreen> {
+class _SelectReceiverContactScreenState
+    extends ConsumerState<SelectReceiverContactScreen> {
   late final TextEditingController _searchController;
 
   @override
@@ -70,13 +71,13 @@ class _SelectContactScreenState extends ConsumerState<SelectContactScreen> {
             builder: (consumerContext, ref, child) {
               ContactsListState state =
                   ref.watch(contactsListStateProvider(context));
-              if (state is LoadingContactsListState) {
+              if (state is LoadingReceiverContactsListState) {
                 return const Loader();
-              } else if (state is GetAllContactsListState) {
+              } else if (state is GetAllReceiverContactsListState) {
                 return ContactsList(contactsList: state.contactList);
-              } else if (state is SearchedContactsListState) {
+              } else if (state is SearchedReceiverContactsListState) {
                 return ContactsList(contactsList: state.searchedQueryList);
-              } else if (state is ErrorContactsListState) {
+              } else if (state is ErrorReceiverContactsListState) {
                 return Text(state.errorMessage);
               } else {
                 return const Center(

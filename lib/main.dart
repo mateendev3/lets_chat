@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lets_chat/utils/common/providers/current_user_provider.dart';
 import 'firebase_options.dart';
 import 'router.dart';
 import 'screens/auth/controllers/user_data_controller.dart';
@@ -43,6 +44,7 @@ class MyApp extends ConsumerWidget {
     return ref.watch(userDataAuthProvider).when<Widget>(
           data: (app.User? user) {
             if (user == null) return const LandingScreen();
+            currentUserProvider = Provider((ref) => user);
             return const HomeScreen();
           },
           error: (error, stackTrace) => ErrorScreen(

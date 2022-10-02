@@ -3,22 +3,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lets_chat/models/user.dart' as app;
-import 'package:lets_chat/utils/constants/routes_constants.dart';
-import 'package:lets_chat/utils/constants/string_constants.dart';
 import '../../../utils/common/widgets/helper_widgets.dart';
+import '../../../utils/constants/routes_constants.dart';
+import '../../../utils/constants/string_constants.dart';
 
-final selectContactsRepositoryProvider = Provider(
-  (ref) => SelectContactsRepository(FirebaseFirestore.instance),
+final selectReceiverContactsRepositoryProvider = Provider(
+  (ref) => SelectReceiverContactsRepository(FirebaseFirestore.instance),
 );
 
-class SelectContactsRepository {
-  SelectContactsRepository(FirebaseFirestore firestore)
+class SelectReceiverContactsRepository {
+  SelectReceiverContactsRepository(FirebaseFirestore firestore)
       : _firestore = firestore;
 
   final FirebaseFirestore _firestore;
 
   /// invoke to Get all contacts (fully fetched)
-  Future<List<Contact>> getContacts(BuildContext context) async {
+  Future<List<Contact>> getReceiverContacts(BuildContext context) async {
     List<Contact> contactsList = [];
     try {
       if (await FlutterContacts.requestPermission()) {
@@ -35,19 +35,19 @@ class SelectContactsRepository {
   }
 
   /// invoke to select specific user if it exists
-  Future<void> selectContact(
+  Future<void> selectReceiverContact(
     bool mounted,
     BuildContext context, {
     required String number,
   }) async {
     bool isFound = false;
     final userCollection =
-        await _firestore.collection(StringsConsts.userCollection).get();
+        await _firestore.collection(StringsConsts.usersCollection).get();
 
     for (var document in userCollection.docs) {
-      app.User user = app.User.fromMap(document.data());
+      app.User receiverUser = app.User.fromMap(document.data());
 
-      if (number == user.phoneNumber) {
+      if (number == receiverUser.phoneNumber) {
         isFound = true;
 
         if (!mounted) return;
@@ -55,8 +55,8 @@ class SelectContactsRepository {
           context,
           AppRoutes.chatScreen,
           arguments: <String, Object>{
-            'name': user.name,
-            'uid': user.uid,
+            'name': receiverUser.name,
+            'receiverUserId': receiverUser.uid,
           },
         );
       }

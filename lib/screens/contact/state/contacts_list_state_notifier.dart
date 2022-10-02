@@ -2,28 +2,28 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/contact.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../controllers/select_contacts_controller.dart';
+import '../controllers/select_receiver_contacts_controller.dart';
 
 final contactsListStateProvider = StateNotifierProvider.family<
     ContactsListStateNotifier, ContactsListState, BuildContext>(
   (ref, context) {
-    return ref.watch(selectContactsControllerProvider(context)).when(
+    return ref.watch(selectReceiverContactsControllerProvider(context)).when(
       data: (data) {
         return ContactsListStateNotifier(
           contactList: data,
-          state: GetAllContactsListState(data),
+          state: GetAllReceiverContactsListState(data),
         );
       },
       error: (error, stackTrace) {
         return ContactsListStateNotifier(
           contactList: [],
-          state: ErrorContactsListState(error.toString()),
+          state: ErrorReceiverContactsListState(error.toString()),
         );
       },
       loading: () {
         return ContactsListStateNotifier(
           contactList: [],
-          state: const LoadingContactsListState(),
+          state: const LoadingReceiverContactsListState(),
         );
       },
     );
@@ -36,8 +36,8 @@ abstract class ContactsListState extends Equatable {
   const ContactsListState();
 }
 
-class GetAllContactsListState extends ContactsListState {
-  const GetAllContactsListState(this.contactList);
+class GetAllReceiverContactsListState extends ContactsListState {
+  const GetAllReceiverContactsListState(this.contactList);
 
   final List<Contact> contactList;
 
@@ -48,8 +48,8 @@ class GetAllContactsListState extends ContactsListState {
   bool? get stringify => true;
 }
 
-class SearchedContactsListState extends ContactsListState {
-  const SearchedContactsListState(this.searchedQueryList);
+class SearchedReceiverContactsListState extends ContactsListState {
+  const SearchedReceiverContactsListState(this.searchedQueryList);
 
   final List<Contact> searchedQueryList;
 
@@ -60,8 +60,8 @@ class SearchedContactsListState extends ContactsListState {
   bool? get stringify => true;
 }
 
-class ErrorContactsListState extends ContactsListState {
-  const ErrorContactsListState(this.errorMessage);
+class ErrorReceiverContactsListState extends ContactsListState {
+  const ErrorReceiverContactsListState(this.errorMessage);
 
   final String errorMessage;
 
@@ -72,8 +72,8 @@ class ErrorContactsListState extends ContactsListState {
   bool? get stringify => true;
 }
 
-class LoadingContactsListState extends ContactsListState {
-  const LoadingContactsListState();
+class LoadingReceiverContactsListState extends ContactsListState {
+  const LoadingReceiverContactsListState();
 
   @override
   List<Object?> get props => [];
@@ -96,6 +96,6 @@ class ContactsListStateNotifier extends StateNotifier<ContactsListState> {
         .where((contact) =>
             contact.displayName.toLowerCase().contains(query.toLowerCase()))
         .toList();
-    state = SearchedContactsListState(filteredList);
+    state = SearchedReceiverContactsListState(filteredList);
   }
 }

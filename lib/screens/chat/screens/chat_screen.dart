@@ -19,6 +19,7 @@ class ChatScreen extends ConsumerStatefulWidget {
 
 class _ChatScreenState extends ConsumerState<ChatScreen> {
   late Map<String, Object> userData;
+
   @override
   Widget build(BuildContext context) {
     userData =
@@ -30,14 +31,16 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     );
   }
 
-  Center _buildBody(BuildContext context) {
+  Widget _buildBody(BuildContext context) {
     return Center(
       child: Column(
-        children: const [
-          Expanded(
+        children: [
+          const Expanded(
             child: MessagesList(),
           ),
-          BottomChatTextField(),
+          BottomChatTextField(
+            receiverUserId: userData['receiverUserId'] as String,
+          ),
         ],
       ),
     );

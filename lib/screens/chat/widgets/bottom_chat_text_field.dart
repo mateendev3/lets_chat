@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../utils/common/widgets/helper_widgets.dart';
 import '../../../utils/constants/colors_constants.dart';
+import '../controllers/chat_controller.dart';
 import 'material_icon_button.dart';
 
-class BottomChatTextField extends StatefulWidget {
+class BottomChatTextField extends ConsumerStatefulWidget {
   const BottomChatTextField({
     Key? key,
+    required this.receiverUserId,
   }) : super(key: key);
 
+  final String receiverUserId;
+
   @override
-  State<BottomChatTextField> createState() => _BottomChatTextFieldState();
+  ConsumerState<BottomChatTextField> createState() =>
+      _BottomChatTextFieldState();
 }
 
-class _BottomChatTextFieldState extends State<BottomChatTextField> {
+class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
   late final TextEditingController _messageController;
 
   @override
@@ -64,7 +70,9 @@ class _BottomChatTextFieldState extends State<BottomChatTextField> {
 
   Widget _buildMicOrSendButton() {
     return FloatingActionButton(
-      onPressed: _messageController.text.isEmpty ? () {} : () {},
+      onPressed: _messageController.text.isEmpty
+          ? _sendAudioMessage
+          : _sendTextMessage,
       child: Icon(
         _messageController.text.isEmpty ? Icons.mic : Icons.send,
         color: AppColors.white,
@@ -118,5 +126,15 @@ class _BottomChatTextFieldState extends State<BottomChatTextField> {
         ),
       ),
     );
+  }
+
+  void _sendAudioMessage() {}
+
+  void _sendTextMessage() {
+    ref.watch(chatControllerProvider).sendTextMessage(
+          context,
+          lastMessage: _messageController.text.trim(),
+          receiverUserId: widget.receiverUserId,
+        );
   }
 }

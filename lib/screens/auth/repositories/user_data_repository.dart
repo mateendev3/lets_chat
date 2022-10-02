@@ -33,7 +33,7 @@ class UserDataRepository {
   /// Invoke method to get current user data
   Future<app.User?> getCurrentUserData() async {
     final userData = await _firestore
-        .collection(StringsConsts.userCollection)
+        .collection(StringsConsts.usersCollection)
         .doc(_auth.currentUser?.uid)
         .get();
 
@@ -80,7 +80,7 @@ class UserDataRepository {
 
       // saving user to firestore.
       await _firestore
-          .collection(StringsConsts.userCollection)
+          .collection(StringsConsts.usersCollection)
           .doc(uId)
           .set(user.toMap());
 
@@ -99,7 +99,7 @@ class UserDataRepository {
   /// invoke to get user data form firestore.
   Stream<app.User> getUserData(String userId) {
     return _firestore
-        .collection(StringsConsts.userCollection)
+        .collection(StringsConsts.usersCollection)
         .doc(userId)
         .snapshots()
         .map(
