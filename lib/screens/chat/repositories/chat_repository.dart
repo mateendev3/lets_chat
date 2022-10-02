@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
@@ -12,20 +11,36 @@ import '../../../utils/constants/string_constants.dart';
 
 final chatRepositoryProvider = Provider<ChatRepository>((ref) {
   return ChatRepository(
-    auth: FirebaseAuth.instance,
     firestore: FirebaseFirestore.instance,
   );
 });
 
 class ChatRepository {
   ChatRepository({
-    required FirebaseAuth auth,
     required FirebaseFirestore firestore,
-  })  : _auth = auth,
-        _firestore = firestore;
+  }) : _firestore = firestore;
 
-  final FirebaseAuth _auth;
   final FirebaseFirestore _firestore;
+
+  /// invoke to get all chats
+  Stream<List<Chat>> getChatsList({
+    required senderUserId,
+  }) {
+    return _firestore
+        .collection(StringsConsts.usersCollection)
+        .doc(senderUserId)
+        .collection(StringsConsts.chatsCollection)
+        .snapshots()
+        .map(
+      (chatsMap) {
+        List<Chat> chatsList = [];
+        for (var chatMap in chatsMap.docs) {
+          chatsList.add(Chat.fromMap(chatMap.data()));
+        }
+        return chatsList;
+      },
+    );
+  }
 
   /// invoke to send text message.
   Future<void> sendTextMessage(
@@ -78,9 +93,9 @@ class ChatRepository {
   }) async {
     // sender chat
     Chat senderChat = Chat(
-      name: receiverUser.name,
-      profilePic: receiverUser.profilePic!,
-      userId: senderUser.uid,
+      receiverName: receiverUser.name,
+      receiverProfilePic: receiverUser.profilePic!,
+      receiverUserId: senderUser.uid,
       time: time,
       lastMessage: lastMessage,
     );
@@ -94,9 +109,9 @@ class ChatRepository {
 
     // receiver chat
     Chat receiverChat = Chat(
-      name: senderUser.name,
-      profilePic: senderUser.profilePic!,
-      userId: receiverUser.uid,
+      receiverName: senderUser.name,
+      receiverProfilePic: senderUser.profilePic!,
+      receiverUserId: receiverUser.uid,
       time: time,
       lastMessage: lastMessage,
     );

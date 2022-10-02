@@ -21,7 +21,7 @@ class Message {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'sendUserId': senderUserId,
+      'senderUserId': senderUserId,
       'receiverUserId': receiverUserId,
       'messageId': messageId,
       'isSeen': isSeen,
@@ -33,7 +33,7 @@ class Message {
 
   factory Message.fromMap(Map<String, dynamic> map) {
     return Message(
-      senderUserId: map['sendUserId'] as String,
+      senderUserId: map['senderUserId'] as String,
       receiverUserId: map['receiverUserId'] as String,
       messageId: map['messageId'] as String,
       isSeen: map['isSeen'] as bool,

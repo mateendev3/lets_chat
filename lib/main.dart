@@ -44,7 +44,7 @@ class MyApp extends ConsumerWidget {
     return ref.watch(userDataAuthProvider).when<Widget>(
           data: (app.User? user) {
             if (user == null) return const LandingScreen();
-            currentUserProvider = Provider((ref) => user);
+            currentUserProvider ??= Provider((ref) => user);
             return const HomeScreen();
           },
           error: (error, stackTrace) => ErrorScreen(

@@ -136,5 +136,6 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
           lastMessage: _messageController.text.trim(),
           receiverUserId: widget.receiverUserId,
         );
+    _messageController.clear();
   }
 }

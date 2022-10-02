@@ -70,13 +70,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
             child: StreamBuilder<app.User>(
                 stream: ref
                     .watch(userDataControllerProvider)
-                    .getUserData(userData['uid'] as String),
+                    .getUserData(userData['receiverUserId'] as String),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      // mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
                           snapshot.data!.name,
