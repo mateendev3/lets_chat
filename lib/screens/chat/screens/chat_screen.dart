@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lets_chat/screens/auth/controllers/auth_controller.dart';
 import '../../../models/user.dart' as app;
 import '../../../utils/common/widgets/loader.dart';
 import '../../../utils/constants/colors_constants.dart';
 import '../../../utils/common/widgets/helper_widgets.dart';
 import '../../../utils/widgets/messages_list.dart';
-import '../../auth/controllers/user_data_controller.dart';
 import '../widgets/bottom_chat_text_field.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
@@ -69,10 +69,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
           addHorizontalSpace(12.0),
           Expanded(
             child: StreamBuilder<app.User>(
-                stream:
-                    ref.watch(userDataControllerProvider).getReceiverUserData(
-                          receiverUserData['receiverUserId'] as String,
-                        ),
+                stream: ref.watch(authControllerProvider).getReceiverUserData(
+                      receiverUserData['receiverUserId'] as String,
+                    ),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return Column(

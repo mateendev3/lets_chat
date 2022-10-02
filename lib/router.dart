@@ -7,7 +7,7 @@ import 'screens/contact/screens/select_receiver_contact_screen.dart';
 import 'screens/error_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/landing_screen.dart';
-import 'screens/user_information_screen.dart';
+import 'screens/sender_info/screens/sender_user_information_screen.dart';
 import 'utils/constants/routes_constants.dart';
 
 class AppRouter {
@@ -39,7 +39,7 @@ class AppRouter {
         );
       case AppRoutes.userInformationScreen:
         return PageRouteAnimator(
-          child: const UserInformationScreen(),
+          child: const SenderUserInformationScreen(),
           routeAnimation: RouteAnimation.rightToLeft,
           settings: settings,
         );

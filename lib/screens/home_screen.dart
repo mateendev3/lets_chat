@@ -6,7 +6,7 @@ import '../utils/constants/colors_constants.dart';
 import '../utils/constants/routes_constants.dart';
 import '../utils/constants/string_constants.dart';
 import '../utils/widgets/chats_list.dart';
-import 'auth/controllers/user_data_controller.dart';
+import 'sender_info/controllers/sender_user_data_controller.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -36,11 +36,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     switch (state) {
       case AppLifecycleState.resumed:
       case AppLifecycleState.inactive:
-        ref.watch(userDataControllerProvider).setUserState(true);
+        ref.watch(senderUserDataControllerProvider).setSenderUserState(true);
         break;
       case AppLifecycleState.paused:
       case AppLifecycleState.detached:
-        ref.watch(userDataControllerProvider).setUserState(false);
+        ref.watch(senderUserDataControllerProvider).setSenderUserState(false);
     }
   }
 

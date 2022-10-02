@@ -9,16 +9,16 @@ import '../../../utils/common/widgets/helper_widgets.dart';
 import '../../../utils/constants/routes_constants.dart';
 import '../../../utils/constants/string_constants.dart';
 
-final userDataRepositoryProvider = Provider<UserDataRepository>(
-  (ref) => UserDataRepository(
+final senderUserDataRepositoryProvider = Provider<SenderUserDataRepository>(
+  (ref) => SenderUserDataRepository(
     firestore: FirebaseFirestore.instance,
     auth: FirebaseAuth.instance,
     ref: ref,
   ),
 );
 
-class UserDataRepository {
-  UserDataRepository({
+class SenderUserDataRepository {
+  SenderUserDataRepository({
     required FirebaseFirestore firestore,
     required FirebaseAuth auth,
     required ProviderRef ref,
@@ -31,7 +31,7 @@ class UserDataRepository {
   final ProviderRef _ref;
 
   /// Invoke method to get current user data
-  Future<app.User?> getCurrentUserData() async {
+  Future<app.User?> getSenderUserData() async {
     final userData = await _firestore
         .collection(StringsConsts.usersCollection)
         .doc(_auth.currentUser?.uid)
@@ -46,7 +46,7 @@ class UserDataRepository {
   }
 
   /// invoke to save user data to Firebase.
-  Future<void> saveUserDataToFirebase(
+  Future<void> saveSenderUserDataToFirebase(
     BuildContext context,
     bool mounted, {
     required String userName,
@@ -96,18 +96,7 @@ class UserDataRepository {
     }
   }
 
-  /// invoke to get user data form firestore.
-  Stream<app.User> getReceiverUserData(String receiverUserId) {
-    return _firestore
-        .collection(StringsConsts.usersCollection)
-        .doc(receiverUserId)
-        .snapshots()
-        .map(
-          (snapshot) => app.User.fromMap(snapshot.data()!),
-        );
-  }
-
-  Future<void> setUserState(bool isOnline) async {
+  Future<void> setSenderUserState(bool isOnline) async {
     await _firestore
         .collection(StringsConsts.usersCollection)
         .doc(_auth.currentUser!.uid)

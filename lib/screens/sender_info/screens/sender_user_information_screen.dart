@@ -1,22 +1,23 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../utils/common/widgets/helper_widgets.dart';
-import '../utils/common/widgets/round_button.dart';
-import '../utils/common/helper_methods/util_methods.dart';
-import '../utils/constants/assets_constants.dart';
-import '../utils/constants/colors_constants.dart';
-import 'auth/controllers/user_data_controller.dart';
+import '../../../utils/common/widgets/helper_widgets.dart';
+import '../../../utils/common/widgets/round_button.dart';
+import '../../../utils/common/helper_methods/util_methods.dart';
+import '../../../utils/constants/assets_constants.dart';
+import '../../../utils/constants/colors_constants.dart';
+import '../controllers/sender_user_data_controller.dart';
 
-class UserInformationScreen extends ConsumerStatefulWidget {
-  const UserInformationScreen({super.key});
+class SenderUserInformationScreen extends ConsumerStatefulWidget {
+  const SenderUserInformationScreen({super.key});
 
   @override
-  ConsumerState<UserInformationScreen> createState() =>
-      _UserInformationScreenState();
+  ConsumerState<SenderUserInformationScreen> createState() =>
+      _SenderUserInformationScreenState();
 }
 
-class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
+class _SenderUserInformationScreenState
+    extends ConsumerState<SenderUserInformationScreen> {
   late TextEditingController _nameController;
   late Size _size;
   File? _imageFile;
@@ -134,7 +135,9 @@ class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
   void _saveUserInfo() async {
     setState(() => _isLoading = true);
     if (_nameController.text.isNotEmpty) {
-      await ref.read(userDataControllerProvider).saveUserDataToFirebase(
+      await ref
+          .read(senderUserDataControllerProvider)
+          .saveSenderUserDataToFirebase(
             context,
             mounted,
             userName: _nameController.text,

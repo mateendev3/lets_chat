@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../repositories/auth_repository.dart';
+import '../../../models/user.dart' as app;
 
 final authControllerProvider = Provider<AuthController>(
   (ref) {
@@ -38,4 +39,9 @@ class AuthController {
         verificationId: verificationId,
         smsCode: smsCode,
       );
+
+  /// invoke to get user data form firestore.
+  Stream<app.User> getReceiverUserData(String receiverUserId) {
+    return _authRepository.getReceiverUserData(receiverUserId);
+  }
 }
