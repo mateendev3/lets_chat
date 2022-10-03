@@ -51,7 +51,7 @@ class SelectReceiverContactsRepository {
         isFound = true;
 
         if (!mounted) return;
-        Navigator.pushNamed(
+        Navigator.pushReplacementNamed(
           context,
           AppRoutes.chatScreen,
           arguments: <String, Object>{

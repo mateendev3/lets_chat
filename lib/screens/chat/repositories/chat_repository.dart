@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -123,6 +125,8 @@ class ChatRepository {
       time: time,
       lastMessage: lastMessage,
     );
+    log('sender_chat -> $senderChat');
+    log('sender_user -> $senderUser');
     // saving chat to firestore
     await _firestore
         .collection(StringsConsts.usersCollection)
@@ -139,6 +143,8 @@ class ChatRepository {
       time: time,
       lastMessage: lastMessage,
     );
+    log('receiver_chat -> $receiverChat');
+    log('receiver_user -> $receiverUser');
     // saving chat to firestore
     await _firestore
         .collection(StringsConsts.usersCollection)
