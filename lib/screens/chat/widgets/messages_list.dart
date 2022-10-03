@@ -61,16 +61,10 @@ class _MessageListState extends ConsumerState<MessagesList> {
           itemBuilder: (context, index) {
             Message message = snapshot.data![index];
 
-            if (message.senderUserId == ref.read(currentUserProvider!).uid) {
-              return MessageCard(
-                isSender: true,
-                message: message.lastMessage,
-                messageType: message.messageType,
-                time: DateFormat.Hm().format(message.time),
-              );
-            }
+            final bool isSenderUser =
+                message.senderUserId == ref.read(currentUserProvider!).uid;
             return MessageCard(
-              isSender: false,
+              isSender: isSenderUser ? true : false,
               message: message.lastMessage,
               messageType: message.messageType,
               time: DateFormat.Hm().format(message.time),

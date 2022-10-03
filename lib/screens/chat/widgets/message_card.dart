@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lets_chat/utils/common/enums/message_type.dart';
 import '../../../utils/constants/colors_constants.dart';
+import 'video_player_item.dart';
 
 class MessageCard extends StatelessWidget {
   const MessageCard({
@@ -42,42 +43,70 @@ class MessageCard extends StatelessWidget {
               bottomRight: isSender ? Radius.zero : const Radius.circular(12.0),
             ),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              messageType == MessageType.text
-                  ? Text(
-                      textAlign: TextAlign.left,
-                      message,
-                      style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                            color: isSender ? AppColors.white : AppColors.black,
-                          ),
-                    )
-                  : CachedNetworkImage(imageUrl: message),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    time,
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          color: isSender
-                              ? AppColors.chatOffWhite
-                              : AppColors.grey,
-                        ),
-                  ),
-                  isSender
-                      ? const Icon(
-                          Icons.check,
-                          color: AppColors.chatOffWhite,
-                        )
-                      : const SizedBox(),
-                ],
-              ),
-            ],
-          ),
+          child: _buildMessageContent(context),
         ),
       ),
     );
+  }
+
+  Widget _buildMessageContent(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        // messageType == MessageType.text
+        //     ? Text(
+        //         textAlign: TextAlign.left,
+        //         message,
+        //         style: Theme.of(context).textTheme.labelMedium?.copyWith(
+        //               color: isSender ? AppColors.white : AppColors.black,
+        //             ),
+        //       )
+        //     : CachedNetworkImage(imageUrl: message),
+        getMessage(context),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              time,
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                    color: isSender ? AppColors.chatOffWhite : AppColors.grey,
+                  ),
+            ),
+            isSender
+                ? const Icon(
+                    Icons.check,
+                    color: AppColors.chatOffWhite,
+                  )
+                : const SizedBox(),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget getMessage(BuildContext context) {
+    switch (messageType) {
+      case MessageType.text:
+        return Text(
+          textAlign: TextAlign.left,
+          message,
+          style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                color: isSender ? AppColors.white : AppColors.black,
+              ),
+        );
+      case MessageType.image:
+        return CachedNetworkImage(imageUrl: message);
+      case MessageType.video:
+        return VideoPlayerItem(videoUrl: message);
+      default:
+        return Text(
+          textAlign: TextAlign.left,
+          message,
+          style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                color: isSender ? AppColors.white : AppColors.black,
+              ),
+        );
+    }
   }
 }
