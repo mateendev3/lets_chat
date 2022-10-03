@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lets_chat/utils/common/enums/message_type.dart';
-import '../constants/colors_constants.dart';
+import '../../../utils/constants/colors_constants.dart';
 
 class MessageCard extends StatelessWidget {
   const MessageCard({

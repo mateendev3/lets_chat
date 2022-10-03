@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import '../../models/message.dart';
-import '../../screens/chat/controllers/chat_controller.dart';
-import '../common/providers/current_user_provider.dart';
-import '../common/widgets/loader.dart';
+import '../../../models/message.dart';
+import '../controllers/chat_controller.dart';
+import '../../../utils/common/providers/current_user_provider.dart';
+import '../../../utils/common/widgets/loader.dart';
 import 'message_card.dart';
 
 class MessagesList extends ConsumerStatefulWidget {
