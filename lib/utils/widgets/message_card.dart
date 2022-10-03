@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:lets_chat/utils/common/enums/message_type.dart';
 import '../constants/colors_constants.dart';
 
 class MessageCard extends StatelessWidget {
@@ -6,12 +8,14 @@ class MessageCard extends StatelessWidget {
     required this.isSender,
     required this.message,
     required this.time,
+    required this.messageType,
     super.key,
   });
 
   final bool isSender;
   final String message;
   final String time;
+  final MessageType messageType;
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +45,15 @@ class MessageCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(
-                textAlign: TextAlign.left,
-                message,
-                style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                      color: isSender ? AppColors.white : AppColors.black,
-                    ),
-              ),
+              messageType == MessageType.text
+                  ? Text(
+                      textAlign: TextAlign.left,
+                      message,
+                      style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                            color: isSender ? AppColors.white : AppColors.black,
+                          ),
+                    )
+                  : CachedNetworkImage(imageUrl: message),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 mainAxisSize: MainAxisSize.min,

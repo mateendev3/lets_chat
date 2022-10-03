@@ -65,12 +65,14 @@ class _MessageListState extends ConsumerState<MessagesList> {
               return MessageCard(
                 isSender: true,
                 message: message.lastMessage,
+                messageType: message.messageType,
                 time: DateFormat.Hm().format(message.time),
               );
             }
             return MessageCard(
               isSender: false,
               message: message.lastMessage,
+              messageType: message.messageType,
               time: DateFormat.Hm().format(message.time),
             );
           },
