@@ -6,6 +6,7 @@ import '../../screens/chat/controllers/chat_controller.dart';
 import '../../screens/chat/widgets/no_chat.dart';
 import '../common/widgets/loader.dart';
 import '../constants/routes_constants.dart';
+import '../constants/string_constants.dart';
 
 class ChatsList extends ConsumerWidget {
   const ChatsList({super.key});
@@ -39,8 +40,8 @@ class ChatsList extends ConsumerWidget {
         context,
         AppRoutes.chatScreen,
         arguments: <String, Object>{
-          'receiverUsername': chat.name,
-          'receiverUserId': chat.userId,
+          StringsConsts.receiverUsername: chat.name,
+          StringsConsts.receiverUserId: chat.userId,
         },
       ),
       title: Text(

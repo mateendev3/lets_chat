@@ -1,13 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lets_chat/screens/chat/widgets/pop_up_menu_item.dart';
 import '../../../utils/common/enums/message_type.dart';
 import '../../../utils/common/helper_methods/util_methods.dart';
 import '../../../utils/common/widgets/helper_widgets.dart';
 import '../../../utils/constants/colors_constants.dart';
 import '../controllers/chat_controller.dart';
 import 'material_icon_button.dart';
+import 'pop_up_menu_item.dart';
 
 class BottomChatTextField extends ConsumerStatefulWidget {
   const BottomChatTextField({
@@ -75,7 +75,7 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
   Widget _buildMicOrSendButton() {
     return FloatingActionButton(
       onPressed: _messageController.text.isEmpty
-          ? _sendAudioMessage
+          ? _pickAndSendAudio
           : _sendTextMessage,
       child: Icon(
         _messageController.text.isEmpty ? Icons.mic : Icons.send,
@@ -154,17 +154,6 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
     );
   }
 
-  void _sendAudioMessage() {}
-
-  void _sendTextMessage() {
-    ref.watch(chatControllerProvider).sendTextMessage(
-          context,
-          lastMessage: _messageController.text.trim(),
-          receiverUserId: widget.receiverUserId,
-        );
-    _messageController.clear();
-  }
-
   /// invoke to send file as a chat
   void _sendFile(File file, MessageType messageType) {
     ref.watch(chatControllerProvider).sendFileMessage(
@@ -174,6 +163,15 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
           receiverUserId: widget.receiverUserId,
           messageType: messageType,
         );
+  }
+
+  void _sendTextMessage() {
+    ref.watch(chatControllerProvider).sendTextMessage(
+          context,
+          lastMessage: _messageController.text.trim(),
+          receiverUserId: widget.receiverUserId,
+        );
+    _messageController.clear();
   }
 
   void _pickAndSendImage() async {
@@ -191,4 +189,6 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
   }
 
   void _pickAndSendGif() {}
+
+  void _pickAndSendAudio() {}
 }

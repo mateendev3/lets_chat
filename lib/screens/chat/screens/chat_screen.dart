@@ -5,6 +5,7 @@ import '../../../models/user.dart' as app;
 import '../../../utils/common/widgets/loader.dart';
 import '../../../utils/constants/colors_constants.dart';
 import '../../../utils/common/widgets/helper_widgets.dart';
+import '../../../utils/constants/string_constants.dart';
 import '../../auth/controllers/auth_controller.dart';
 import '../widgets/messages_list.dart';
 import '../widgets/bottom_chat_text_field.dart';
@@ -36,11 +37,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
         children: [
           Expanded(
             child: MessagesList(
-              receiverUserId: receiverUserData['receiverUserId'] as String,
+              receiverUserId:
+                  receiverUserData[StringsConsts.receiverUserId] as String,
             ),
           ),
           BottomChatTextField(
-            receiverUserId: receiverUserData['receiverUserId'] as String,
+            receiverUserId:
+                receiverUserData[StringsConsts.receiverUserId] as String,
           ),
         ],
       ),
@@ -70,7 +73,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
           Expanded(
             child: StreamBuilder<app.User>(
                 stream: ref.watch(authControllerProvider).getReceiverUserData(
-                      receiverUserData['receiverUserId'] as String,
+                      receiverUserData[StringsConsts.receiverUserId] as String,
                     ),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
