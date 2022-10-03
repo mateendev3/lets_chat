@@ -44,7 +44,7 @@ class LandingScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
       child: Image.asset(
-        ImagesConsts.icLanding1,
+        ImagesConsts.icLanding2,
         width: size.width * 0.9,
         height: size.width * 0.9,
         fit: BoxFit.cover,

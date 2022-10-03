@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lets_chat/screens/chat/widgets/pop_up_menu_item.dart';
 import '../../../utils/common/enums/message_type.dart';
 import '../../../utils/common/helper_methods/util_methods.dart';
 import '../../../utils/common/widgets/helper_widgets.dart';
@@ -100,13 +101,35 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
         suffixIcon: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            buildMaterialIconButton(
-              icon: Icons.more_vert,
-              onTap: () {},
+            Material(
+              clipBehavior: Clip.antiAlias,
+              color: Colors.transparent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100.0),
+              ),
+              child: PopupMenuButton(
+                padding: EdgeInsets.zero,
+                itemBuilder: (context) {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  return [
+                    buildPopUpMenuItem(
+                      Icons.video_collection_rounded,
+                      'Send Video',
+                      _pickAndSendVideo,
+                    ),
+                    buildPopUpMenuItem(
+                      Icons.gif,
+                      'Send Gif',
+                      _pickAndSendGif,
+                    ),
+                  ];
+                },
+                child: const Icon(Icons.more_vert),
+              ),
             ),
             buildMaterialIconButton(
               icon: Icons.camera,
-              onTap: pickAndSendImage,
+              onTap: _pickAndSendImage,
             ),
           ],
         ),
@@ -142,14 +165,8 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
     _messageController.clear();
   }
 
-  void pickAndSendImage() async {
-    File? imageFile = await pickImageFromGallery(context);
-    if (imageFile != null) {
-      sendFile(imageFile, MessageType.image);
-    }
-  }
-
-  void sendFile(File file, MessageType messageType) {
+  /// invoke to send file as a chat
+  void _sendFile(File file, MessageType messageType) {
     ref.watch(chatControllerProvider).sendFileMessage(
           mounted,
           context,
@@ -158,4 +175,20 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
           messageType: messageType,
         );
   }
+
+  void _pickAndSendImage() async {
+    File? imageFile = await pickImageFromGallery(context);
+    if (imageFile != null) {
+      _sendFile(imageFile, MessageType.image);
+    }
+  }
+
+  void _pickAndSendVideo() async {
+    File? videoFile = await pickVideoFromGallery(context);
+    if (videoFile != null) {
+      _sendFile(videoFile, MessageType.video);
+    }
+  }
+
+  void _pickAndSendGif() {}
 }
