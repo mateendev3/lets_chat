@@ -1,8 +1,10 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../models/chat.dart';
 import '../../../models/message.dart';
 import '../../../models/user.dart' as app;
+import '../../../utils/common/enums/message_type.dart';
 import '../../../utils/common/providers/current_user_provider.dart';
 import '../repositories/chat_repository.dart';
 
@@ -34,6 +36,25 @@ class ChatController {
       lastMessage: lastMessage,
       receiverUserId: receiverUserId,
       senderUser: senderUser,
+    );
+  }
+
+  Future<void> sendFileMessage(
+    bool mounted,
+    BuildContext context, {
+    required File file,
+    required String receiverUserId,
+    required MessageType messageType,
+  }) async {
+    app.User senderUser = _ref.watch(currentUserProvider!);
+    _chatRepository.sendFileMessage(
+      mounted,
+      context,
+      file: file,
+      receiverUserId: receiverUserId,
+      senderUser: senderUser,
+      messageType: messageType,
+      ref: _ref,
     );
   }
 

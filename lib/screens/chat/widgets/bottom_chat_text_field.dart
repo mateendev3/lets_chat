@@ -1,5 +1,8 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../utils/common/enums/message_type.dart';
+import '../../../utils/common/helper_methods/util_methods.dart';
 import '../../../utils/common/widgets/helper_widgets.dart';
 import '../../../utils/constants/colors_constants.dart';
 import '../controllers/chat_controller.dart';
@@ -103,7 +106,7 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
             ),
             buildMaterialIconButton(
               icon: Icons.camera,
-              onTap: () {},
+              onTap: pickAndSendImage,
             ),
           ],
         ),
@@ -137,5 +140,22 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
           receiverUserId: widget.receiverUserId,
         );
     _messageController.clear();
+  }
+
+  void pickAndSendImage() async {
+    File? imageFile = await pickImageFromGallery(context);
+    if (imageFile != null) {
+      sendFile(imageFile, MessageType.image);
+    }
+  }
+
+  void sendFile(File file, MessageType messageType) {
+    ref.watch(chatControllerProvider).sendFileMessage(
+          mounted,
+          context,
+          file: file,
+          receiverUserId: widget.receiverUserId,
+          messageType: messageType,
+        );
   }
 }

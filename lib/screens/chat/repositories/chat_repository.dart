@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,8 @@ import '../../../models/chat.dart';
 import '../../../models/message.dart';
 import '../../../models/user.dart' as app;
 import '../../../utils/common/enums/message_type.dart';
+import '../../../utils/common/helper_methods/util_methods.dart';
+import '../../../utils/common/repositories/firebase_storage_repository.dart';
 import '../../../utils/common/widgets/helper_widgets.dart';
 import '../../../utils/constants/string_constants.dart';
 
@@ -104,6 +107,66 @@ class ChatRepository {
         lastMessage: lastMessage,
         time: time,
         messageType: MessageType.text,
+      );
+    } catch (e) {
+      showSnackBar(context, content: e.toString());
+    }
+  }
+
+  /// invoke to send file message.
+  Future<void> sendFileMessage(
+    bool mounted,
+    BuildContext context, {
+    required File file,
+    required String receiverUserId,
+    required app.User senderUser,
+    required ProviderRef ref,
+    required MessageType messageType,
+  }) async {
+    try {
+      DateTime time = DateTime.now();
+      final String messageId = const Uuid().v1();
+
+      // getting receiverUser from firestore and making dart instance.
+      app.User receiverUser;
+      var receiverDocumentSnapshot = await _firestore
+          .collection(StringsConsts.usersCollection)
+          .doc(receiverUserId)
+          .get();
+      receiverUser = app.User.fromMap(receiverDocumentSnapshot.data()!);
+
+      // getting sending file downloading url.
+      if (!mounted) return;
+      String fileName =
+          '${messageType.type}/${senderUser.uid}/${receiverUser.uid}/$messageId';
+      final String? fileUrl = await ref
+          .watch(firebaseStorageRepositoryProvider)
+          .storeFileToFirebaseStorage(
+            context,
+            file: file,
+            path: 'chats',
+            fileName: fileName,
+          );
+
+      // getting file type
+      final String fileType = getFileType(messageType);
+
+      _saveChatDataToUsersSubCollection(
+        senderUser: senderUser,
+        receiverUser: receiverUser,
+        lastMessage: fileType,
+        time: time,
+      );
+
+      _saveMessageDataToMessagesSubCollection(
+        receiverUserId: receiverUser.uid,
+        senderUserId: senderUser.uid,
+        messageId: messageId,
+        senderUsername: senderUser.name,
+        receiverUsername: receiverUser.name,
+        lastMessage: fileUrl!,
+        time: time,
+        messageType: messageType,
       );
     } catch (e) {
       showSnackBar(context, content: e.toString());
