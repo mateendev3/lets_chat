@@ -20,6 +20,8 @@ AppBarTheme _getAppBarTheme() {
       color: AppColors.appBarTitle,
       fontSize: 20.0,
     ),
+    iconTheme: const IconThemeData(color: AppColors.white),
+    actionsIconTheme: const IconThemeData(color: AppColors.white),
   );
 }
 

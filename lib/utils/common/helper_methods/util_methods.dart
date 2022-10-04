@@ -51,6 +51,7 @@ Future<GiphyGif?> pickGIG(BuildContext context) async {
   GiphyGif? gif;
   try {
     gif = await GiphyPicker.pickGif(
+      title: const Text('Pick GIF'),
       context: context,
       apiKey: StringsConsts.giphyApiKey,
     );
