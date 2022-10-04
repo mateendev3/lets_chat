@@ -1,4 +1,6 @@
+import 'dart:developer';
 import 'dart:io';
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../utils/common/enums/message_type.dart';
@@ -24,12 +26,15 @@ class BottomChatTextField extends ConsumerStatefulWidget {
 
 class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
   late final TextEditingController _messageController;
-  bool isEmojiIconTapped = false;
+  bool _isEmojiIconTapped = false;
+  late final FocusNode _tfFocusNode;
+  double? keyboardSize;
 
   @override
   void initState() {
-    _messageController = TextEditingController();
     super.initState();
+    _messageController = TextEditingController();
+    _tfFocusNode = FocusNode();
   }
 
   @override
@@ -40,34 +45,56 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
 
   @override
   Widget build(BuildContext context) {
+    final viewInsets = EdgeInsets.fromWindowPadding(
+        WidgetsBinding.instance.window.viewInsets,
+        WidgetsBinding.instance.window.devicePixelRatio);
+    log(viewInsets.bottom.toString());
+    if (keyboardSize == null && viewInsets.bottom > 1) {
+      keyboardSize = viewInsets.bottom;
+    }
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Row(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(100.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.shade200,
-                    spreadRadius: 1,
-                    blurRadius: 3,
-                    offset: const Offset(2, 2),
+          Row(
+            children: [
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(100.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.shade200,
+                        spreadRadius: 1,
+                        blurRadius: 3,
+                        offset: const Offset(2, 2),
+                      ),
+                      BoxShadow(
+                          color: Colors.grey.shade200,
+                          offset: const Offset(-2, -2),
+                          blurRadius: 3,
+                          spreadRadius: 1),
+                    ],
                   ),
-                  BoxShadow(
-                      color: Colors.grey.shade200,
-                      offset: const Offset(-2, -2),
-                      blurRadius: 3,
-                      spreadRadius: 1),
-                ],
+                  child: _buildChatTextField(),
+                ),
               ),
-              child: _buildChatTextField(),
-            ),
+              addHorizontalSpace(8.0),
+              _buildMicOrSendButton(),
+            ],
           ),
-          addHorizontalSpace(8.0),
-          _buildMicOrSendButton(),
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            height: _isEmojiIconTapped ? keyboardSize ?? 310 : 0.0,
+            width: double.infinity,
+            child: EmojiPicker(
+              textEditingController: _messageController,
+              onEmojiSelected: (_, __) => setState(() {}),
+            ),
+          )
         ],
       ),
     );
@@ -89,6 +116,7 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
     return TextField(
       minLines: 1,
       maxLines: 6,
+      focusNode: _tfFocusNode,
       onChanged: (value) {
         setState(() {});
       },
@@ -124,8 +152,22 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
 
   Widget _buildPrefixTFIcon() {
     return buildMaterialIconButton(
-      icon: isEmojiIconTapped ? Icons.keyboard : Icons.emoji_emotions_outlined,
-      onTap: isEmojiIconTapped ? () {} : () {},
+      icon: _isEmojiIconTapped ? Icons.keyboard : Icons.emoji_emotions_outlined,
+      onTap: !_isEmojiIconTapped
+          ? () {
+              _tfFocusNode.unfocus();
+              setState(() {
+                _isEmojiIconTapped = true;
+              });
+            }
+          : () async {
+              setState(() {
+                _isEmojiIconTapped = false;
+              });
+
+              await Future.delayed(const Duration(milliseconds: 350));
+              _tfFocusNode.requestFocus();
+            },
     );
   }
 

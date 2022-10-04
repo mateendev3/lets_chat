@@ -41,9 +41,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                   receiverUserData[StringsConsts.receiverUserId] as String,
             ),
           ),
-          BottomChatTextField(
-            receiverUserId:
-                receiverUserData[StringsConsts.receiverUserId] as String,
+          Flexible(
+            fit: FlexFit.loose,
+            flex: 0,
+            child: BottomChatTextField(
+              receiverUserId:
+                  receiverUserData[StringsConsts.receiverUserId] as String,
+            ),
           ),
         ],
       ),
