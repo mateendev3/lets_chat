@@ -24,6 +24,7 @@ class BottomChatTextField extends ConsumerStatefulWidget {
 
 class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
   late final TextEditingController _messageController;
+  bool isEmojiIconTapped = false;
 
   @override
   void initState() {
@@ -98,41 +99,8 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
         filled: true,
         fillColor: AppColors.chatTFFill,
         suffixIconConstraints: const BoxConstraints(),
-        suffixIcon: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Material(
-              clipBehavior: Clip.antiAlias,
-              color: Colors.transparent,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(100.0),
-              ),
-              child: PopupMenuButton(
-                padding: EdgeInsets.zero,
-                itemBuilder: (context) {
-                  FocusManager.instance.primaryFocus?.unfocus();
-                  return [
-                    buildPopUpMenuItem(
-                      Icons.video_collection_rounded,
-                      'Send Video',
-                      _pickAndSendVideo,
-                    ),
-                    buildPopUpMenuItem(
-                      Icons.gif,
-                      'Send Gif',
-                      _pickAndSendGif,
-                    ),
-                  ];
-                },
-                child: const Icon(Icons.more_vert),
-              ),
-            ),
-            buildMaterialIconButton(
-              icon: Icons.camera,
-              onTap: _pickAndSendImage,
-            ),
-          ],
-        ),
+        prefixIcon: _buildPrefixTFIcon(),
+        suffixIcon: _buildSuffixTFIcon(),
         hintText: 'Type a message...',
         hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: AppColors.chatScreenGrey,
@@ -144,13 +112,69 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
             style: BorderStyle.none,
           ),
         ),
-        contentPadding: const EdgeInsets.only(
+        contentPadding: EdgeInsets.only(
           top: 12.0,
           bottom: 12.0,
           left: 16.0,
-          right: 0,
+          right: _messageController.text.isEmpty ? 0 : 16.0,
         ),
       ),
+    );
+  }
+
+  Widget _buildPrefixTFIcon() {
+    return buildMaterialIconButton(
+      icon: isEmojiIconTapped ? Icons.keyboard : Icons.emoji_emotions_outlined,
+      onTap: isEmojiIconTapped ? () {} : () {},
+    );
+  }
+
+  Widget _buildSuffixTFIcon() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Material(
+          clipBehavior: Clip.antiAlias,
+          color: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(100.0),
+          ),
+          child: Padding(
+            padding: _messageController.text.isEmpty
+                ? EdgeInsets.zero
+                : const EdgeInsets.only(right: 16.0),
+            child: PopupMenuButton(
+              padding: EdgeInsets.zero,
+              itemBuilder: (context) {
+                return [
+                  buildPopUpMenuItem(
+                    Icons.video_collection_rounded,
+                    'Send Video',
+                    () => _pickAndSendVideo(context),
+                  ),
+                  buildPopUpMenuItem(
+                    Icons.gif,
+                    'Send Gif',
+                    _pickAndSendGif,
+                  ),
+                  if (_messageController.text.isNotEmpty)
+                    buildPopUpMenuItem(
+                      Icons.camera,
+                      'Send Image',
+                      () => _pickAndSendImage(context),
+                    ),
+                ];
+              },
+              child: const Icon(Icons.more_vert),
+            ),
+          ),
+        ),
+        if (_messageController.text.isEmpty)
+          buildMaterialIconButton(
+            icon: Icons.camera,
+            onTap: () => _pickAndSendImage(context),
+          ),
+      ],
     );
   }
 
@@ -174,21 +198,31 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
     _messageController.clear();
   }
 
-  void _pickAndSendImage() async {
+  void _pickAndSendImage(BuildContext context) async {
     File? imageFile = await pickImageFromGallery(context);
     if (imageFile != null) {
       _sendFile(imageFile, MessageType.image);
     }
+
+    if (_messageController.text.isNotEmpty) {
+      if (!mounted) return;
+      Navigator.pop(context);
+    }
   }
 
-  void _pickAndSendVideo() async {
+  void _pickAndSendVideo(BuildContext context) async {
     File? videoFile = await pickVideoFromGallery(context);
     if (videoFile != null) {
       _sendFile(videoFile, MessageType.video);
     }
+
+    if (!mounted) return;
+    Navigator.pop(context);
   }
 
-  void _pickAndSendGif() {}
+  void _pickAndSendGif() {
+    Navigator.pop(context);
+  }
 
   void _pickAndSendAudio() {}
 }
