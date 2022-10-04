@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:giphy_picker/giphy_picker.dart';
 import '../../../utils/common/enums/message_type.dart';
 import '../../../utils/common/helper_methods/util_methods.dart';
 import '../../../utils/common/widgets/helper_widgets.dart';
@@ -262,7 +263,16 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
     Navigator.pop(context);
   }
 
-  void _pickAndSendGif() {
+  void _pickAndSendGif() async {
+    final GiphyGif? gif = await pickGIG(context);
+    if (!mounted) return;
+    if (gif != null) {
+      ref.read(chatControllerProvider).sendGIFMessage(
+            context,
+            gifUrl: gif.url!,
+            receiverUserId: widget.receiverUserId,
+          );
+    }
     Navigator.pop(context);
   }
 

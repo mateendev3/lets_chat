@@ -8,4 +8,9 @@ class StringsConsts {
   static const String messagesCollection = 'messages';
   static const String receiverUserId = 'receiverUserId';
   static const String receiverUsername = 'receiverUsername';
+
+  // GIF
+  static const String giphyApiKey = 'XNWLf5zhEEFFuOpXcj61QtnliI4pYH3p';
+  static const String staticGiphyUrlStart = 'https://i.giphy.com/media/';
+  static const String staticGiphyUrlEnd = '/200.gif';
 }

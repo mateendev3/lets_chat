@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:lets_chat/utils/common/enums/message_type.dart';
+import '../../../utils/common/enums/message_type.dart';
 import '../../../utils/constants/colors_constants.dart';
 import 'video_player_item.dart';
 
@@ -53,15 +53,6 @@ class MessageCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        // messageType == MessageType.text
-        //     ? Text(
-        //         textAlign: TextAlign.left,
-        //         message,
-        //         style: Theme.of(context).textTheme.labelMedium?.copyWith(
-        //               color: isSender ? AppColors.white : AppColors.black,
-        //             ),
-        //       )
-        //     : CachedNetworkImage(imageUrl: message),
         getMessage(context),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -96,6 +87,8 @@ class MessageCard extends StatelessWidget {
               ),
         );
       case MessageType.image:
+        return CachedNetworkImage(imageUrl: message);
+      case MessageType.gif:
         return CachedNetworkImage(imageUrl: message);
       case MessageType.video:
         return VideoPlayerItem(videoUrl: message);

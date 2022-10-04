@@ -113,6 +113,48 @@ class ChatRepository {
     }
   }
 
+  /// invoke to send GIF.
+  Future<void> sendGIGMessage(
+    BuildContext context, {
+    required String gifUrl,
+    required String receiverUserId,
+    required app.User senderUser,
+  }) async {
+    try {
+      DateTime time = DateTime.now();
+      String messageId = const Uuid().v1();
+      app.User receiverUser;
+
+      var receiverDocumentSnapshot = await _firestore
+          .collection(StringsConsts.usersCollection)
+          .doc(receiverUserId)
+          .get();
+      receiverUser = app.User.fromMap(receiverDocumentSnapshot.data()!);
+
+      // saving chat data to chats sub-collection.
+      _saveChatDataToUsersSubCollection(
+        senderUser: senderUser,
+        receiverUser: receiverUser,
+        lastMessage: 'GIF',
+        time: time,
+      );
+
+      // saving message data to message sub collection.
+      _saveMessageDataToMessagesSubCollection(
+        receiverUserId: receiverUserId,
+        senderUserId: senderUser.uid,
+        messageId: messageId,
+        senderUsername: senderUser.name,
+        receiverUsername: receiverUser.name,
+        lastMessage: gifUrl,
+        time: time,
+        messageType: MessageType.gif,
+      );
+    } catch (e) {
+      showSnackBar(context, content: e.toString());
+    }
+  }
+
   /// invoke to send file message.
   Future<void> sendFileMessage(
     bool mounted,

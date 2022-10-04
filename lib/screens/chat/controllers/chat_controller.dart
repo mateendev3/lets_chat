@@ -1,6 +1,8 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lets_chat/utils/constants/string_constants.dart';
 import '../../../models/chat.dart';
 import '../../../models/message.dart';
 import '../../../models/user.dart' as app;
@@ -39,6 +41,22 @@ class ChatController {
     );
   }
 
+  Future<void> sendGIFMessage(
+    BuildContext context, {
+    required String gifUrl,
+    required String receiverUserId,
+  }) async {
+    app.User senderUser = _ref.watch(currentUserProvider!);
+    log(gifUrl);
+    log(_getGifUrl(gifUrl));
+    _chatRepository.sendGIGMessage(
+      context,
+      gifUrl: _getGifUrl(gifUrl),
+      receiverUserId: receiverUserId,
+      senderUser: senderUser,
+    );
+  }
+
   Future<void> sendFileMessage(
     bool mounted,
     BuildContext context, {
@@ -70,5 +88,10 @@ class ChatController {
       senderUserId: senderUser.uid,
       receiverUserId: receiverUserId,
     );
+  }
+
+  String _getGifUrl(String gifUrl) {
+    String midUrl = gifUrl.substring(gifUrl.lastIndexOf('-') + 1);
+    return '${StringsConsts.staticGiphyUrlStart}$midUrl${StringsConsts.staticGiphyUrlEnd}';
   }
 }

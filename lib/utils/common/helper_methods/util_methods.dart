@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:giphy_picker/giphy_picker.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lets_chat/utils/constants/string_constants.dart';
 import '../enums/message_type.dart';
 import '../widgets/helper_widgets.dart';
 
@@ -42,6 +44,20 @@ Future<File?> pickVideoFromGallery(BuildContext context) async {
   }
 
   return videoFile;
+}
+
+/// Invoke to pick GIF.
+Future<GiphyGif?> pickGIG(BuildContext context) async {
+  GiphyGif? gif;
+  try {
+    gif = await GiphyPicker.pickGif(
+      context: context,
+      apiKey: StringsConsts.giphyApiKey,
+    );
+  } catch (e) {
+    showSnackBar(context, content: e.toString());
+  }
+  return gif;
 }
 
 /// Invoke to get file type which you are going to send.
