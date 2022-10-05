@@ -90,7 +90,7 @@ class MessageCard extends StatelessWidget {
       case MessageType.image:
         return CachedNetworkImage(imageUrl: message);
       case MessageType.audio:
-        return AudioPlayerItem(audioUrl: message);
+        return AudioPlayerItem(audioUrl: message, isSender: isSender);
       case MessageType.gif:
         return CachedNetworkImage(imageUrl: message);
       case MessageType.video:

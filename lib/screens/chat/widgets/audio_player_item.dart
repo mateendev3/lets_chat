@@ -1,13 +1,18 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+
+import 'package:lets_chat/utils/constants/colors_constants.dart';
 
 class AudioPlayerItem extends StatefulWidget {
   const AudioPlayerItem({
     Key? key,
     required this.audioUrl,
+    required this.isSender,
   }) : super(key: key);
 
   final String audioUrl;
+  final bool isSender;
 
   @override
   State<AudioPlayerItem> createState() => _AudioPlayerItemState();
@@ -32,6 +37,9 @@ class _AudioPlayerItemState extends State<AudioPlayerItem> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      iconSize: 36.0,
+      color: widget.isSender ? AppColors.white : AppColors.primary,
+      constraints: const BoxConstraints(minWidth: 100.0),
       onPressed: () {
         if (!_isPlayingAudio) {
           _audioPlayer.play(UrlSource(widget.audioUrl));
