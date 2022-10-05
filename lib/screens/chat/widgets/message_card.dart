@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../../utils/common/enums/message_type.dart';
 import '../../../utils/constants/colors_constants.dart';
+import 'audio_player_item.dart';
 import 'video_player_item.dart';
 
 class MessageCard extends StatelessWidget {
@@ -88,6 +89,8 @@ class MessageCard extends StatelessWidget {
         );
       case MessageType.image:
         return CachedNetworkImage(imageUrl: message);
+      case MessageType.audio:
+        return AudioPlayerItem(audioUrl: message);
       case MessageType.gif:
         return CachedNetworkImage(imageUrl: message);
       case MessageType.video:

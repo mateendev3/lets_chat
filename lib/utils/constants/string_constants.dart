@@ -13,4 +13,7 @@ class StringsConsts {
   static const String giphyApiKey = 'XNWLf5zhEEFFuOpXcj61QtnliI4pYH3p';
   static const String staticGiphyUrlStart = 'https://i.giphy.com/media/';
   static const String staticGiphyUrlEnd = '/200.gif';
+
+  // Audio Player
+  static const String audiosSavingPath = '/flutter_sound.aac';
 }

@@ -3,7 +3,11 @@ import 'dart:io';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_sound/flutter_sound.dart';
 import 'package:giphy_picker/giphy_picker.dart';
+import 'package:lets_chat/utils/constants/string_constants.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../../utils/common/enums/message_type.dart';
 import '../../../utils/common/helper_methods/util_methods.dart';
 import '../../../utils/common/widgets/helper_widgets.dart';
@@ -27,21 +31,40 @@ class BottomChatTextField extends ConsumerStatefulWidget {
 
 class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
   late final TextEditingController _messageController;
-  bool _isEmojiIconTapped = false;
+  late final FlutterSoundRecorder _soundRecorder;
   late final FocusNode _tfFocusNode;
-  double? keyboardSize;
+  bool _isEmojiIconTapped = false;
+  double? _keyboardSize;
+  bool _isSoundRecorderInitialized = false;
+  bool _isAudioRecording = false;
 
   @override
   void initState() {
     super.initState();
     _messageController = TextEditingController();
     _tfFocusNode = FocusNode();
+    // sound recorder
+    _soundRecorder = FlutterSoundRecorder();
+    initSoundRecorder();
   }
 
   @override
   void dispose() {
     _messageController.dispose();
+    _soundRecorder.closeRecorder();
+    _isSoundRecorderInitialized = false;
     super.dispose();
+  }
+
+  /// invoke to initialize sound recorder
+  void initSoundRecorder() async {
+    final permissionStatus = await Permission.microphone.request();
+    if (permissionStatus != PermissionStatus.granted) {
+      throw RecordingPermissionException('Mic permission not granted');
+    }
+
+    _soundRecorder.openRecorder();
+    _isSoundRecorderInitialized = true;
   }
 
   @override
@@ -50,8 +73,8 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
         WidgetsBinding.instance.window.viewInsets,
         WidgetsBinding.instance.window.devicePixelRatio);
     log(viewInsets.bottom.toString());
-    if (keyboardSize == null && viewInsets.bottom > 1) {
-      keyboardSize = viewInsets.bottom;
+    if (_keyboardSize == null && viewInsets.bottom > 1) {
+      _keyboardSize = viewInsets.bottom;
     }
 
     return Padding(
@@ -89,7 +112,7 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
           ),
           AnimatedContainer(
             duration: const Duration(milliseconds: 300),
-            height: _isEmojiIconTapped ? keyboardSize ?? 310 : 0.0,
+            height: _isEmojiIconTapped ? _keyboardSize ?? 310 : 0.0,
             width: double.infinity,
             child: EmojiPicker(
               textEditingController: _messageController,
@@ -104,10 +127,14 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
   Widget _buildMicOrSendButton() {
     return FloatingActionButton(
       onPressed: _messageController.text.isEmpty
-          ? _pickAndSendAudio
+          ? _recordAndSendAudio
           : _sendTextMessage,
       child: Icon(
-        _messageController.text.isEmpty ? Icons.mic : Icons.send,
+        _messageController.text.isEmpty
+            ? _isAudioRecording
+                ? Icons.close
+                : Icons.mic
+            : Icons.send,
         color: AppColors.white,
       ),
     );
@@ -276,5 +303,19 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
     Navigator.pop(context);
   }
 
-  void _pickAndSendAudio() {}
+  void _recordAndSendAudio() async {
+    if (!_isSoundRecorderInitialized) return;
+    final Directory tempDirectory = await getTemporaryDirectory();
+    String audioFilePath =
+        '${tempDirectory.path}${StringsConsts.audiosSavingPath}';
+
+    if (!_isAudioRecording) {
+      _soundRecorder.startRecorder(toFile: audioFilePath);
+    } else {
+      _soundRecorder.stopRecorder();
+      _sendFile(File(audioFilePath), MessageType.audio);
+    }
+
+    setState(() => _isAudioRecording = !_isAudioRecording);
+  }
 }
