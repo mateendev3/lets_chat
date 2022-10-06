@@ -4,8 +4,8 @@ import 'package:lets_chat/screens/chat/widgets/display_message.dart';
 import 'package:lets_chat/utils/common/providers/reply_message_provider.dart';
 import 'package:lets_chat/utils/common/widgets/helper_widgets.dart';
 
-class ReplyMessagePicker extends ConsumerWidget {
-  const ReplyMessagePicker({Key? key}) : super(key: key);
+class ReplyMessagePreview extends ConsumerWidget {
+  const ReplyMessagePreview({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,15 +22,32 @@ class ReplyMessagePicker extends ConsumerWidget {
       ),
       child: Column(
         children: [
-          Row(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Text(
+                  replyMessage!.isMe ? 'Me' : 'Opposite',
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+              ),
+              IconButton(onPressed: () {}, icon: const Icon(Icons.close))
+            ],
+          ),
           addVerticalSpace(8.0),
           DisplayMessage(
-            message: replyMessage!.message,
+            message: replyMessage.message,
             messageType: replyMessage.messageType,
             isSender: replyMessage.isMe,
           ),
         ],
       ),
     );
+  }
+
+  void cancelReply(WidgetRef ref) {
+    //Todo : maybe error.
+    ref.read(replyMessageProvider.state).state = null;
   }
 }

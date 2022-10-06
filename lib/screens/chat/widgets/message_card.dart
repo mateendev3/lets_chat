@@ -1,21 +1,35 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
+import 'package:lets_chat/utils/common/enums/swipe_direction.dart';
+
 import '../../../utils/common/enums/message_type.dart';
 import '../../../utils/constants/colors_constants.dart';
 import 'display_message.dart';
 
 class MessageCard extends StatelessWidget {
   const MessageCard({
+    Key? key,
     required this.isSender,
     required this.message,
     required this.time,
     required this.messageType,
-    super.key,
-  });
+    required this.onSwipe,
+    required this.repliedText,
+    required this.username,
+    required this.repliedMessageType,
+    required this.swipeDirection,
+  }) : super(key: key);
 
   final bool isSender;
   final String message;
   final String time;
   final MessageType messageType;
+  final VoidCallback onSwipe;
+  final String repliedText;
+  final String username;
+  final MessageType repliedMessageType;
+  final SwipeDirection swipeDirection;
 
   @override
   Widget build(BuildContext context) {

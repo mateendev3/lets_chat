@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lets_chat/utils/common/providers/reply_message_provider.dart';
 import 'package:uuid/uuid.dart';
 import '../../../models/chat.dart';
 import '../../../models/message.dart';
@@ -77,6 +78,7 @@ class ChatRepository {
     required String lastMessage,
     required String receiverUserId,
     required app.User senderUser,
+    required ReplyMessage? replyMessage,
   }) async {
     try {
       DateTime time = DateTime.now();
@@ -107,6 +109,7 @@ class ChatRepository {
         lastMessage: lastMessage,
         time: time,
         messageType: MessageType.text,
+        replyMessage: replyMessage,
       );
     } catch (e) {
       showSnackBar(context, content: e.toString());
@@ -119,6 +122,7 @@ class ChatRepository {
     required String gifUrl,
     required String receiverUserId,
     required app.User senderUser,
+    required ReplyMessage? replyMessage,
   }) async {
     try {
       DateTime time = DateTime.now();
@@ -149,6 +153,7 @@ class ChatRepository {
         lastMessage: gifUrl,
         time: time,
         messageType: MessageType.gif,
+        replyMessage: replyMessage,
       );
     } catch (e) {
       showSnackBar(context, content: e.toString());
@@ -164,6 +169,7 @@ class ChatRepository {
     required app.User senderUser,
     required ProviderRef ref,
     required MessageType messageType,
+    required ReplyMessage? replyMessage,
   }) async {
     try {
       DateTime time = DateTime.now();
@@ -209,6 +215,7 @@ class ChatRepository {
         lastMessage: fileUrl!,
         time: time,
         messageType: messageType,
+        replyMessage: replyMessage,
       );
     } catch (e) {
       showSnackBar(context, content: e.toString());
@@ -269,6 +276,7 @@ class ChatRepository {
     required String lastMessage,
     required DateTime time,
     required MessageType messageType,
+    required ReplyMessage? replyMessage,
   }) async {
     final Message message = Message(
       senderUserId: senderUserId,
@@ -278,6 +286,14 @@ class ChatRepository {
       lastMessage: lastMessage,
       messageType: messageType,
       time: time,
+      repliedMessage: replyMessage?.message ?? '',
+      repliedTo: replyMessage == null
+          ? ''
+          : replyMessage.isMe
+              ? senderUsername
+              : receiverUsername,
+      repliedMessageType:
+          replyMessage == null ? MessageType.text : replyMessage.messageType,
     );
 
     // saving message data for sender

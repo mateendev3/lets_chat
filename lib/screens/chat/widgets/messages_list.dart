@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:lets_chat/utils/common/enums/swipe_direction.dart';
 import '../../../models/message.dart';
 import '../controllers/chat_controller.dart';
 import '../../../utils/common/providers/current_user_provider.dart';
@@ -68,6 +69,12 @@ class _MessageListState extends ConsumerState<MessagesList> {
               message: message.lastMessage,
               messageType: message.messageType,
               time: DateFormat.Hm().format(message.time),
+              onSwipe: () {},
+              swipeDirection:
+                  isSenderUser ? SwipeDirection.left : SwipeDirection.right,
+              repliedText: message.repliedMessage,
+              repliedMessageType: message.repliedMessageType,
+              username: message.repliedTo,
             );
           },
         );

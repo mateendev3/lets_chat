@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+
 import '../utils/common/enums/message_type.dart';
 
 class Message {
@@ -9,6 +11,9 @@ class Message {
     required this.lastMessage,
     required this.messageType,
     required this.time,
+    required this.repliedMessage,
+    required this.repliedTo,
+    required this.repliedMessageType,
   });
 
   final String senderUserId;
@@ -18,6 +23,9 @@ class Message {
   final String lastMessage;
   final MessageType messageType;
   final DateTime time;
+  final String repliedMessage;
+  final String repliedTo;
+  final MessageType repliedMessageType;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -28,6 +36,9 @@ class Message {
       'lastMessage': lastMessage,
       'messageType': messageType.type,
       'time': time.millisecondsSinceEpoch,
+      'repliedMessage': repliedMessage,
+      'repliedTo': repliedTo,
+      'repliedMessageType': repliedMessageType.type,
     };
   }
 
@@ -40,11 +51,9 @@ class Message {
       lastMessage: map['lastMessage'] as String,
       messageType: (map['messageType'] as String).toEnum(),
       time: DateTime.fromMillisecondsSinceEpoch(map['time'] as int),
+      repliedMessage: map['repliedMessage'] as String,
+      repliedTo: map['repliedTo'] as String,
+      repliedMessageType: (map['repliedMessageType'] as String).toEnum(),
     );
-  }
-
-  @override
-  String toString() {
-    return 'Message(senderUserId: $senderUserId, receiverUserId: $receiverUserId, messageId: $messageId, isSeen: $isSeen, lastMessage: $lastMessage, messageType: $messageType, time: $time)';
   }
 }

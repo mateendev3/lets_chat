@@ -1,15 +1,16 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:giphy_picker/giphy_picker.dart';
+import 'package:lets_chat/screens/chat/widgets/reply_message_preview.dart';
 import 'package:lets_chat/utils/constants/string_constants.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../../utils/common/enums/message_type.dart';
 import '../../../utils/common/helper_methods/util_methods.dart';
+import '../../../utils/common/providers/reply_message_provider.dart';
 import '../../../utils/common/widgets/helper_widgets.dart';
 import '../../../utils/constants/colors_constants.dart';
 import '../controllers/chat_controller.dart';
@@ -72,16 +73,20 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
     final viewInsets = EdgeInsets.fromWindowPadding(
         WidgetsBinding.instance.window.viewInsets,
         WidgetsBinding.instance.window.devicePixelRatio);
-    log(viewInsets.bottom.toString());
     if (_keyboardSize == null && viewInsets.bottom > 1) {
       _keyboardSize = viewInsets.bottom;
     }
+
+    // check for if the user is replying to message.
+    ReplyMessage? replyMessage = ref.watch(replyMessageProvider);
+    bool isShowReplyMessage = replyMessage == null;
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          if (!isShowReplyMessage) const ReplyMessagePreview(),
           Row(
             children: [
               Expanded(

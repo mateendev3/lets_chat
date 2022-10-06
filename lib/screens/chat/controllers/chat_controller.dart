@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lets_chat/utils/common/providers/reply_message_provider.dart';
 import 'package:lets_chat/utils/constants/string_constants.dart';
 import '../../../models/chat.dart';
 import '../../../models/message.dart';
@@ -32,12 +33,15 @@ class ChatController {
     required String lastMessage,
     required String receiverUserId,
   }) async {
+    ReplyMessage? replyMessage = _ref.watch(replyMessageProvider);
     app.User senderUser = _ref.watch(currentUserProvider!);
+
     _chatRepository.sendTextMessage(
       context,
       lastMessage: lastMessage,
       receiverUserId: receiverUserId,
       senderUser: senderUser,
+      replyMessage: replyMessage,
     );
   }
 
@@ -46,7 +50,9 @@ class ChatController {
     required String gifUrl,
     required String receiverUserId,
   }) async {
+    ReplyMessage? replyMessage = _ref.watch(replyMessageProvider);
     app.User senderUser = _ref.watch(currentUserProvider!);
+
     log(gifUrl);
     log(_getGifUrl(gifUrl));
     _chatRepository.sendGIGMessage(
@@ -54,6 +60,7 @@ class ChatController {
       gifUrl: _getGifUrl(gifUrl),
       receiverUserId: receiverUserId,
       senderUser: senderUser,
+      replyMessage: replyMessage,
     );
   }
 
@@ -64,7 +71,9 @@ class ChatController {
     required String receiverUserId,
     required MessageType messageType,
   }) async {
+    ReplyMessage? replyMessage = _ref.watch(replyMessageProvider);
     app.User senderUser = _ref.watch(currentUserProvider!);
+
     _chatRepository.sendFileMessage(
       mounted,
       context,
@@ -73,6 +82,7 @@ class ChatController {
       senderUser: senderUser,
       messageType: messageType,
       ref: _ref,
+      replyMessage: replyMessage,
     );
   }
 
