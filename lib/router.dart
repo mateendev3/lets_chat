@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:lets_chat/screens/status/screens/status_screen.dart';
 import 'package:page_route_animator/page_route_animator.dart';
 import 'screens/auth/screens/otp_screen.dart';
 import 'screens/auth/screens/phone_login_screen.dart';
@@ -10,6 +9,7 @@ import 'screens/home/screens/home_screen.dart';
 import 'screens/landing_screen.dart';
 import 'screens/sender_info/screens/sender_user_information_screen.dart';
 import 'screens/status/screens/confirm_status_screen.dart';
+import 'screens/status/screens/status_screen.dart';
 import 'utils/constants/routes_constants.dart';
 
 class AppRouter {

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// ignore: must_be_immutable
 class ConfirmStatusScreen extends ConsumerWidget {
   ConfirmStatusScreen({Key? key}) : super(key: key);
 
