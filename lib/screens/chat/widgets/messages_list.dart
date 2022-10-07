@@ -71,6 +71,11 @@ class _MessageListState extends ConsumerState<MessagesList> {
               message: message.lastMessage,
               messageType: message.messageType,
               time: DateFormat.Hm().format(message.time),
+              swipeDirection:
+                  isSenderUser ? SwipeDirection.left : SwipeDirection.right,
+              repliedText: message.repliedMessage,
+              repliedMessageType: message.repliedMessageType,
+              username: message.repliedTo,
               onSwipe: isSenderUser
                   ? () => _onSwipeMessage(
                         message: message.lastMessage,
@@ -84,11 +89,6 @@ class _MessageListState extends ConsumerState<MessagesList> {
                         messageType: message.messageType,
                         isSender: false,
                       ),
-              swipeDirection:
-                  isSenderUser ? SwipeDirection.left : SwipeDirection.right,
-              repliedText: message.repliedMessage,
-              repliedMessageType: message.repliedMessageType,
-              username: message.repliedTo,
             );
           },
         );

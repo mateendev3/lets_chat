@@ -10,7 +10,7 @@ class ReplyMessagePreview extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ReplyMessage? replyMessage = ref.watch(replyMessageProvider);
+    ReplyMessage? replyMessage = ref.read(replyMessageProvider);
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(8.0),
