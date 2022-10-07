@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lets_chat/screens/calls_screen.dart';
+import 'package:lets_chat/screens/status/screens/status_screen.dart';
 import '../utils/constants/colors_constants.dart';
 import '../utils/constants/routes_constants.dart';
 import '../utils/constants/string_constants.dart';
@@ -16,16 +18,20 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen>
-    with WidgetsBindingObserver {
+    with WidgetsBindingObserver, TickerProviderStateMixin {
+  late final TabController _tabController;
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -51,7 +57,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
       initialIndex: 0,
       child: Scaffold(
         appBar: _buildAppBar(context),
-        body: const ChatsList(),
+        body: TabBarView(
+          controller: _tabController,
+          children: const [
+            ChatsList(),
+            StatusScreen(),
+            CallsScreen(),
+          ],
+        ),
         floatingActionButton: _buildFAB(context),
       ),
     );
@@ -94,6 +107,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
         ),
       ],
       bottom: TabBar(
+        controller: _tabController,
         indicatorColor: AppColors.white,
         indicatorWeight: 4.0,
         labelColor: AppColors.sTabLabel,
