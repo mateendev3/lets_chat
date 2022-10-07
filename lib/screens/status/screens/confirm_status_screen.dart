@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../controllers/status_controller.dart';
 
 // ignore: must_be_immutable
 class ConfirmStatusScreen extends ConsumerWidget {
@@ -32,8 +33,16 @@ class ConfirmStatusScreen extends ConsumerWidget {
           Icons.done,
           color: Colors.white,
         ),
-        onPressed: () {},
+        onPressed: () => addStatus(context, ref, _imageFile!),
       ),
     );
+  }
+
+  void addStatus(BuildContext context, WidgetRef ref, File imageFile) {
+    ref.read(statusControllerProvider).uploadStatus(
+          context,
+          statusImage: imageFile,
+        );
+    Navigator.pop(context);
   }
 }

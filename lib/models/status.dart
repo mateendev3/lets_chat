@@ -12,8 +12,8 @@ class Status {
 
   final String uid;
   final String username;
-  final String phoneNumber;
-  final String profilePic;
+  final String? phoneNumber;
+  final String? profilePic;
   final String statusId;
   final List<String> photoUrls;
   final List<String> whoCanSee;

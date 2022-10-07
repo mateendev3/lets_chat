@@ -11,6 +11,10 @@ import '../../../utils/common/repositories/firebase_storage_repository.dart';
 import '../../../utils/common/widgets/helper_widgets.dart';
 import '../../../utils/constants/string_constants.dart';
 
+final statusRepositoryProvider = Provider(
+  (ref) => StatusRepository(firestore: FirebaseFirestore.instance, ref: ref),
+);
+
 class StatusRepository {
   StatusRepository({
     required FirebaseFirestore firestore,

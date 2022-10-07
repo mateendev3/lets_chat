@@ -76,7 +76,7 @@ class SenderUserDataRepository {
         isOnline: true,
         profilePic: photoUrl,
         groupId: [],
-        phoneNumber: _auth.currentUser?.phoneNumber,
+        phoneNumber: _auth.currentUser!.phoneNumber!,
       );
 
       // saving user to firestore.
