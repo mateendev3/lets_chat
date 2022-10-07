@@ -5,7 +5,7 @@ import 'firebase_options.dart';
 import 'router.dart';
 import 'screens/sender_info/controllers/sender_user_data_controller.dart';
 import 'screens/error_screen.dart';
-import 'screens/home_screen.dart';
+import 'screens/home/screens/home_screen.dart';
 import 'screens/landing_screen.dart';
 import 'screens/loading_screen.dart';
 import 'utils/common/providers/current_user_provider.dart';
