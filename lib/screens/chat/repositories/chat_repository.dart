@@ -315,4 +315,35 @@ class ChatRepository {
         .doc(messageId)
         .set(message.toMap());
   }
+
+  void setChatMessageSeen(
+    BuildContext context, {
+    required String receiverUserId,
+    required String senderUserId,
+    required String messageId,
+  }) async {
+    try {
+      // updating seen message to sender user doc
+      await _firestore
+          .collection(StringsConsts.usersCollection)
+          .doc(senderUserId)
+          .collection(StringsConsts.chatsCollection)
+          .doc(receiverUserId)
+          .collection(StringsConsts.messagesCollection)
+          .doc(messageId)
+          .update({'isSeen': true});
+
+      // updating seen message to receiver user doc
+      await _firestore
+          .collection(StringsConsts.usersCollection)
+          .doc(receiverUserId)
+          .collection(StringsConsts.chatsCollection)
+          .doc(senderUserId)
+          .collection(StringsConsts.messagesCollection)
+          .doc(messageId)
+          .update({'isSeen': true});
+    } catch (e) {
+      showSnackBar(context, content: e.toString());
+    }
+  }
 }

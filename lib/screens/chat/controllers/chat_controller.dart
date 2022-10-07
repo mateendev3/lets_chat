@@ -106,6 +106,20 @@ class ChatController {
     );
   }
 
+  Future<void> setChatMessageSeen(
+    BuildContext context, {
+    required String receiverUserId,
+    required String messageId,
+  }) async {
+    app.User user = _ref.watch(currentUserProvider!);
+    _chatRepository.setChatMessageSeen(
+      context,
+      receiverUserId: receiverUserId,
+      senderUserId: user.uid,
+      messageId: messageId,
+    );
+  }
+
   String _getGifUrl(String gifUrl) {
     String midUrl = gifUrl.substring(gifUrl.lastIndexOf('-') + 1);
     return '${StringsConsts.staticGiphyUrlStart}$midUrl${StringsConsts.staticGiphyUrlEnd}';
