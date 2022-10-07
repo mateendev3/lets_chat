@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -66,10 +68,23 @@ class _MessageListState extends ConsumerState<MessagesList> {
 
             final bool isSenderUser =
                 message.senderUserId == ref.read(currentUserProvider!).uid;
+
+            // setting message seen for receiver
+            if (!message.isSeen &&
+                message.receiverUserId == ref.read(currentUserProvider!).uid) {
+              log(message.receiverUserId);
+              log(widget.receiverUserId);
+              ref.read(chatControllerProvider).setChatMessageSeen(
+                    context,
+                    receiverUserId: widget.receiverUserId,
+                    messageId: message.messageId,
+                  );
+            }
             return MessageCard(
               isSender: isSenderUser ? true : false,
               message: message.lastMessage,
               messageType: message.messageType,
+              isSeen: message.isSeen,
               time: DateFormat.Hm().format(message.time),
               swipeDirection:
                   isSenderUser ? SwipeDirection.left : SwipeDirection.right,

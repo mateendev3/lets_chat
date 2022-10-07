@@ -281,7 +281,7 @@ class ChatRepository {
       senderUserId: senderUserId,
       receiverUserId: receiverUserId,
       messageId: messageId,
-      isSeen: true,
+      isSeen: false,
       lastMessage: lastMessage,
       messageType: messageType,
       time: time,

@@ -1,5 +1,7 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:swipe_to/swipe_to.dart';
+
 import '../../../utils/common/enums/message_type.dart';
 import '../../../utils/common/enums/swipe_direction.dart';
 import '../../../utils/common/widgets/helper_widgets.dart';
@@ -18,6 +20,7 @@ class MessageCard extends StatelessWidget {
     required this.username,
     required this.repliedMessageType,
     required this.swipeDirection,
+    required this.isSeen,
   }) : super(key: key);
 
   final bool isSender;
@@ -29,6 +32,7 @@ class MessageCard extends StatelessWidget {
   final String username;
   final MessageType repliedMessageType;
   final SwipeDirection swipeDirection;
+  final bool isSeen;
 
   @override
   Widget build(BuildContext context) {
@@ -116,10 +120,13 @@ class MessageCard extends StatelessWidget {
                     color: isSender ? AppColors.chatOffWhite : AppColors.grey,
                   ),
             ),
+            addHorizontalSpace(4.0),
             isSender
-                ? const Icon(
-                    Icons.check,
-                    color: AppColors.chatOffWhite,
+                ? Icon(
+                    isSeen ? Icons.done_all : Icons.done,
+                    color: isSeen
+                        ? AppColors.black.withOpacity(0.3)
+                        : AppColors.chatOffWhite,
                   )
                 : const SizedBox(),
           ],
