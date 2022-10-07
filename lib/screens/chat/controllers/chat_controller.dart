@@ -2,13 +2,13 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lets_chat/utils/common/providers/reply_message_provider.dart';
-import 'package:lets_chat/utils/constants/string_constants.dart';
 import '../../../models/chat.dart';
 import '../../../models/message.dart';
 import '../../../models/user.dart' as app;
 import '../../../utils/common/enums/message_type.dart';
 import '../../../utils/common/providers/current_user_provider.dart';
+import '../../../utils/common/providers/reply_message_provider.dart';
+import '../../../utils/constants/string_constants.dart';
 import '../repositories/chat_repository.dart';
 
 final chatControllerProvider = Provider<ChatController>(

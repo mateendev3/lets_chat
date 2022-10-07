@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lets_chat/utils/common/widgets/helper_widgets.dart';
 import 'package:swipe_to/swipe_to.dart';
 import '../../../utils/common/enums/message_type.dart';
 import '../../../utils/common/enums/swipe_direction.dart';
+import '../../../utils/common/widgets/helper_widgets.dart';
 import '../../../utils/constants/colors_constants.dart';
 import 'display_message.dart';
 

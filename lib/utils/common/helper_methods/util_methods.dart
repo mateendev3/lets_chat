@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:giphy_picker/giphy_picker.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:lets_chat/utils/constants/string_constants.dart';
+import '../../constants/string_constants.dart';
 import '../enums/message_type.dart';
 import '../widgets/helper_widgets.dart';
 
