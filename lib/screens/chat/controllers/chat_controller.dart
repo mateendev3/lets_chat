@@ -43,6 +43,8 @@ class ChatController {
       senderUser: senderUser,
       replyMessage: replyMessage,
     );
+
+    _ref.watch(replyMessageProvider.state).state = null;
   }
 
   Future<void> sendGIFMessage(
@@ -62,6 +64,8 @@ class ChatController {
       senderUser: senderUser,
       replyMessage: replyMessage,
     );
+
+    _ref.watch(replyMessageProvider.state).state = null;
   }
 
   Future<void> sendFileMessage(
@@ -84,6 +88,8 @@ class ChatController {
       ref: _ref,
       replyMessage: replyMessage,
     );
+
+    _ref.watch(replyMessageProvider.state).state = null;
   }
 
   Stream<List<Chat>> getChatsList() {

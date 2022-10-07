@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:giphy_picker/giphy_picker.dart';
-import 'package:lets_chat/screens/chat/widgets/reply_message_preview.dart';
-import 'package:lets_chat/utils/constants/string_constants.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../../utils/common/enums/message_type.dart';
@@ -13,9 +11,11 @@ import '../../../utils/common/helper_methods/util_methods.dart';
 import '../../../utils/common/providers/reply_message_provider.dart';
 import '../../../utils/common/widgets/helper_widgets.dart';
 import '../../../utils/constants/colors_constants.dart';
+import '../../../utils/constants/string_constants.dart';
 import '../controllers/chat_controller.dart';
 import 'material_icon_button.dart';
 import 'pop_up_menu_item.dart';
+import 'reply_message_preview.dart';
 
 class BottomChatTextField extends ConsumerStatefulWidget {
   const BottomChatTextField({

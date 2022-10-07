@@ -735,6 +735,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.1"
+  swipe_to:
+    dependency: "direct main"
+    description:
+      name: swipe_to
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   synchronized:
     dependency: transitive
     description:

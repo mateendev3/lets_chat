@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:lets_chat/utils/common/enums/message_type.dart';
-
+import '../../../utils/common/enums/message_type.dart';
 import '../../../utils/constants/colors_constants.dart';
 import 'audio_player_item.dart';
 import 'video_player_item.dart';

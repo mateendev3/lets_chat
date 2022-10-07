@@ -1,9 +1,8 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-
-import 'package:lets_chat/utils/common/enums/swipe_direction.dart';
-
+import 'package:lets_chat/utils/common/widgets/helper_widgets.dart';
+import 'package:swipe_to/swipe_to.dart';
 import '../../../utils/common/enums/message_type.dart';
+import '../../../utils/common/enums/swipe_direction.dart';
 import '../../../utils/constants/colors_constants.dart';
 import 'display_message.dart';
 
@@ -34,38 +33,74 @@ class MessageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Align(
-      alignment: isSender ? Alignment.centerRight : Alignment.centerLeft,
-      child: ConstrainedBox(
-        constraints: BoxConstraints(
-          maxWidth: size.width * 0.8,
-          minWidth: 0.0,
-        ),
-        child: Container(
-          margin: const EdgeInsets.symmetric(
-            horizontal: 8.0,
-            vertical: 4.0,
+    return _buildBody(size, context);
+  }
+
+  Widget _buildBody(Size size, BuildContext context) {
+    return SwipeTo(
+      onLeftSwipe: swipeDirection == SwipeDirection.left ? onSwipe : null,
+      onRightSwipe: swipeDirection == SwipeDirection.right ? onSwipe : null,
+      child: Align(
+        alignment: isSender ? Alignment.centerRight : Alignment.centerLeft,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: size.width * 0.8,
+            minWidth: 0.0,
           ),
-          padding: const EdgeInsets.all(8.0),
-          decoration: BoxDecoration(
-            color: isSender ? AppColors.primary : AppColors.onPrimary,
-            borderRadius: BorderRadius.only(
-              topLeft: isSender ? const Radius.circular(12.0) : Radius.zero,
-              topRight: const Radius.circular(12.0),
-              bottomLeft: const Radius.circular(12.0),
-              bottomRight: isSender ? Radius.zero : const Radius.circular(12.0),
+          child: Container(
+            margin: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+              vertical: 4.0,
             ),
+            padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              color: isSender ? AppColors.primary : AppColors.onPrimary,
+              borderRadius: BorderRadius.only(
+                topLeft: isSender ? const Radius.circular(12.0) : Radius.zero,
+                topRight: const Radius.circular(12.0),
+                bottomLeft: const Radius.circular(12.0),
+                bottomRight:
+                    isSender ? Radius.zero : const Radius.circular(12.0),
+              ),
+            ),
+            child: _buildMessageContent(context, repliedText.isNotEmpty),
           ),
-          child: _buildMessageContent(context),
         ),
       ),
     );
   }
 
-  Widget _buildMessageContent(BuildContext context) {
+  Widget _buildMessageContent(BuildContext context, bool isReplying) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
+        if (isReplying) ...[
+          Text(
+            username,
+            style: isSender
+                ? Theme.of(context).textTheme.headlineSmall
+                : Theme.of(context)
+                    .textTheme
+                    .headlineSmall!
+                    .copyWith(color: AppColors.black),
+          ),
+          addVerticalSpace(8.0),
+          Container(
+            padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              color: AppColors.black.withOpacity(0.3),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(4.0),
+              ),
+            ),
+            child: DisplayMessage(
+              isSender: isSender,
+              message: repliedText,
+              messageType: repliedMessageType,
+            ),
+          ),
+        ],
+        addVerticalSpace(8.0),
         DisplayMessage(
           message: message,
           isSender: isSender,

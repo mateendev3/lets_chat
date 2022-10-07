@@ -3,7 +3,9 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:lets_chat/utils/common/enums/swipe_direction.dart';
+import 'package:lets_chat/utils/common/providers/reply_message_provider.dart';
 import '../../../models/message.dart';
+import '../../../utils/common/enums/message_type.dart';
 import '../controllers/chat_controller.dart';
 import '../../../utils/common/providers/current_user_provider.dart';
 import '../../../utils/common/widgets/loader.dart';
@@ -69,7 +71,19 @@ class _MessageListState extends ConsumerState<MessagesList> {
               message: message.lastMessage,
               messageType: message.messageType,
               time: DateFormat.Hm().format(message.time),
-              onSwipe: () {},
+              onSwipe: isSenderUser
+                  ? () => _onSwipeMessage(
+                        message: message.lastMessage,
+                        isMe: true,
+                        messageType: message.messageType,
+                        isSender: true,
+                      )
+                  : () => _onSwipeMessage(
+                        message: message.lastMessage,
+                        isMe: false,
+                        messageType: message.messageType,
+                        isSender: false,
+                      ),
               swipeDirection:
                   isSenderUser ? SwipeDirection.left : SwipeDirection.right,
               repliedText: message.repliedMessage,
@@ -79,6 +93,20 @@ class _MessageListState extends ConsumerState<MessagesList> {
           },
         );
       },
+    );
+  }
+
+  void _onSwipeMessage({
+    required String message,
+    required bool isMe,
+    required MessageType messageType,
+    required bool isSender,
+  }) {
+    ref.watch(replyMessageProvider.state).state = ReplyMessage(
+      message: message,
+      isMe: isMe,
+      messageType: messageType,
+      isSender: isSender,
     );
   }
 }
