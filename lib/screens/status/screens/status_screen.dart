@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:lets_chat/utils/constants/routes_constants.dart';
 import '../../../models/status.dart';
 import '../../../utils/common/widgets/loader.dart';
 import '../../chat/widgets/no_chat.dart';
@@ -37,7 +38,13 @@ class StatusScreen extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: ListTile(
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            AppRoutes.watchStatusScreen,
+            arguments: status,
+          );
+        },
         title: Text(
           status.username,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(

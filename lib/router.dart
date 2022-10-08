@@ -1,4 +1,6 @@
 import 'package:flutter/widgets.dart';
+import 'package:lets_chat/models/status.dart';
+import 'package:lets_chat/screens/status/screens/watch_status_screen.dart';
 import 'package:page_route_animator/page_route_animator.dart';
 import 'screens/auth/screens/otp_screen.dart';
 import 'screens/auth/screens/phone_login_screen.dart';
@@ -69,6 +71,11 @@ class AppRouter {
           fullscreenDialog: true,
           routeAnimation: RouteAnimation.rightToLeft,
           settings: settings,
+        );
+      case AppRoutes.watchStatusScreen:
+        return PageRouteAnimator(
+          child: WatchStatusScreen(status: settings.arguments as Status),
+          routeAnimation: RouteAnimation.rightToLeft,
         );
 
       default:

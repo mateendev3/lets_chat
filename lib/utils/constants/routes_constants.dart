@@ -8,5 +8,6 @@ class AppRoutes {
   static const String selectContactScreen = '/select-contact';
   static const String statusScreen = '/status';
   static const String confirmStatusScreen = '/confirm-status';
+  static const String watchStatusScreen = '/watch-status';
   static const String errorScreen = '/error';
 }

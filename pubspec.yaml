@@ -57,6 +57,7 @@ dependencies:
   flutter_sound: ^9.2.13
   audioplayers: ^1.1.0
   swipe_to: ^1.0.2
+  story_view: ^0.13.2
 
 dev_dependencies:
   flutter_test:
