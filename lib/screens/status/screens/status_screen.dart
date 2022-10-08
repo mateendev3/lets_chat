@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:lets_chat/utils/constants/routes_constants.dart';
 import '../../../models/status.dart';
 import '../../../utils/common/widgets/loader.dart';
+import '../../../utils/constants/routes_constants.dart';
 import '../../chat/widgets/no_chat.dart';
 import '../controllers/status_controller.dart';
 

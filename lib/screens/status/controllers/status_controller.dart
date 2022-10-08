@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lets_chat/models/status.dart';
+import '../../../models/status.dart';
 import '../../../models/user.dart' as app;
 import '../../../utils/common/providers/current_user_provider.dart';
 import '../repositories/status_repository.dart';
