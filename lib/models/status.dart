@@ -39,8 +39,8 @@ class Status {
       phoneNumber: map['phoneNumber'] as String,
       profilePic: map['profilePic'] as String,
       statusId: map['statusId'] as String,
-      photoUrls: List<String>.from(map['photoUrls'] as List<String>),
-      whoCanSee: List<String>.from(map['whoCanSee'] as List<String>),
+      photoUrls: List<String>.from(map['photoUrls'] as List),
+      whoCanSee: List<String>.from(map['whoCanSee'] as List),
       time: DateTime.fromMillisecondsSinceEpoch(map['time'] as int),
     );
   }

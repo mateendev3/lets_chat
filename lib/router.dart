@@ -65,7 +65,7 @@ class AppRouter {
         );
       case AppRoutes.confirmStatusScreen:
         return PageRouteAnimator(
-          child: ConfirmStatusScreen(),
+          child: const ConfirmStatusScreen(),
           fullscreenDialog: true,
           routeAnimation: RouteAnimation.rightToLeft,
           settings: settings,

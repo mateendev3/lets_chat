@@ -186,7 +186,7 @@ class ChatRepository {
       if (!mounted) return;
       String fileName =
           '${messageType.type}/${senderUser.uid}/${receiverUser.uid}/$messageId';
-      final String? fileUrl = await ref
+      final String fileUrl = await ref
           .watch(firebaseStorageRepositoryProvider)
           .storeFileToFirebaseStorage(
             context,
@@ -211,7 +211,7 @@ class ChatRepository {
         messageId: messageId,
         senderUsername: senderUser.name,
         receiverUsername: receiverUser.name,
-        lastMessage: fileUrl!,
+        lastMessage: fileUrl,
         time: time,
         messageType: messageType,
         replyMessage: replyMessage,

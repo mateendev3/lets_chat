@@ -1,17 +1,15 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../controllers/status_controller.dart';
 
-// ignore: must_be_immutable
 class ConfirmStatusScreen extends ConsumerWidget {
-  ConfirmStatusScreen({Key? key}) : super(key: key);
-
-  File? _imageFile;
+  const ConfirmStatusScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    _imageFile = ModalRoute.of(context)?.settings.arguments as File;
+    final File imageFile = ModalRoute.of(context)?.settings.arguments as File;
 
     return Scaffold(
       appBar: AppBar(
@@ -23,7 +21,7 @@ class ConfirmStatusScreen extends ConsumerWidget {
           child: AspectRatio(
             aspectRatio: 16 / 9,
             child: Image.file(
-              _imageFile!,
+              imageFile,
             ),
           ),
         ),
@@ -33,15 +31,16 @@ class ConfirmStatusScreen extends ConsumerWidget {
           Icons.done,
           color: Colors.white,
         ),
-        onPressed: () => addStatus(context, ref, _imageFile!),
+        onPressed: () => addStatus(context, ref, imageFile),
       ),
     );
   }
 
   void addStatus(BuildContext context, WidgetRef ref, File imageFile) {
+    log('confirm screen fab called');
     ref.read(statusControllerProvider).uploadStatus(
           context,
-          statusImage: imageFile,
+          currentUserStatusImage: imageFile,
         );
     Navigator.pop(context);
   }

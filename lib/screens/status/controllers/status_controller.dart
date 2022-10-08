@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,16 +26,19 @@ class StatusController {
 
   Future<void> uploadStatus(
     BuildContext context, {
-    required File statusImage,
+    required File currentUserStatusImage,
   }) async {
     if (currentUserProvider != null) {
       app.User user = _ref.read(currentUserProvider!);
+      log('controller called');
+
       _statusRepository.uploadStatus(
         context,
-        username: user.name,
-        profilePic: user.profilePic ?? '',
-        phoneNumber: user.phoneNumber,
-        statusImage: statusImage,
+        currentUsername: user.name,
+        currentUserId: user.uid,
+        currentUserProfilePic: user.profilePic ?? '',
+        currentUserPhoneNumber: user.phoneNumber,
+        currentUserStatusImage: currentUserStatusImage,
       );
     }
   }

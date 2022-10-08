@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class User {
   User({
     required this.name,
@@ -36,5 +37,10 @@ class User {
       phoneNumber: map['phoneNumber'] as String,
       groupId: (map['groupId'] as List).map((e) => e.toString()).toList(),
     );
+  }
+
+  @override
+  String toString() {
+    return 'User(name: $name, uid: $uid, profilePic: $profilePic, isOnline: $isOnline, phoneNumber: $phoneNumber, groupId: $groupId)';
   }
 }

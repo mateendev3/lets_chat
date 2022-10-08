@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -6,13 +7,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../models/status.dart';
 import '../../../models/user.dart' as app;
 import 'package:uuid/uuid.dart';
-import '../../../utils/common/providers/current_user_provider.dart';
 import '../../../utils/common/repositories/firebase_storage_repository.dart';
-import '../../../utils/common/widgets/helper_widgets.dart';
 import '../../../utils/constants/string_constants.dart';
 
 final statusRepositoryProvider = Provider(
-  (ref) => StatusRepository(firestore: FirebaseFirestore.instance, ref: ref),
+  (ref) => StatusRepository(
+    firestore: FirebaseFirestore.instance,
+    ref: ref,
+  ),
 );
 
 class StatusRepository {
@@ -27,24 +29,27 @@ class StatusRepository {
 
   Future<void> uploadStatus(
     BuildContext context, {
-    required String username,
-    required String profilePic,
-    required String phoneNumber,
-    required File statusImage,
+    required String currentUsername,
+    required String currentUserProfilePic,
+    required String currentUserPhoneNumber,
+    required String currentUserId,
+    required File currentUserStatusImage,
   }) async {
     try {
       String statusId = const Uuid().v1();
-      final String currentUserId = _ref.read(currentUserProvider!).uid;
+      log('repo called');
 
-      // saving statusImage to firebase
+      // saving statusImage to firebase storage.
       String? statusImageUrl = await _ref
           .read(firebaseStorageRepositoryProvider)
           .storeFileToFirebaseStorage(
             context,
-            file: statusImage,
+            file: currentUserStatusImage,
             path: 'status',
             fileName: '$currentUserId/$statusId',
           );
+
+      log('image aa gyi: $statusImageUrl');
 
       // getting list of contacts from device
       List<Contact> contactsList = [];
@@ -54,20 +59,29 @@ class StatusRepository {
           withProperties: true,
         );
       }
+      log('contact list aa gyi, length : ${contactsList.length}');
 
-      // getting list of users who can see our status
+      // getting list of users who can see user status
       List<String> whoCanSeeList = [];
       for (var contact in contactsList) {
+        log('loop');
+        String phoneNumber;
+        try {
+          phoneNumber = contact.phones[0].number.replaceAll(' ', '');
+        } catch (e) {
+          phoneNumber = '+92345';
+        }
         final querySnapshot = await _firestore
             .collection(StringsConsts.usersCollection)
             .where(
               'phoneNumber',
-              isEqualTo: contact.phones[0].number.replaceAll(' ', ''),
+              isEqualTo: phoneNumber,
             )
             .get();
 
         if (querySnapshot.docs.isNotEmpty) {
           app.User user = app.User.fromMap(querySnapshot.docs[0].data());
+          log('log aa gye to status dekh skty $user');
           whoCanSeeList.add(user.uid);
         }
       }
@@ -84,9 +98,10 @@ class StatusRepository {
         Status status = Status.fromMap(statusQuerySnapshot.docs[0].data());
         statusImageUrls = status.photoUrls;
 
-        if (statusImageUrl != null) {
-          statusImageUrls.add(statusImageUrl);
-        }
+        statusImageUrls.add(statusImageUrl);
+        log('1');
+
+        log(statusImageUrls.toString());
 
         // updating already added status
         await _firestore
@@ -96,27 +111,28 @@ class StatusRepository {
         return;
       }
 
-      if (statusImageUrl != null) {
-        statusImageUrls = [statusImageUrl];
-        Status status = Status(
-          uid: currentUserId,
-          username: username,
-          phoneNumber: phoneNumber,
-          profilePic: profilePic,
-          statusId: statusId,
-          photoUrls: statusImageUrls,
-          whoCanSee: whoCanSeeList,
-          time: DateTime.now(),
-        );
+      statusImageUrls = [statusImageUrl];
+      log('2');
+      log(statusImageUrls.toString());
 
-        // adding status
-        await _firestore
-            .collection(StringsConsts.statusCollection)
-            .doc(statusId)
-            .set(status.toMap());
-      }
+      Status status = Status(
+        uid: currentUserId,
+        username: currentUsername,
+        phoneNumber: currentUserPhoneNumber,
+        profilePic: currentUserProfilePic,
+        statusId: statusId,
+        photoUrls: statusImageUrls,
+        whoCanSee: whoCanSeeList,
+        time: DateTime.now(),
+      );
+
+      // adding status
+      await _firestore
+          .collection(StringsConsts.statusCollection)
+          .doc(statusId)
+          .set(status.toMap());
     } catch (e) {
-      showSnackBar(context, content: e.toString());
+      log(e.toString());
     }
   }
 }

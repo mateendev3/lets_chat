@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:lets_chat/utils/common/widgets/helper_widgets.dart';
 import '../../../utils/common/helper_methods/util_methods.dart';
 import '../../../utils/constants/routes_constants.dart';
 
@@ -57,11 +58,15 @@ class _HomeFABState extends State<HomeFAB> {
     File? imageFile = await pickImageFromGallery(context);
     if (imageFile != null) {
       if (!mounted) return;
+      log('pushing');
       Navigator.pushNamed(
         context,
         AppRoutes.confirmStatusScreen,
         arguments: imageFile,
       );
+    } else {
+      if (!mounted) return;
+      showSnackBar(context, content: 'Image not selected');
     }
   }
 }
