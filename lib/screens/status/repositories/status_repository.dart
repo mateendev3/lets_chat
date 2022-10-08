@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -128,5 +129,60 @@ class StatusRepository {
     } catch (e) {
       showSnackBar(context, content: e.toString());
     }
+  }
+
+  /// invoke to get statuses
+  Future<List<Status>> getStatuses(
+    BuildContext context,
+    app.User currentUser,
+  ) async {
+    List<Status> statusList = [];
+    try {
+      // getting list of contacts from device
+      List<Contact> contactsList = [];
+      if (await FlutterContacts.requestPermission()) {
+        contactsList = await FlutterContacts.getContacts(
+          withPhoto: true,
+          withProperties: true,
+        );
+      }
+
+      // getting list of available statuses from firebase.
+      List<Status> firebaseStatuses =
+          (await _firestore.collection(StringsConsts.statusCollection).get())
+              .docs
+              .map((doc) => Status.fromMap(doc.data()))
+              .toList();
+
+      // getting list of status which will be only available to users
+      // who are in the contact list of current user and vice versa.
+      for (var contact in contactsList) {
+        String phoneNumber;
+        try {
+          phoneNumber = contact.phones[0].number.replaceAll(' ', '');
+        } catch (e) {
+          phoneNumber = '+1234567890';
+        }
+        List<Status> statuses = firebaseStatuses
+            .where((status) => status.phoneNumber == phoneNumber)
+            .toList()
+            .where((status) =>
+                status.time.microsecondsSinceEpoch >
+                DateTime.now()
+                    .subtract(const Duration(hours: 24))
+                    .microsecondsSinceEpoch)
+            .toList();
+
+        for (var status in statuses) {
+          if (status.whoCanSee.contains(currentUser.uid)) {
+            statusList.add(status);
+          }
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) print(e);
+      showSnackBar(context, content: e.toString());
+    }
+    return statusList;
   }
 }
