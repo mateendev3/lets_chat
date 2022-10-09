@@ -6,7 +6,7 @@ import 'screens/auth/screens/otp_screen.dart';
 import 'screens/auth/screens/phone_login_screen.dart';
 import 'screens/chat/screens/chat_screen.dart';
 import 'screens/contact/screens/select_receiver_contact_screen.dart';
-import 'screens/error_screen.dart';
+import 'utils/common/screens/error_screen.dart';
 import 'screens/home/screens/home_screen.dart';
 import 'screens/landing_screen.dart';
 import 'screens/sender_info/screens/sender_user_information_screen.dart';
