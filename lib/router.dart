@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:lets_chat/screens/group/screens/create_group_screen.dart';
 import 'package:page_route_animator/page_route_animator.dart';
 import 'models/status.dart';
 import 'screens/auth/screens/otp_screen.dart';
@@ -76,6 +77,12 @@ class AppRouter {
         return PageRouteAnimator(
           child: WatchStatusScreen(status: settings.arguments as Status),
           routeAnimation: RouteAnimation.rightToLeft,
+        );
+      case AppRoutes.createGroupScreen:
+        return PageRouteAnimator(
+          child: const CreateGroupScreen(),
+          routeAnimation: RouteAnimation.rightToLeft,
+          settings: settings,
         );
 
       default:

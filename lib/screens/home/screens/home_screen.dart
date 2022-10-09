@@ -88,13 +88,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
       ),
       actions: [
         IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.search,
-            color: AppColors.appBarActionIcon,
-          ),
-        ),
-        IconButton(
           onPressed: () {
             FirebaseAuth.instance.signOut();
             Navigator.pushNamedAndRemoveUntil(
@@ -104,9 +97,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
             );
           },
           icon: const Icon(
-            Icons.more_vert,
+            Icons.search,
             color: AppColors.appBarActionIcon,
           ),
+        ),
+        PopupMenuButton(
+          icon: const Icon(Icons.more_vert),
+          itemBuilder: (context) => [
+            PopupMenuItem(
+              child: const Text('Create Group'),
+              onTap: () {},
+            ),
+          ],
         ),
       ],
       bottom: TabBar(
