@@ -106,7 +106,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
           itemBuilder: (context) => [
             PopupMenuItem(
               child: const Text('Create Group'),
-              onTap: () {},
+              onTap: () => Future(
+                () => Navigator.pushNamed(
+                  context,
+                  AppRoutes.createGroupScreen,
+                ),
+              ),
             ),
           ],
         ),
