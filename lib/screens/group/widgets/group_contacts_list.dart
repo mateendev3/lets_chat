@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/contact.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lets_chat/utils/constants/colors_constants.dart';
 import '../../../utils/common/widgets/loader.dart';
+import '../../../utils/constants/colors_constants.dart';
 import '../../contact/state/contacts_list_state_notifier.dart';
 
 class GroupContactsList extends ConsumerStatefulWidget {
