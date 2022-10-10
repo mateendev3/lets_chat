@@ -1,9 +1,9 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:lets_chat/utils/constants/colors_constants.dart';
 import '../../../utils/common/helper_methods/util_methods.dart';
 import '../../../utils/common/widgets/helper_widgets.dart';
+import '../../../utils/constants/colors_constants.dart';
 import '../../../utils/constants/routes_constants.dart';
 
 class HomeFAB extends StatefulWidget {

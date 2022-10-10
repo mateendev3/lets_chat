@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:lets_chat/models/group.dart';
-import 'package:lets_chat/screens/chat/controllers/chat_controller.dart';
-
+import '../../../models/group.dart';
 import '../../../utils/common/widgets/loader.dart';
 import '../../../utils/constants/colors_constants.dart';
 import '../../../utils/constants/routes_constants.dart';
 import '../../../utils/constants/string_constants.dart';
+import '../../chat/controllers/chat_controller.dart';
 import '../../chat/widgets/no_chat.dart';
 
 class GroupChatScreen extends ConsumerStatefulWidget {
