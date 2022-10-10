@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lets_chat/models/group.dart';
 import '../../../models/chat.dart';
 import '../../../models/message.dart';
 import '../../../models/user.dart' as app;
@@ -95,6 +96,11 @@ class ChatController {
   Stream<List<Chat>> getChatsList() {
     app.User senderUser = _ref.watch(currentUserProvider!);
     return _chatRepository.getChatsList(senderUserId: senderUser.uid);
+  }
+
+  Stream<List<Group>> getGroupChatsList() {
+    app.User senderUser = _ref.watch(currentUserProvider!);
+    return _chatRepository.getGroupChatsList(currentUserId: senderUser.uid);
   }
 
   /// invoke to get single chat (messages)

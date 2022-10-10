@@ -8,8 +8,11 @@ class StringsConsts {
   static const String statusCollection = 'status';
   static const String chatsCollection = 'chats';
   static const String messagesCollection = 'messages';
+
+  // chat
   static const String receiverUserId = 'receiverUserId';
   static const String receiverUsername = 'receiverUsername';
+  static const String isGroupChat = 'isGroupChat';
 
   // GIF
   static const String giphyApiKey = 'XNWLf5zhEEFFuOpXcj61QtnliI4pYH3p';

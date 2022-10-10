@@ -101,19 +101,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
             color: AppColors.appBarActionIcon,
           ),
         ),
-        PopupMenuButton(
-          icon: const Icon(Icons.more_vert),
-          itemBuilder: (context) => [
-            PopupMenuItem(
-              child: const Text('Create Group'),
-              onTap: () => Future(
-                () => Navigator.pushNamed(
-                  context,
-                  AppRoutes.createGroupScreen,
-                ),
-              ),
-            ),
-          ],
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(
+            Icons.more_vert,
+            color: AppColors.appBarActionIcon,
+          ),
         ),
       ],
       bottom: TabBar(

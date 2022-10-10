@@ -42,6 +42,7 @@ class ChatsList extends ConsumerWidget {
         arguments: <String, Object>{
           StringsConsts.receiverUsername: chat.name,
           StringsConsts.receiverUserId: chat.userId,
+          StringsConsts.isGroupChat: false,
         },
       ),
       title: Text(

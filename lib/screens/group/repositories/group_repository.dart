@@ -74,6 +74,7 @@ class GroupRepository {
         groupProfilePic: groupProfilePicUrl,
         lastMessage: '',
         lastMessageUserSenderId: currentUserId,
+        time: DateTime.now(),
         selectedMembersUIds: [currentUserId, ...uIds],
       );
 

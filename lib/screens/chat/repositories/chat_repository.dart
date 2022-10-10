@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lets_chat/models/group.dart';
 import 'package:uuid/uuid.dart';
 import '../../../models/chat.dart';
 import '../../../models/message.dart';
@@ -67,6 +68,33 @@ class ChatRepository {
           chatsList.add(Chat.fromMap(chatMap.data()));
         }
         return chatsList;
+      },
+    );
+  }
+
+  /// invoke to get all groups chats
+  Stream<List<Group>> getGroupChatsList({
+    required currentUserId,
+  }) {
+    log('calling groups get');
+    return _firestore
+        .collection(StringsConsts.groupsCollection)
+        .snapshots()
+        .map(
+      (groupChatsMap) {
+        log('data get');
+        log(groupChatsMap.toString());
+        List<Group> groupChatsList = [];
+        for (var chatMapDocument in groupChatsMap.docs) {
+          log('in loop');
+          final Group group = Group.fromMap(chatMapDocument.data());
+          log('created group');
+          if (group.selectedMembersUIds.contains(currentUserId)) {
+            groupChatsList.add(group);
+          }
+        }
+        log(groupChatsList.length.toString());
+        return groupChatsList;
       },
     );
   }

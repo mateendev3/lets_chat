@@ -5,6 +5,7 @@ class Group {
     required this.groupProfilePic,
     required this.lastMessage,
     required this.lastMessageUserSenderId,
+    required this.time,
     required this.selectedMembersUIds,
   });
 
@@ -13,6 +14,7 @@ class Group {
   final String groupProfilePic;
   final String lastMessage;
   final String lastMessageUserSenderId;
+  final DateTime time;
   final List<String> selectedMembersUIds;
 
   Map<String, dynamic> toMap() {
@@ -22,6 +24,7 @@ class Group {
       'groupProfilePic': groupProfilePic,
       'lastMessage': lastMessage,
       'lastMessageUserSenderId': lastMessageUserSenderId,
+      'time': time.millisecondsSinceEpoch,
       'selectedMembersUIds': selectedMembersUIds,
     };
   }
@@ -33,6 +36,7 @@ class Group {
       groupProfilePic: map['groupProfilePic'] as String,
       lastMessage: map['lastMessage'] as String,
       lastMessageUserSenderId: map['lastMessageUserSenderId'] as String,
+      time: DateTime.fromMillisecondsSinceEpoch(map['time'] as int),
       selectedMembersUIds:
           List<String>.from(map['selectedMembersUIds'] as List),
     );
