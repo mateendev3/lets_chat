@@ -37,11 +37,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
         children: [
           Expanded(
             child: MessagesList(
-              userId: userData[StringsConsts.userId] as String,
+              uId: userData[StringsConsts.userId] as String,
+              isGroupChat: userData[StringsConsts.isGroupChat] as bool,
             ),
           ),
           BottomChatTextField(
             userId: userData[StringsConsts.userId] as String,
+            isGroupChat: userData[StringsConsts.isGroupChat] as bool,
           ),
         ],
       ),

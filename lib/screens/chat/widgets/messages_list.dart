@@ -16,10 +16,12 @@ import 'message_card.dart';
 class MessagesList extends ConsumerStatefulWidget {
   const MessagesList({
     super.key,
-    required this.userId,
+    required this.uId,
+    required this.isGroupChat,
   });
 
-  final String userId;
+  final String uId;
+  final bool isGroupChat;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _MessageListState();
@@ -43,9 +45,13 @@ class _MessageListState extends ConsumerState<MessagesList> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<Message>>(
-      stream: ref
-          .watch(chatControllerProvider)
-          .getMessagesList(receiverUserId: widget.userId),
+      stream: widget.isGroupChat
+          ? ref
+              .watch(chatControllerProvider)
+              .getGroupMessagesList(groupId: widget.uId)
+          : ref
+              .watch(chatControllerProvider)
+              .getMessagesList(receiverUserId: widget.uId),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return const Loader();
@@ -73,10 +79,10 @@ class _MessageListState extends ConsumerState<MessagesList> {
             if (!message.isSeen &&
                 message.receiverUserId == ref.read(currentUserProvider!).uid) {
               log(message.receiverUserId);
-              log(widget.userId);
+              log(widget.uId);
               ref.read(chatControllerProvider).setChatMessageSeen(
                     context,
-                    receiverUserId: widget.userId,
+                    receiverUserId: widget.uId,
                     messageId: message.messageId,
                   );
             }

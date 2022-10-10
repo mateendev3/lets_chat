@@ -52,6 +52,27 @@ class ChatRepository {
     );
   }
 
+  /// invoke to get single group chat (messages)
+  Stream<List<Message>> getGroupMessagesList({
+    required String groupId,
+  }) {
+    return _firestore
+        .collection(StringsConsts.groupsCollection)
+        .doc(groupId)
+        .collection(StringsConsts.chatsCollection)
+        .orderBy('time')
+        .snapshots()
+        .map(
+      (messagesMap) {
+        List<Message> messagesList = [];
+        for (var messageMap in messagesMap.docs) {
+          messagesList.add(Message.fromMap(messageMap.data()));
+        }
+        return messagesList;
+      },
+    );
+  }
+
   /// invoke to get all chats
   Stream<List<Chat>> getChatsList({
     required senderUserId,

@@ -21,9 +21,11 @@ class BottomChatTextField extends ConsumerStatefulWidget {
   const BottomChatTextField({
     Key? key,
     required this.userId,
+    required this.isGroupChat,
   }) : super(key: key);
 
   final String userId;
+  final bool isGroupChat;
 
   @override
   ConsumerState<BottomChatTextField> createState() =>

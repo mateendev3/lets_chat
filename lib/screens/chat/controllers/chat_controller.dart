@@ -112,6 +112,13 @@ class ChatController {
     );
   }
 
+  /// invoke to get single group chat (messages)
+  Stream<List<Message>> getGroupMessagesList({
+    required String groupId,
+  }) {
+    return _chatRepository.getGroupMessagesList(groupId: groupId);
+  }
+
   Future<void> setChatMessageSeen(
     BuildContext context, {
     required String receiverUserId,
