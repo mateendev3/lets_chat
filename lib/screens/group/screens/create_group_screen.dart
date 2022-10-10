@@ -38,6 +38,7 @@ class _CreateGroupScreenState extends ConsumerState<CreateGroupScreen> {
     return Scaffold(
       appBar: _buildAppBar(),
       body: _buildBody(),
+      floatingActionButton: _buildFAB(),
     );
   }
 
@@ -82,7 +83,7 @@ class _CreateGroupScreenState extends ConsumerState<CreateGroupScreen> {
     );
   }
 
-  Align _buildSelectContactHeading() {
+  Widget _buildSelectContactHeading() {
     return Align(
       alignment: Alignment.centerLeft,
       child: Text(
@@ -150,5 +151,16 @@ class _CreateGroupScreenState extends ConsumerState<CreateGroupScreen> {
   void _selectImage() async {
     _imageFile = await pickImageFromGallery(context);
     setState(() {});
+  }
+
+  Widget _buildFAB() {
+    return FloatingActionButton(
+      onPressed: createGroup,
+      child: const Icon(Icons.done),
+    );
+  }
+
+  void createGroup() {
+    if (_groupNameController.text.trim().isNotEmpty && _imageFile != null) {}
   }
 }

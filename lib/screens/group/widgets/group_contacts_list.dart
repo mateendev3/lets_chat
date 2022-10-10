@@ -5,6 +5,8 @@ import '../../../utils/common/widgets/loader.dart';
 import '../../../utils/constants/colors_constants.dart';
 import '../../contact/state/contacts_list_state_notifier.dart';
 
+final groupContactsProvider = StateProvider<List<Contact>>((ref) => []);
+
 class GroupContactsList extends ConsumerStatefulWidget {
   const GroupContactsList({
     super.key,
@@ -20,8 +22,14 @@ class _ContactsListState extends ConsumerState<GroupContactsList> {
   void selectContact(int index, Contact contact) {
     if (selectedContactsIndexList.contains(index)) {
       selectedContactsIndexList.remove(index);
+      ref.read(groupContactsProvider.state).update(
+            (state) => [...state..remove(contact)],
+          );
     } else {
       selectedContactsIndexList.add(index);
+      ref.read(groupContactsProvider.state).update(
+            (state) => [...state, contact],
+          );
     }
 
     setState(() {});
