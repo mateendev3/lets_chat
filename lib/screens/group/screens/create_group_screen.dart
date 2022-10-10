@@ -2,11 +2,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/contact.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lets_chat/screens/group/controllers/group_controller.dart';
 import '../../../utils/common/widgets/helper_widgets.dart';
 import '../../../utils/common/helper_methods/util_methods.dart';
 import '../../../utils/constants/assets_constants.dart';
 import '../../../utils/constants/colors_constants.dart';
+import '../controllers/group_controller.dart';
 import '../widgets/group_contacts_list.dart';
 
 class CreateGroupScreen extends ConsumerStatefulWidget {
