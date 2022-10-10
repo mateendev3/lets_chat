@@ -10,8 +10,8 @@ class StringsConsts {
   static const String messagesCollection = 'messages';
 
   // chat
-  static const String receiverUserId = 'receiverUserId';
-  static const String receiverUsername = 'receiverUsername';
+  static const String userId = 'receiverUserId';
+  static const String username = 'receiverUsername';
   static const String isGroupChat = 'isGroupChat';
 
   // GIF

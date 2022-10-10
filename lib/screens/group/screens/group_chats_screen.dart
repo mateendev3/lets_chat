@@ -85,8 +85,9 @@ class _GroupChatScreenState extends ConsumerState<GroupChatScreen> {
         context,
         AppRoutes.chatScreen,
         arguments: <String, Object>{
-          StringsConsts.receiverUsername: group.groupName,
-          StringsConsts.receiverUserId: group.groupId,
+          StringsConsts.username: group.groupName,
+          StringsConsts.userId: group.groupId,
+          StringsConsts.isGroupChat: true,
         },
       ),
       title: Text(

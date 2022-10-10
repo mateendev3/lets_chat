@@ -18,11 +18,11 @@ class ChatScreen extends ConsumerStatefulWidget {
 }
 
 class _ChatScreenState extends ConsumerState<ChatScreen> {
-  late Map<String, Object> receiverUserData;
+  late Map<String, Object> userData;
 
   @override
   Widget build(BuildContext context) {
-    receiverUserData =
+    userData =
         ModalRoute.of(context)?.settings.arguments as Map<String, Object>;
     return Scaffold(
       appBar: _buildAppBar(context),
@@ -37,13 +37,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
         children: [
           Expanded(
             child: MessagesList(
-              receiverUserId:
-                  receiverUserData[StringsConsts.receiverUserId] as String,
+              userId: userData[StringsConsts.userId] as String,
             ),
           ),
           BottomChatTextField(
-            receiverUserId:
-                receiverUserData[StringsConsts.receiverUserId] as String,
+            userId: userData[StringsConsts.userId] as String,
           ),
         ],
       ),
@@ -71,38 +69,48 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
           ),
           addHorizontalSpace(12.0),
           Expanded(
-            child: StreamBuilder<app.User>(
-                stream: ref.watch(authControllerProvider).getReceiverUserData(
-                      receiverUserData[StringsConsts.receiverUserId] as String,
-                    ),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          snapshot.data!.name,
-                          style: GoogleFonts.poppins(
-                            color: AppColors.lightBlack,
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          snapshot.data!.isOnline ? 'online' : 'offline',
-                          style: const TextStyle(
-                            color: AppColors.primary,
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    );
-                  } else {
-                    return const Loader();
-                  }
-                }),
+            child: (userData[StringsConsts.isGroupChat] as bool)
+                ? Text(
+                    userData[StringsConsts.username] as String,
+                    style:
+                        Theme.of(context).appBarTheme.titleTextStyle?.copyWith(
+                              color: AppColors.lightBlack,
+                              fontSize: 16.0,
+                            ),
+                  )
+                : StreamBuilder<app.User>(
+                    stream:
+                        ref.watch(authControllerProvider).getReceiverUserData(
+                              userData[StringsConsts.userId] as String,
+                            ),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              snapshot.data!.name,
+                              style: GoogleFonts.poppins(
+                                color: AppColors.lightBlack,
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Text(
+                              snapshot.data!.isOnline ? 'online' : 'offline',
+                              style: const TextStyle(
+                                color: AppColors.primary,
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        );
+                      } else {
+                        return const Loader();
+                      }
+                    }),
           ),
         ],
       ),

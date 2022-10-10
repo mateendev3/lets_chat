@@ -40,8 +40,8 @@ class ChatsList extends ConsumerWidget {
         context,
         AppRoutes.chatScreen,
         arguments: <String, Object>{
-          StringsConsts.receiverUsername: chat.name,
-          StringsConsts.receiverUserId: chat.userId,
+          StringsConsts.username: chat.name,
+          StringsConsts.userId: chat.userId,
           StringsConsts.isGroupChat: false,
         },
       ),

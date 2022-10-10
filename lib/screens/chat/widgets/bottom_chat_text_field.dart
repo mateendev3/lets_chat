@@ -20,10 +20,10 @@ import 'reply_message_preview.dart';
 class BottomChatTextField extends ConsumerStatefulWidget {
   const BottomChatTextField({
     Key? key,
-    required this.receiverUserId,
+    required this.userId,
   }) : super(key: key);
 
-  final String receiverUserId;
+  final String userId;
 
   @override
   ConsumerState<BottomChatTextField> createState() =>
@@ -259,7 +259,7 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
           mounted,
           context,
           file: file,
-          receiverUserId: widget.receiverUserId,
+          receiverUserId: widget.userId,
           messageType: messageType,
         );
   }
@@ -268,7 +268,7 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
     ref.watch(chatControllerProvider).sendTextMessage(
           context,
           lastMessage: _messageController.text.trim(),
-          receiverUserId: widget.receiverUserId,
+          receiverUserId: widget.userId,
         );
     _messageController.clear();
   }
@@ -302,7 +302,7 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
       ref.read(chatControllerProvider).sendGIFMessage(
             context,
             gifUrl: gif.url!,
-            receiverUserId: widget.receiverUserId,
+            receiverUserId: widget.userId,
           );
     }
     Navigator.pop(context);
