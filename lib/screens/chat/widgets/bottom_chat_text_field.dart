@@ -263,6 +263,8 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
           file: file,
           receiverUserId: widget.userId,
           messageType: messageType,
+          groupId: widget.isGroupChat ? widget.userId : null,
+          isGroupChat: widget.isGroupChat,
         );
   }
 
@@ -271,6 +273,8 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
           context,
           lastMessage: _messageController.text.trim(),
           receiverUserId: widget.userId,
+          groupId: widget.isGroupChat ? widget.userId : null,
+          isGroupChat: widget.isGroupChat,
         );
     _messageController.clear();
   }
@@ -305,6 +309,8 @@ class _BottomChatTextFieldState extends ConsumerState<BottomChatTextField> {
             context,
             gifUrl: gif.url!,
             receiverUserId: widget.userId,
+            groupId: widget.isGroupChat ? widget.userId : null,
+            isGroupChat: widget.isGroupChat,
           );
     }
     Navigator.pop(context);

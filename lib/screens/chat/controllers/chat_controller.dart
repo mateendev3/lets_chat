@@ -33,6 +33,8 @@ class ChatController {
     BuildContext context, {
     required String lastMessage,
     required String receiverUserId,
+    required String? groupId,
+    required bool isGroupChat,
   }) async {
     ReplyMessage? replyMessage = _ref.watch(replyMessageProvider);
     app.User senderUser = _ref.watch(currentUserProvider!);
@@ -43,6 +45,8 @@ class ChatController {
       receiverUserId: receiverUserId,
       senderUser: senderUser,
       replyMessage: replyMessage,
+      groupId: groupId,
+      isGroupChat: isGroupChat,
     );
 
     _ref.watch(replyMessageProvider.state).state = null;
@@ -52,6 +56,8 @@ class ChatController {
     BuildContext context, {
     required String gifUrl,
     required String receiverUserId,
+    required String? groupId,
+    required bool isGroupChat,
   }) async {
     ReplyMessage? replyMessage = _ref.watch(replyMessageProvider);
     app.User senderUser = _ref.watch(currentUserProvider!);
@@ -64,6 +70,8 @@ class ChatController {
       receiverUserId: receiverUserId,
       senderUser: senderUser,
       replyMessage: replyMessage,
+      groupId: groupId,
+      isGroupChat: isGroupChat,
     );
 
     _ref.watch(replyMessageProvider.state).state = null;
@@ -75,6 +83,8 @@ class ChatController {
     required File file,
     required String receiverUserId,
     required MessageType messageType,
+    required String? groupId,
+    required bool isGroupChat,
   }) async {
     ReplyMessage? replyMessage = _ref.watch(replyMessageProvider);
     app.User senderUser = _ref.watch(currentUserProvider!);
@@ -88,6 +98,8 @@ class ChatController {
       messageType: messageType,
       ref: _ref,
       replyMessage: replyMessage,
+      groupId: groupId,
+      isGroupChat: isGroupChat,
     );
 
     _ref.watch(replyMessageProvider.state).state = null;
