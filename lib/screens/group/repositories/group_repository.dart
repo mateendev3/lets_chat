@@ -10,6 +10,10 @@ import '../../../utils/common/repositories/firebase_storage_repository.dart';
 import '../../../utils/common/widgets/helper_widgets.dart';
 import '../../../utils/constants/string_constants.dart';
 
+final groupRepositoryProvider = Provider<GroupRepository>((ref) {
+  return GroupRepository(FirebaseFirestore.instance, ref);
+});
+
 class GroupRepository {
   GroupRepository(FirebaseFirestore firestore, ProviderRef ref)
       : _firestore = firestore,

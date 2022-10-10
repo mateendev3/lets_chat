@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_contacts/contact.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lets_chat/screens/group/controllers/group_controller.dart';
 import '../../../utils/common/widgets/helper_widgets.dart';
 import '../../../utils/common/helper_methods/util_methods.dart';
 import '../../../utils/constants/assets_constants.dart';
@@ -161,6 +163,18 @@ class _CreateGroupScreenState extends ConsumerState<CreateGroupScreen> {
   }
 
   void createGroup() {
-    if (_groupNameController.text.trim().isNotEmpty && _imageFile != null) {}
+    if (_groupNameController.text.trim().isNotEmpty && _imageFile != null) {
+      ref.read(groupControllerProvider).createGroup(
+            context,
+            mounted,
+            groupName: _groupNameController.text.trim(),
+            groupProfilePic: _imageFile!,
+            selectedContacts:
+                ref.read<List<Contact>>(selectedContactsGroupProvider),
+          );
+
+      ref.read(selectedContactsGroupProvider.state).state = [];
+      Navigator.pop(context);
+    }
   }
 }
