@@ -42,6 +42,7 @@ class ChatsList extends ConsumerWidget {
         arguments: <String, Object>{
           StringsConsts.username: chat.name,
           StringsConsts.userId: chat.userId,
+          StringsConsts.profilePic: chat.profilePic,
           StringsConsts.isGroupChat: false,
         },
       ),

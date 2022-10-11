@@ -7,6 +7,7 @@ import '../../../utils/constants/colors_constants.dart';
 import '../../../utils/common/widgets/helper_widgets.dart';
 import '../../../utils/constants/string_constants.dart';
 import '../../auth/controllers/auth_controller.dart';
+import '../../call/controllers/call_controller.dart';
 import '../widgets/messages_list.dart';
 import '../widgets/bottom_chat_text_field.dart';
 
@@ -126,7 +127,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
           ),
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: () => createCall(),
           padding: const EdgeInsets.all(0.0),
           icon: const Icon(
             Icons.videocam_outlined,
@@ -143,5 +144,16 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
         ),
       ],
     );
+  }
+
+  void createCall() {
+    ref.read(callControllerProvider).createCall(
+          mounted,
+          context,
+          receiverName: (userData[StringsConsts.username] as String),
+          receiverId: (userData[StringsConsts.userId] as String),
+          receiverProfilePic: (userData[StringsConsts.profilePic] as String),
+          isGroupChat: (userData[StringsConsts.isGroupChat] as bool),
+        );
   }
 }

@@ -87,6 +87,7 @@ class _GroupChatScreenState extends ConsumerState<GroupChatScreen> {
         arguments: <String, Object>{
           StringsConsts.username: group.groupName,
           StringsConsts.userId: group.groupId,
+          StringsConsts.profilePic: group.groupProfilePic,
           StringsConsts.isGroupChat: true,
         },
       ),

@@ -11,8 +11,9 @@ class StringsConsts {
   static const String messagesCollection = 'messages';
 
   // chat
-  static const String userId = 'receiverUserId';
-  static const String username = 'receiverUsername';
+  static const String userId = 'userId';
+  static const String username = 'username';
+  static const String profilePic = 'profilePic';
   static const String isGroupChat = 'isGroupChat';
 
   // GIF

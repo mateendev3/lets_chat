@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lets_chat/models/call.dart';
 import 'package:uuid/uuid.dart';
+import '../../../models/call.dart';
 import '../../../models/user.dart' as app;
-import 'package:lets_chat/screens/call/repositories/call_repository.dart';
-import 'package:lets_chat/utils/common/providers/current_user_provider.dart';
+import '../../../utils/common/providers/current_user_provider.dart';
+import '../repositories/call_repository.dart';
 
 final callControllerProvider = Provider<CallController>(
   (ref) {
