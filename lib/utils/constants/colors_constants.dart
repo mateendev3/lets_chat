@@ -33,4 +33,7 @@ class AppColors {
   static const chatTFFill = Colors.white;
   static const chatScreenGrey = Color(0xFFACACAC);
   static const chatOffWhite = Colors.white70;
+
+  static const green = Colors.green;
+  static const red = Colors.red;
 }

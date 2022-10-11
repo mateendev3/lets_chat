@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:lets_chat/screens/call/screens/call_pickup_screen.dart';
 import '../../../utils/common/helper_methods/util_methods.dart';
 import '../../../utils/common/widgets/helper_widgets.dart';
 import '../../../utils/constants/colors_constants.dart';
@@ -41,7 +42,15 @@ class _HomeFABState extends State<HomeFAB> {
         widget.tabController.index == 0
             ? GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, AppRoutes.groupChatsScreen);
+                  // Navigator.pushNamed(context, AppRoutes.groupChatsScreen);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const CallPickupScreen(scaffold: Scaffold());
+                      },
+                    ),
+                  );
                 },
                 child: const CircleAvatar(
                   radius: 24.0,

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lets_chat/utils/common/providers/current_user_provider.dart';
 import '../../../models/call.dart';
 import '../../../utils/constants/string_constants.dart';
 
@@ -16,6 +17,13 @@ class CallRepository {
         _ref = ref;
   final FirebaseFirestore _firestore;
   final ProviderRef _ref;
+
+  Stream<DocumentSnapshot> get callDocsSnapshotsStream {
+    return _firestore
+        .collection(StringsConsts.callsCollection)
+        .doc(_ref.read(currentUserProvider!).uid)
+        .snapshots();
+  }
 
   void createCall(
     BuildContext context, {

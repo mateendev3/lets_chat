@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
@@ -24,6 +25,10 @@ class CallController {
 
   final CallRepository _callRepository;
   final ProviderRef _ref;
+
+  Stream<DocumentSnapshot> get callDocsSnapshotsStream {
+    return _callRepository.callDocsSnapshotsStream;
+  }
 
   Future<void> createCall(
     bool mounted,
