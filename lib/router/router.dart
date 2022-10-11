@@ -1,20 +1,20 @@
 import 'package:flutter/widgets.dart';
 import 'package:page_route_animator/page_route_animator.dart';
-import 'models/status.dart';
-import 'screens/auth/screens/otp_screen.dart';
-import 'screens/auth/screens/phone_login_screen.dart';
-import 'screens/chat/screens/chat_screen.dart';
-import 'screens/contact/screens/select_receiver_contact_screen.dart';
-import 'screens/group/screens/create_group_screen.dart';
-import 'screens/group/screens/group_chats_screen.dart';
-import 'utils/common/screens/error_screen.dart';
-import 'screens/home/screens/home_screen.dart';
-import 'screens/landing_screen.dart';
-import 'screens/sender_info/screens/sender_user_information_screen.dart';
-import 'screens/status/screens/confirm_status_screen.dart';
-import 'screens/status/screens/status_screen.dart';
-import 'screens/status/screens/watch_status_screen.dart';
-import 'utils/constants/routes_constants.dart';
+import '../models/status.dart';
+import '../screens/auth/screens/otp_screen.dart';
+import '../screens/auth/screens/phone_login_screen.dart';
+import '../screens/chat/screens/chat_screen.dart';
+import '../screens/contact/screens/select_receiver_contact_screen.dart';
+import '../screens/group/screens/create_group_screen.dart';
+import '../screens/group/screens/group_chats_screen.dart';
+import '../utils/common/screens/error_screen.dart';
+import '../screens/home/screens/home_screen.dart';
+import '../screens/landing/screens/landing_screen.dart';
+import '../screens/sender_info/screens/sender_user_information_screen.dart';
+import '../screens/status/screens/confirm_status_screen.dart';
+import '../screens/status/screens/status_screen.dart';
+import '../screens/status/screens/watch_status_screen.dart';
+import '../utils/constants/routes_constants.dart';
 
 class AppRouter {
   static Route<PageRouteAnimator>? onGenerateRoute(RouteSettings settings) {

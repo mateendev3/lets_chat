@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../utils/common/widgets/round_button.dart';
-import '../utils/constants/assets_constants.dart';
-import '../utils/common/widgets/helper_widgets.dart';
-import '../utils/constants/colors_constants.dart';
-import '../utils/constants/routes_constants.dart';
+import '../../../utils/common/widgets/round_button.dart';
+import '../../../utils/constants/assets_constants.dart';
+import '../../../utils/common/widgets/helper_widgets.dart';
+import '../../../utils/constants/colors_constants.dart';
+import '../../../utils/constants/routes_constants.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});

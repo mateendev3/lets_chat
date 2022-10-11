@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import '../../models/chat.dart';
-import '../../screens/chat/controllers/chat_controller.dart';
-import '../../screens/chat/widgets/no_chat.dart';
-import '../common/widgets/loader.dart';
-import '../constants/routes_constants.dart';
-import '../constants/string_constants.dart';
+import '../../../models/chat.dart';
+import '../controllers/chat_controller.dart';
+import 'no_chat.dart';
+import '../../../utils/common/widgets/loader.dart';
+import '../../../utils/constants/routes_constants.dart';
+import '../../../utils/constants/string_constants.dart';
 
 class ChatsList extends ConsumerWidget {
   const ChatsList({super.key});
