@@ -7,6 +7,7 @@ class StringsConsts {
   static const String groupsCollection = 'groups';
   static const String statusCollection = 'status';
   static const String chatsCollection = 'chats';
+  static const String callsCollection = 'calls';
   static const String messagesCollection = 'messages';
 
   // chat
