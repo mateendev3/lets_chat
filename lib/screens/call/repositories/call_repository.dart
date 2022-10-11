@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lets_chat/utils/common/providers/current_user_provider.dart';
 import '../../../models/call.dart';
+import '../../../utils/common/providers/current_user_provider.dart';
 import '../../../utils/constants/string_constants.dart';
 
 final callRepositoryProvider = Provider<CallRepository>((ref) {

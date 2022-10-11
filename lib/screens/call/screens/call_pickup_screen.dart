@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lets_chat/models/call.dart';
-import 'package:lets_chat/screens/call/controllers/call_controller.dart';
-import 'package:lets_chat/utils/constants/colors_constants.dart';
+
+import '../../../models/call.dart';
+import '../../../utils/constants/colors_constants.dart';
+import '../controllers/call_controller.dart';
 
 class CallPickupScreen extends ConsumerWidget {
   const CallPickupScreen({
