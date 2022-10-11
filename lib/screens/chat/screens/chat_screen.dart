@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lets_chat/screens/call/screens/call_pickup_screen.dart';
 import '../../../models/user.dart' as app;
 import '../../../utils/common/widgets/loader.dart';
 import '../../../utils/constants/colors_constants.dart';
@@ -25,10 +26,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
   Widget build(BuildContext context) {
     userData =
         ModalRoute.of(context)?.settings.arguments as Map<String, Object>;
-    return Scaffold(
-      appBar: _buildAppBar(context),
-      body: _buildBody(context),
-      backgroundColor: AppColors.scaffoldBGChat,
+    return CallPickupScreen(
+      scaffold: Scaffold(
+        appBar: _buildAppBar(context),
+        body: _buildBody(context),
+        backgroundColor: AppColors.scaffoldBGChat,
+      ),
     );
   }
 

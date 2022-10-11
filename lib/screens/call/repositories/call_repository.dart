@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lets_chat/screens/call/screens/call_screen.dart';
 import '../../../models/call.dart';
 import '../../../utils/common/providers/current_user_provider.dart';
 import '../../../utils/constants/string_constants.dart';
@@ -25,7 +26,7 @@ class CallRepository {
         .snapshots();
   }
 
-  void createCall(
+  Future<void> createCall(
     BuildContext context, {
     required Call senderCall,
     required Call receiverCall,
@@ -39,5 +40,33 @@ class CallRepository {
         .collection(StringsConsts.callsCollection)
         .doc(receiverCall.receiverId)
         .set(receiverCall.toMap());
+
+    // ignore: use_build_context_synchronously
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => CallScreen(
+          channelId: senderCall.callId,
+          call: senderCall,
+          isGroupChat: false,
+        ),
+      ),
+    );
+  }
+
+  Future<void> endCall(
+    BuildContext context, {
+    required String callerId,
+    required String receiverId,
+  }) async {
+    await _firestore
+        .collection(StringsConsts.callsCollection)
+        .doc(callerId)
+        .delete();
+
+    await _firestore
+        .collection(StringsConsts.callsCollection)
+        .doc(receiverId)
+        .delete();
   }
 }

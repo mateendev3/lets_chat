@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lets_chat/utils/common/config/agora_config.dart';
 import 'package:lets_chat/utils/common/widgets/loader.dart';
+import 'package:lets_chat/utils/constants/colors_constants.dart';
 import '../../../models/call.dart';
+import '../controllers/call_controller.dart';
 
 class CallScreen extends ConsumerStatefulWidget {
   const CallScreen({
@@ -29,7 +31,7 @@ class _CallScreenState extends ConsumerState<CallScreen> {
 
     client = AgoraClient(
       agoraConnectionData: AgoraConnectionData(
-        appId: AgoraConfig.appCertificate,
+        appId: AgoraConfig.appId,
         channelName: widget.channelId,
         tokenUrl: AgoraConfig.tokenBaseUrl,
       ),
@@ -47,7 +49,27 @@ class _CallScreenState extends ConsumerState<CallScreen> {
               child: Stack(
                 children: [
                   AgoraVideoViewer(client: client!),
-                  AgoraVideoButtons(client: client!),
+                  AgoraVideoButtons(
+                    client: client!,
+                    disconnectButtonChild: IconButton(
+                      color: AppColors.white,
+                      iconSize: 56.0,
+                      onPressed: () async {
+                        await client!.engine.leaveChannel();
+                        if (!mounted) return;
+                        ref.read(callControllerProvider).endCall(
+                              context,
+                              callerId: widget.call.callerId,
+                              receiverId: widget.call.receiverId,
+                            );
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(
+                        Icons.call_end,
+                        color: AppColors.red,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

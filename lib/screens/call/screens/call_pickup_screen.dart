@@ -1,10 +1,11 @@
+import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../../models/call.dart';
 import '../../../utils/constants/colors_constants.dart';
 import '../controllers/call_controller.dart';
+import 'call_screen.dart';
 
 class CallPickupScreen extends ConsumerWidget {
   const CallPickupScreen({
@@ -16,6 +17,7 @@ class CallPickupScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    log('---------------I Am Calling ---------------');
     return StreamBuilder<DocumentSnapshot>(
       stream: ref.watch(callControllerProvider).callDocsSnapshotsStream,
       builder: (context, snapshot) {
@@ -71,7 +73,18 @@ class CallPickupScreen extends ConsumerWidget {
                         const SizedBox(width: 48.0),
                         IconButton(
                           iconSize: 54.0,
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => CallScreen(
+                                  channelId: call.callId,
+                                  call: call,
+                                  isGroupChat: false,
+                                ),
+                              ),
+                            );
+                          },
                           icon: const Icon(
                             Icons.call,
                             color: AppColors.green,

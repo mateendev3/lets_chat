@@ -5,7 +5,6 @@ import '../../../utils/common/helper_methods/util_methods.dart';
 import '../../../utils/common/widgets/helper_widgets.dart';
 import '../../../utils/constants/colors_constants.dart';
 import '../../../utils/constants/routes_constants.dart';
-import '../../call/screens/call_pickup_screen.dart';
 
 class HomeFAB extends StatefulWidget {
   const HomeFAB({
@@ -42,15 +41,7 @@ class _HomeFABState extends State<HomeFAB> {
         widget.tabController.index == 0
             ? GestureDetector(
                 onTap: () {
-                  // Navigator.pushNamed(context, AppRoutes.groupChatsScreen);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const CallPickupScreen(scaffold: Scaffold());
-                      },
-                    ),
-                  );
+                  Navigator.pushNamed(context, AppRoutes.groupChatsScreen);
                 },
                 child: const CircleAvatar(
                   radius: 24.0,
@@ -79,7 +70,11 @@ class _HomeFABState extends State<HomeFAB> {
             }
           },
           child: Icon(
-            widget.tabController.index == 0 ? Icons.chat_rounded : Icons.image,
+            widget.tabController.index == 0
+                ? Icons.chat_rounded
+                : widget.tabController.index == 1
+                    ? Icons.image
+                    : Icons.call,
           ),
         ),
       ],

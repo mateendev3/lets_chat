@@ -88,25 +88,27 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
       ),
       actions: [
         IconButton(
-          onPressed: () {
-            FirebaseAuth.instance.signOut();
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              AppRoutes.landingScreen,
-              (route) => false,
-            );
-          },
+          onPressed: () {},
           icon: const Icon(
             Icons.search,
             color: AppColors.appBarActionIcon,
           ),
         ),
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.more_vert,
-            color: AppColors.appBarActionIcon,
-          ),
+        PopupMenuButton(
+          icon: const Icon(Icons.more_vert),
+          itemBuilder: (context) => [
+            PopupMenuItem(
+              child: const Text('Logout'),
+              onTap: () {
+                FirebaseAuth.instance.signOut();
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  AppRoutes.landingScreen,
+                  (route) => false,
+                );
+              },
+            ),
+          ],
         ),
       ],
       bottom: TabBar(
