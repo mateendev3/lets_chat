@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,7 +16,6 @@ class CallPickupScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    log('---------------I Am Calling ---------------');
     return StreamBuilder<DocumentSnapshot>(
       stream: ref.watch(callControllerProvider).callDocsSnapshotsStream,
       builder: (context, snapshot) {

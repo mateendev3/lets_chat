@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -97,24 +96,18 @@ class ChatRepository {
   Stream<List<Group>> getGroupChatsList({
     required currentUserId,
   }) {
-    log('calling groups get');
     return _firestore
         .collection(StringsConsts.groupsCollection)
         .snapshots()
         .map(
       (groupChatsMap) {
-        log('data get');
-        log(groupChatsMap.toString());
         List<Group> groupChatsList = [];
         for (var chatMapDocument in groupChatsMap.docs) {
-          log('in loop');
           final Group group = Group.fromMap(chatMapDocument.data());
-          log('created group');
           if (group.selectedMembersUIds.contains(currentUserId)) {
             groupChatsList.add(group);
           }
         }
-        log(groupChatsList.length.toString());
         return groupChatsList;
       },
     );
@@ -322,8 +315,6 @@ class ChatRepository {
       time: time,
       lastMessage: lastMessage,
     );
-    log('sender_chat -> $senderChat');
-    log('sender_user -> $senderUser');
     // saving chat to firestore
     await _firestore
         .collection(StringsConsts.usersCollection)
@@ -340,8 +331,6 @@ class ChatRepository {
       time: time,
       lastMessage: lastMessage,
     );
-    log('receiver_chat -> $receiverChat');
-    log('receiver_user -> $receiverUser');
     // saving chat to firestore
     await _firestore
         .collection(StringsConsts.usersCollection)

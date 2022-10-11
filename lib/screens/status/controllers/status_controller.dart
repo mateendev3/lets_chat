@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -31,7 +30,6 @@ class StatusController {
   }) async {
     if (currentUserProvider != null) {
       app.User user = _ref.read(currentUserProvider!);
-      log('controller called');
 
       _statusRepository.uploadStatus(
         context,

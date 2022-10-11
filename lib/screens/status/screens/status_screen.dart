@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -17,11 +16,8 @@ class StatusScreen extends ConsumerWidget {
       future: ref.watch(statusControllerProvider).getStatuses(context),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          log('no data');
           return const Loader();
         }
-
-        log('has data : $snapshot');
 
         return snapshot.data!.isEmpty
             ? const NoChat()

@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -62,8 +61,6 @@ class ChatController {
     ReplyMessage? replyMessage = _ref.watch(replyMessageProvider);
     app.User senderUser = _ref.watch(currentUserProvider!);
 
-    log(gifUrl);
-    log(_getGifUrl(gifUrl));
     _chatRepository.sendGIGMessage(
       context,
       gifUrl: _getGifUrl(gifUrl),

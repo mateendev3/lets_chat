@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -37,7 +36,6 @@ class ConfirmStatusScreen extends ConsumerWidget {
   }
 
   void addStatus(BuildContext context, WidgetRef ref, File imageFile) {
-    log('confirm screen fab called');
     ref.read(statusControllerProvider).uploadStatus(
           context,
           currentUserStatusImage: imageFile,

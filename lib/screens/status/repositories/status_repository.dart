@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
@@ -148,15 +147,12 @@ class StatusRepository {
         );
       }
 
-      log(contactsList.length.toString());
       // getting list of available statuses from firebase.
       List<Status> firebaseStatuses =
           (await _firestore.collection(StringsConsts.statusCollection).get())
               .docs
               .map((doc) => Status.fromMap(doc.data()))
               .toList();
-
-      log(firebaseStatuses.toString());
 
       // getting list of status which will be only available to users
       // who are in the contact list of current user and vice versa.
@@ -167,7 +163,6 @@ class StatusRepository {
         } catch (e) {
           phoneNumber = '+1234567890';
         }
-        log(phoneNumber.toString());
         List<Status> statuses = firebaseStatuses
             .where((status) => status.phoneNumber == phoneNumber)
             .toList();
@@ -179,11 +174,8 @@ class StatusRepository {
         //         .microsecondsSinceEpoch)
         // .toList();
 
-        log(statuses.toString());
-
         for (var status in statuses) {
           if (status.whoCanSee.contains(currentUser.uid)) {
-            log('last call');
             statusList.add(status);
           }
         }

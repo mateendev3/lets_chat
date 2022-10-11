@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import '../../../utils/common/helper_methods/util_methods.dart';
@@ -33,7 +32,6 @@ class _HomeFABState extends State<HomeFAB> {
 
   @override
   Widget build(BuildContext context) {
-    log('calling fab');
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -85,7 +83,6 @@ class _HomeFABState extends State<HomeFAB> {
     File? imageFile = await pickImageFromGallery(context);
     if (imageFile != null) {
       if (!mounted) return;
-      log('pushing');
       Navigator.pushNamed(
         context,
         AppRoutes.confirmStatusScreen,
