@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lets_chat/screens/call/screens/call_screen.dart';
 import '../../../models/call.dart';
 import '../../../utils/common/providers/current_user_provider.dart';
 import '../../../utils/constants/string_constants.dart';
+import '../screens/call_screen.dart';
 
 final callRepositoryProvider = Provider<CallRepository>((ref) {
   return CallRepository(FirebaseFirestore.instance, ref);

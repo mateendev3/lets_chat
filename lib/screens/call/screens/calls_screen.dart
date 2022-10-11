@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lets_chat/utils/constants/colors_constants.dart';
+import '../../../utils/constants/colors_constants.dart';
 
 class CallsScreen extends ConsumerWidget {
   const CallsScreen({Key? key}) : super(key: key);

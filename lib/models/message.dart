@@ -1,5 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import '../utils/common/enums/message_type.dart';
 
 class Message {

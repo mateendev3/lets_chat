@@ -1,10 +1,10 @@
 import 'package:agora_uikit/agora_uikit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lets_chat/utils/common/config/agora_config.dart';
-import 'package:lets_chat/utils/common/widgets/loader.dart';
-import 'package:lets_chat/utils/constants/colors_constants.dart';
 import '../../../models/call.dart';
+import '../../../utils/common/config/agora_config.dart';
+import '../../../utils/common/widgets/loader.dart';
+import '../../../utils/constants/colors_constants.dart';
 import '../controllers/call_controller.dart';
 
 class CallScreen extends ConsumerStatefulWidget {

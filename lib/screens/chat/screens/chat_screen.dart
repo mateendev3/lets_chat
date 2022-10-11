@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lets_chat/screens/call/screens/call_pickup_screen.dart';
 import '../../../models/user.dart' as app;
 import '../../../utils/common/widgets/loader.dart';
 import '../../../utils/constants/colors_constants.dart';
@@ -9,6 +8,7 @@ import '../../../utils/common/widgets/helper_widgets.dart';
 import '../../../utils/constants/string_constants.dart';
 import '../../auth/controllers/auth_controller.dart';
 import '../../call/controllers/call_controller.dart';
+import '../../call/screens/call_pickup_screen.dart';
 import '../widgets/messages_list.dart';
 import '../widgets/bottom_chat_text_field.dart';
 

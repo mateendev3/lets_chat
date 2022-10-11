@@ -1,7 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:swipe_to/swipe_to.dart';
-
 import '../../../utils/common/enums/message_type.dart';
 import '../../../utils/common/enums/swipe_direction.dart';
 import '../../../utils/common/widgets/helper_widgets.dart';
