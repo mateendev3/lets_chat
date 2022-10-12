@@ -99,10 +99,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
               child: const Text('Logout'),
               onTap: () {
                 FirebaseAuth.instance.signOut();
-                Navigator.pushNamedAndRemoveUntil(
+                Navigator.popUntil(context, (route) => route.isFirst);
+                Navigator.pushReplacementNamed(
                   context,
                   AppRoutes.landingScreen,
-                  (route) => false,
                 );
               },
             ),

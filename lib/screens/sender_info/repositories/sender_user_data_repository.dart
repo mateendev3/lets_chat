@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -86,10 +87,12 @@ class SenderUserDataRepository {
 
       if (!mounted) return;
       // navigating to home screen if everything works well
-      Navigator.popUntil(context, (route) => route.isFirst);
-      Navigator.pushReplacementNamed(
+      log('pushing');
+      log(Navigator.canPop(context).toString());
+      Navigator.pushNamedAndRemoveUntil(
         context,
         AppRoutes.homeScreen,
+        (route) => false,
       );
     } catch (e) {
       showSnackBar(context, content: e.toString());

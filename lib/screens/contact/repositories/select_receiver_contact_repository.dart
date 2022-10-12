@@ -55,8 +55,10 @@ class SelectReceiverContactsRepository {
           context,
           AppRoutes.chatScreen,
           arguments: <String, Object>{
-            'receiverUsername': receiverUser.name,
-            'receiverUserId': receiverUser.uid,
+            StringsConsts.username: receiverUser.name,
+            StringsConsts.userId: receiverUser.uid,
+            StringsConsts.profilePic: receiverUser.profilePic!,
+            StringsConsts.isGroupChat: false,
           },
         );
       }
