@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/widgets.dart';
 import 'package:page_route_animator/page_route_animator.dart';
 import '../models/status.dart';
@@ -22,7 +20,6 @@ class AppRouter {
   static Route<PageRouteAnimator>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.homeScreen:
-        log('calling home route');
         return PageRouteAnimator(
           child: const HomeScreen(),
           routeAnimation: RouteAnimation.rightToLeft,
