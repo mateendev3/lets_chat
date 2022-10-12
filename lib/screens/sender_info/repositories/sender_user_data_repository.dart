@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lets_chat/screens/home/screens/home_screen.dart';
 import '../../../models/user.dart' as app;
 import '../../../utils/common/repositories/firebase_storage_repository.dart';
 import '../../../utils/common/widgets/helper_widgets.dart';
@@ -89,9 +90,11 @@ class SenderUserDataRepository {
       // navigating to home screen if everything works well
       log('pushing');
       log(Navigator.canPop(context).toString());
-      Navigator.pushNamedAndRemoveUntil(
+      // log(Navigator.);
+      Navigator.pushAndRemoveUntil(
         context,
-        AppRoutes.homeScreen,
+        // AppRoutes.homeScreen,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
         (route) => false,
       );
     } catch (e) {

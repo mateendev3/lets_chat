@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -99,10 +101,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
               child: const Text('Logout'),
               onTap: () {
                 FirebaseAuth.instance.signOut();
-                Navigator.popUntil(context, (route) => route.isFirst);
-                Navigator.pushReplacementNamed(
-                  context,
-                  AppRoutes.landingScreen,
+                log('sign out successful');
+                Future(
+                  () => Navigator.pushReplacementNamed(
+                    context,
+                    AppRoutes.landingScreen,
+                  ),
                 );
               },
             ),
