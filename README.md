@@ -20,6 +20,6 @@ LetsChat app built with Riverpod State Management, Firebase for authentication, 
 
 ## Tech Used
 <b>Server: </b>Firebase (Firebase Auth, Firebase Core, Firebase Firestore, Firebase Storage).<br>
-<b>State Management: </b>Riverpod
+<b>State Management: </b>Riverpod<br>
 
 ![Lets-Chat-App-Screenshots](images/lets_chat_screens.png)
